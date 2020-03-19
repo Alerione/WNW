@@ -16,7 +16,6 @@ struct Position
 	int y;
 	int z;
 };
-
 class Building;
 class Tile :
 	public sf::Drawable, public sf::Transformable
@@ -26,6 +25,7 @@ protected:
 	TileGameData Data;
 	sf::Sprite Sprite;
 	Building *TileBuilding;
+	Position TilePos;
 	int TileID;// Row(Begining with 0) * 256 + Column(Begining with 0)
 
 public:
@@ -38,12 +38,14 @@ public:
 	//Set and Get Methods//
 	bool setWaterAccess(bool);
 	bool setRoadAccess(bool);
-	int setPublicOrder(bool);
-	int setHappiness(bool);
+	int setPublicOrder(int);
+	int setHappiness(int);
 	int addHappiness(int);
 	int addPublicOrder(int);
-	int setPosition(Position);
-	int setPosition(int, int, int);
+	Position setPosition(Position&);
+	int setHeigth(int);
+	int changeHeigth(int);
+	void setPosition(int, int, int = 0);
 	sf::Sprite setSprite(sf::Texture &texture);
 
 	bool getWaterAccess();
@@ -59,11 +61,11 @@ public:
 
 	//Overloads//
 	Tile& operator=(const Tile &input);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const; //Will draw sprite at correct coords?
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const; //Will draw sprite at correct coords?
+	//Methods//
+	void updateSpritePos();
 
 };
-
-Tile& getTilebyPos
 
 #endif
 

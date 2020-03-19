@@ -1,6 +1,7 @@
 #ifndef __WNW_TileMapClass_
 #define __WNW_TileMapClass_
 
+#include <vector>
 #include "Tile.h"
 
 struct MapSize
@@ -11,11 +12,10 @@ struct MapSize
 
 class TileMap
 {
-public:
 protected:
 	//Variables//
-	Tile **TileArray;
-	MapSize Size;
+	std::vector<std::vector<Tile>> TileArray;
+	MapSize TileMapSize;
 
 public:
 	//Constructors and Destructors//
@@ -29,14 +29,14 @@ public:
 	MapSize getSize();
 	int getRows();
 	int getColumns();
-	Tile getTile(int x, int y);//x - column, y - row
+	Tile& getTile(int x, int y);//x - column, y - row
 
 
 	//Overloads//
 	TileMap& operator=(const TileMap &input);
 
 	//Draw//
-	void DrawMap();//Will draw all Tiles in Array by row then column
+	void DrawMap(sf::RenderTarget& target, sf::RenderStates states);//Will draw all Tiles in Array by row then column
 };
 
 #endif
