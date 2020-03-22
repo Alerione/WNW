@@ -71,7 +71,7 @@ int Tile::addPublicOrder(int input)
 	return Data.PublicOrder;
 }
 
-Position Tile::setPosition(Position &input)
+Position& Tile::setPosition(Position &input)
 {
 	TilePos = input;
 	updateSpritePos();
@@ -98,7 +98,7 @@ void Tile::setPosition(int x, int y, int z)
 	updateSpritePos();
 }
 
-sf::Sprite Tile::setSprite(sf::Texture & texture)
+sf::Sprite& Tile::setSprite(sf::Texture & texture)
 {
 	Sprite.setTexture(texture);
 	return Sprite;
@@ -124,7 +124,7 @@ int Tile::getHappiness()
 	return Data.Happiness;
 }
 
-Position Tile::getPosition()
+Position& Tile::getPosition()
 {
 	return TilePos;
 }
@@ -144,7 +144,7 @@ int Tile::getPositionZ()
 	return TilePos.z;
 }
 
-sf::Sprite Tile::getSprite()
+sf::Sprite& Tile::getSprite()
 {
 	return Sprite;
 }
@@ -164,11 +164,6 @@ Tile & Tile::operator=(const Tile & input)
 	TilePos = input.TilePos;
 	TileID = input.TileID;
 	return *this;
-}
-
-void Tile::draw(sf::RenderTarget & target, sf::RenderStates states) const
-{
-	target.draw(Sprite);
 }
 
 void Tile::updateSpritePos()

@@ -34,9 +34,20 @@ public:
 
 	//Overloads//
 	TileMap& operator=(const TileMap &input);
-
-	//Draw//
-	void DrawMap(sf::RenderTarget& target, sf::RenderStates states);//Will draw all Tiles in Array by row then column
 };
+
+
+
+sf::RenderTarget& operator>>(TileMap Map, sf::RenderTarget& target)
+{
+	for (int y = 0; y < Map.getRows(); y++)
+	{
+		for (int x = 0; x < Map.getColumns(); x++)
+		{
+			Map.getTile(x, y) >> target;
+		}
+	}
+	return target;
+}
 
 #endif

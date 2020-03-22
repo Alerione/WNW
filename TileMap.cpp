@@ -58,14 +58,3 @@ TileMap & TileMap::operator=(const TileMap & input)
 
 	return *this;
 }
-
-void TileMap::DrawMap(sf::RenderTarget& target, sf::RenderStates states)
-{
-	for (int y = 0; y < TileMapSize.rows; y++)
-	{
-		for (int x = 0; x < TileMapSize.columns; x++)
-		{
-			TileArray[y][x].draw(target, states);
-		}
-	}
-}

@@ -17,8 +17,7 @@ struct Position
 	int z;
 };
 class Building;
-class Tile :
-	public sf::Drawable, public sf::Transformable
+class Tile
 {
 protected:
 	//Variables//
@@ -42,30 +41,29 @@ public:
 	int setHappiness(int);
 	int addHappiness(int);
 	int addPublicOrder(int);
-	Position setPosition(Position&);
+	Position& setPosition(Position&);
 	int setHeigth(int);
 	int changeHeigth(int);
 	void setPosition(int, int, int = 0);
-	sf::Sprite setSprite(sf::Texture &texture);
+	sf::Sprite& setSprite(sf::Texture &texture);
 
 	bool getWaterAccess();
 	bool getRoadAccess();
 	int getPublicOrder();
 	int getHappiness();
-	Position getPosition();
+	Position& getPosition();
 	int getPositionX();
 	int getPositionY();
 	int getPositionZ();
-	sf::Sprite getSprite();
+	sf::Sprite& getSprite();
 	int getID();
 
 	//Overloads//
 	Tile& operator=(const Tile &input);
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const; //Will draw sprite at correct coords?
 	//Methods//
 	void updateSpritePos();
+	Tile& draw(sf::RenderTarget& target);
 
 };
-
 #endif
 
