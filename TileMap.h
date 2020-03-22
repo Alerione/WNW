@@ -6,9 +6,10 @@
 
 struct MapSize
 {
-	int rows;
 	int columns;
+	int rows;
 };
+
 
 class TileMap
 {
@@ -17,11 +18,14 @@ protected:
 	std::vector<std::vector<Tile>> TileArray;
 	MapSize TileMapSize;
 
+	//Temporary//
+	sf::Texture deftex;
+
 public:
 	//Constructors and Destructors//
 	TileMap();
 	TileMap(MapSize size);
-	TileMap(int rows, int columns);
+	TileMap(int columns, int rows);
 	TileMap(const TileMap& input);
 	virtual ~TileMap();
 
@@ -34,20 +38,12 @@ public:
 
 	//Overloads//
 	TileMap& operator=(const TileMap &input);
+
+	//DataSetup//
+	void BuildTileMap();
+
+	//Draw//
+	void draw(sf::RenderTarget& target);
 };
-
-
-
-sf::RenderTarget& operator>>(TileMap Map, sf::RenderTarget& target)
-{
-	for (int y = 0; y < Map.getRows(); y++)
-	{
-		for (int x = 0; x < Map.getColumns(); x++)
-		{
-			Map.getTile(x, y) >> target;
-		}
-	}
-	return target;
-}
 
 #endif

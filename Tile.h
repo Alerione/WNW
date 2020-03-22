@@ -26,12 +26,14 @@ protected:
 	Building *TileBuilding;
 	Position TilePos;
 	int TileID;// Row(Begining with 0) * 256 + Column(Begining with 0)
-
+	
 public:
 	//Constructors and Destructors//
 	Tile();
 	Tile(const sf::Sprite &sprite, Position pos);
 	Tile(const sf::Sprite &sprite, int posX, int posY, int posZ);
+	Tile(const sf::Texture &texture, Position pos);
+	Tile(const sf::Texture &texture, int posX, int posY, int posZ);
 	virtual ~Tile();
 
 	//Set and Get Methods//
@@ -62,7 +64,7 @@ public:
 	Tile& operator=(const Tile &input);
 	//Methods//
 	void updateSpritePos();
-	Tile& draw(sf::RenderTarget& target);
+	void draw(sf::RenderTarget& target);
 
 };
 #endif

@@ -9,6 +9,7 @@ Tile::Tile()
 	, TilePos{ 0,0,0 }
 	, TileID(0)
 {
+	updateSpritePos();
 }
 
 Tile::Tile(const sf::Sprite & sprite, Position pos)
@@ -18,15 +19,37 @@ Tile::Tile(const sf::Sprite & sprite, Position pos)
 	, TilePos(pos)
 	, TileID(0)
 {
+	updateSpritePos();
 }
 
 Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ)
 	: Data{ 0,0,0,0 }
 	, Sprite(sprite)
-	, TileBuilding(nullptr)
+	, TileBuilding(nullptr)	
 	, TilePos{posX,posY,posZ}
 	, TileID(0)
 {
+	updateSpritePos();
+}
+
+Tile::Tile(const sf::Texture & texture, Position pos)
+	: Data{ 0,0,0,0 }
+	, Sprite(texture)
+	, TileBuilding(nullptr)
+	, TilePos(pos)
+	, TileID(0)
+{
+	updateSpritePos();
+}
+
+Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ)
+	: Data{ 0,0,0,0 }
+	, Sprite(texture)
+	, TileBuilding(nullptr)
+	, TilePos{ posX,posY,posZ }
+	, TileID(0)
+{
+	updateSpritePos();
 }
 
 
@@ -169,4 +192,9 @@ Tile & Tile::operator=(const Tile & input)
 void Tile::updateSpritePos()
 {
 	Sprite.setPosition(TilePos.x, TilePos.y + TilePos.z);
+}
+
+void Tile::draw(sf::RenderTarget & target)
+{
+	target.draw(Sprite);
 }
