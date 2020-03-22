@@ -1,7 +1,6 @@
 #ifndef __WNW_TileMapClass_
 #define __WNW_TileMapClass_
 
-#include <vector>
 #include "Tile.h"
 
 struct MapSize
@@ -17,9 +16,7 @@ protected:
 	//Variables//
 	std::vector<std::vector<Tile>> TileArray;
 	MapSize TileMapSize;
-
-	//Temporary//
-	sf::Texture deftex;
+	TextureManager TexMngr;
 
 public:
 	//Constructors and Destructors//
@@ -34,7 +31,7 @@ public:
 	int getRows();
 	int getColumns();
 	Tile& getTile(int x, int y);//x - column, y - row
-
+	TextureManager& getTexMngr();
 
 	//Overloads//
 	TileMap& operator=(const TileMap &input);
@@ -44,6 +41,7 @@ public:
 
 	//Draw//
 	void draw(sf::RenderTarget& target);
+	friend class Tile;
 };
 
 #endif

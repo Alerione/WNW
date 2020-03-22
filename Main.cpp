@@ -5,9 +5,8 @@
 
 int main()
 {
-	TileMap Map1(5, 10);
-	Map1.BuildTileMap();
-
+	TileMap Map(5, 10);
+	Map.BuildTileMap();
 	sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 	window.setFramerateLimit(10);
 
@@ -22,7 +21,8 @@ int main()
 
 		window.clear(sf::Color::Black);
 
-		Map1.draw(window);
+		Map.draw(window);
+
 
 		// end the current frame
 		window.display();

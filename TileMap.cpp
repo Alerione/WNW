@@ -3,29 +3,29 @@
 TileMap::TileMap()
 	: TileMapSize{1,1}
 	, TileArray{}
+	, TexMngr()
 {
-	deftex.loadFromFile("tile.png");
 }
 
 TileMap::TileMap(MapSize size)
 	: TileMapSize(size)
 	, TileArray{}
+	, TexMngr()
 {
-	deftex.loadFromFile("tile.png");
 }
 
 TileMap::TileMap(int columns, int rows)
 	: TileMapSize{columns, rows}
 	, TileArray{}
+	, TexMngr()
 {
-	deftex.loadFromFile("tile.png");
 }
 
 TileMap::TileMap(const TileMap & input)
 	: TileMapSize(input.TileMapSize)
 	, TileArray(input.TileArray)
+	, TexMngr()
 {
-	deftex.loadFromFile("tile.png");
 }
 
 
@@ -53,6 +53,11 @@ Tile& TileMap::getTile(int x, int y)
 	return TileArray[x][y];
 }
 
+TextureManager & TileMap::getTexMngr()
+{
+	return TexMngr;
+}
+
 TileMap & TileMap::operator=(const TileMap & input)
 {
 	if (this == &input) return *this;
@@ -71,7 +76,7 @@ void TileMap::BuildTileMap()
 		TileArray[x].resize(TileMapSize.rows);
 		for (int y = 0; y < TileMapSize.rows; y++)
 		{
-			TileArray[x][y] = Tile(deftex, 64 * (x)+32 * ((y) % 2), 16 * (y), 0);
+			TileArray[x][y] = Tile(TexMngr.getDefaultTileTexture(), 64 * (x)+32 * ((y) % 2), 16 * (y), 0, &TexMngr, x*256+y);
 		}
 	}
 }

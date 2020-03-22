@@ -1,7 +1,7 @@
 #ifndef __WNW_TileClass_
 #define __WNW_TileClass_
 
-#include <SFML/Graphics.hpp>
+#include "TextureManager.h"
 
 struct TileGameData
 {
@@ -25,15 +25,16 @@ protected:
 	sf::Sprite Sprite;
 	Building *TileBuilding;
 	Position TilePos;
+	TextureManager* TexMngr;
 	int TileID;// Row(Begining with 0) * 256 + Column(Begining with 0)
 	
 public:
 	//Constructors and Destructors//
 	Tile();
-	Tile(const sf::Sprite &sprite, Position pos);
-	Tile(const sf::Sprite &sprite, int posX, int posY, int posZ);
-	Tile(const sf::Texture &texture, Position pos);
-	Tile(const sf::Texture &texture, int posX, int posY, int posZ);
+	Tile(const sf::Sprite &sprite, Position pos, TextureManager* address, int ID);
+	Tile(const sf::Sprite &sprite, int posX, int posY, int posZ, TextureManager* address, int ID);
+	Tile(const sf::Texture &texture, Position pos, TextureManager* address, int ID);
+	Tile(const sf::Texture &texture, int posX, int posY, int posZ, TextureManager* address, int ID);
 	virtual ~Tile();
 
 	//Set and Get Methods//

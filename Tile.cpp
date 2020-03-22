@@ -7,47 +7,52 @@ Tile::Tile()
 	, Sprite()
 	, TileBuilding(nullptr)
 	, TilePos{ 0,0,0 }
+	, TexMngr(nullptr)
 	, TileID(0)
 {
 	updateSpritePos();
 }
 
-Tile::Tile(const sf::Sprite & sprite, Position pos)
+Tile::Tile(const sf::Sprite & sprite, Position pos, TextureManager* address, int ID)
 	: Data{ 0,0,0,0 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
-	, TileID(0)
+	, TexMngr(address)
+	, TileID(ID)
 {
 	updateSpritePos();
 }
 
-Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ)
+Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ, TextureManager* address, int ID)
 	: Data{ 0,0,0,0 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)	
 	, TilePos{posX,posY,posZ}
-	, TileID(0)
+	, TexMngr(address)
+	, TileID(ID)
 {
 	updateSpritePos();
 }
 
-Tile::Tile(const sf::Texture & texture, Position pos)
+Tile::Tile(const sf::Texture & texture, Position pos, TextureManager* address, int ID)
 	: Data{ 0,0,0,0 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
-	, TileID(0)
+	, TexMngr(address)
+	, TileID(ID)
 {
 	updateSpritePos();
 }
 
-Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ)
+Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ, TextureManager* address, int ID)
 	: Data{ 0,0,0,0 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos{ posX,posY,posZ }
-	, TileID(0)
+	, TexMngr(address)
+	, TileID(ID)
 {
 	updateSpritePos();
 }
@@ -123,7 +128,7 @@ void Tile::setPosition(int x, int y, int z)
 
 sf::Sprite& Tile::setSprite(sf::Texture & texture)
 {
-	Sprite.setTexture(texture);
+	Sprite.setTexture(texture, true);
 	return Sprite;
 }
 
