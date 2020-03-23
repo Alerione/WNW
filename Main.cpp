@@ -2,14 +2,12 @@
 #include "TileMap.h"
 #include "Building.h"
 
-
 int main()
 {
 	TileMap Map(5, 10);
 	Map.BuildTileMap();
 	sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
-	window.setFramerateLimit(10);
-
+	window.setFramerateLimit(60);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -21,6 +19,7 @@ int main()
 
 		window.clear(sf::Color::Black);
 
+        Map.update(window);
 		Map.draw(window);
 
 

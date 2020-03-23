@@ -2,6 +2,8 @@
 #define __WNW_TileMapClass_
 
 #include "Tile.h"
+#include <algorithm>
+#include <iostream>
 
 struct MapSize
 {
@@ -17,6 +19,7 @@ protected:
 	std::vector<std::vector<Tile>> TileArray;
 	MapSize TileMapSize;
 	TextureManager TexMngr;
+	sf::Vector2i mousePosition;
 
 public:
 	//Constructors and Destructors//
@@ -38,10 +41,14 @@ public:
 
 	//DataSetup//
 	void BuildTileMap();
+    void update(sf::Window& window);
+
+    //Mouse
+    bool MouseChecker(int mouseposx, int mouseposy, int tileposx, int tileposy);
+    int OptimisedChecker(int mouseposx, int mouseposy);
 
 	//Draw//
 	void draw(sf::RenderTarget& target);
-	friend class Tile;
 };
 
 #endif
