@@ -21,8 +21,6 @@ int main()
 
         Map.update(window);
 		Map.draw(window);
-
-		// Siema z gita
 		// end the current frame
 		window.display();
 	}
