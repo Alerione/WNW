@@ -1,7 +1,6 @@
 #include "Tile.h"
 
 
-
 Tile::Tile()
 	: Data{ 0,0,0,0 }
 	, Sprite()
@@ -60,7 +59,6 @@ Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ, TextureMan
 
 Tile::~Tile()
 {
-	if (TileBuilding != nullptr) delete TileBuilding;
 }
 
 bool Tile::setWaterAccess(bool input)
@@ -132,6 +130,11 @@ sf::Sprite& Tile::setSprite(sf::Texture & texture)
 	return Sprite;
 }
 
+void Tile::SetBulding(Building * building)
+{
+	TileBuilding = building;
+}
+
 bool Tile::getWaterAccess()
 {
 	return Data.WaterAccess;
@@ -177,15 +180,20 @@ sf::Sprite& Tile::getSprite()
 	return Sprite;
 }
 
-int Tile::getID()
+int Tile::getID() const
 {
 	return TileID;
+}
+
+bool Tile::CheckBuilding()
+{
+	if (TileBuilding == nullptr) return false;
+	return true;
 }
 
 Tile & Tile::operator=(const Tile & input)
 {
 	if (this == &input) return *this;
-
 	Data = input.Data;
 	Sprite = input.Sprite;
 	TileBuilding = input.TileBuilding;

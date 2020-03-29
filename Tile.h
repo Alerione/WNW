@@ -49,6 +49,7 @@ public:
 	int changeHeigth(int);
 	void setPosition(int, int, int = 0);
 	sf::Sprite& setSprite(sf::Texture &texture);
+	void SetBulding(Building* building);
 
 	bool getWaterAccess();
 	bool getRoadAccess();
@@ -59,7 +60,8 @@ public:
 	int getPositionY();
 	int getPositionZ();
 	sf::Sprite& getSprite();
-	int getID();
+	int getID() const;
+	bool CheckBuilding();
 
 	//Overloads//
 	Tile& operator=(const Tile &input);
