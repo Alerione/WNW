@@ -10,6 +10,11 @@ struct MapSize
 	int columns;
 	int rows;
 };
+struct CurrentTilebyMouse
+{
+	int x;
+	int y;
+};
 
 
 class TileMap
@@ -20,6 +25,7 @@ protected:
 	MapSize TileMapSize;
 	TextureManager TexMngr;
 	sf::Vector2i mousePosition;
+	CurrentTilebyMouse CurTile;
 
 public:
 	//Constructors and Destructors//
@@ -34,6 +40,11 @@ public:
 	int getRows();
 	int getColumns();
 	Tile& getTile(int x, int y);//x - column, y - row
+	Tile& getCurrentTile();
+	bool checkCurrentTileAdj(int AdjustX, int AdjustY);
+	Tile* getCurrentTileAdj(int AdjustX, int AdjustY);
+	int getCurrentTileX();
+	int getCurrentTileY();
 	TextureManager& getTexMngr();
 
 	//Overloads//
@@ -41,7 +52,7 @@ public:
 
 	//DataSetup//
 	void BuildTileMap();
-    void update(sf::Window& window);
+    void update(sf::RenderWindow& window);
 
     //Mouse
     bool MouseChecker(int mouseposx, int mouseposy, int tileposx, int tileposy);

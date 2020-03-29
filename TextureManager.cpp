@@ -29,6 +29,11 @@ sf::Texture & TextureManager::getTavernTexture()
 	return TavernTexture;
 }
 
+sf::Texture & TextureManager::getCollisionTexture()
+{
+	return CollisionTexture;
+}
+
 TextureManager & TextureManager::operator=(const TextureManager & input)
 {
 	return *this;
@@ -38,5 +43,6 @@ void TextureManager::loadTextures()
 {
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
 	if(TavernTexture.loadFromFile("tavern.png")) std::cout << "Tavern texture loaded!" <<std::endl;
+	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	std::cout << "Textures loaded!" << std::endl;
 }

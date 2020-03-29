@@ -53,6 +53,35 @@ Tile& TileMap::getTile(int x, int y)
 	return TileArray[x][y];
 }
 
+Tile & TileMap::getCurrentTile()
+{
+	return TileArray[CurTile.x][CurTile.y];
+}
+
+bool TileMap::checkCurrentTileAdj(int AdjustX, int AdjustY)
+{
+	if (CurTile.x + AdjustX < 0 || CurTile.x + AdjustX >= TileMapSize.columns) return false;
+	if (CurTile.y + AdjustY < 0 || CurTile.y + AdjustY >= TileMapSize.rows) return false;
+	return true;
+}
+
+Tile* TileMap::getCurrentTileAdj(int AdjustX, int AdjustY)
+{
+	if (CurTile.x + AdjustX < 0 || CurTile.x + AdjustX >= TileMapSize.columns) return nullptr;
+	if (CurTile.y + AdjustY < 0 || CurTile.y + AdjustY >= TileMapSize.rows) return nullptr;
+	return &(TileArray[CurTile.x + AdjustX][CurTile.y + AdjustY]);
+}
+
+int TileMap::getCurrentTileX()
+{
+	return CurTile.x;
+}
+
+int TileMap::getCurrentTileY()
+{
+	return CurTile.y;
+}
+
 TextureManager & TileMap::getTexMngr()
 {
 	return TexMngr;
@@ -81,23 +110,16 @@ void TileMap::BuildTileMap()
 	}
 }
 
-void TileMap::update(sf::Window& window)
+void TileMap::update(sf::RenderWindow& window)
 {
 	mousePosition = sf::Mouse::getPosition(window);
-	int a = OptimisedChecker(mousePosition.x, mousePosition.y);
-	if(a>-1) std::cout << a << std::endl;
-	/*bool end = 0;
-	for (int x = 0; (x < TileMapSize.columns) & end == 0; x++)
-    {
-        for (int y = 0; (y < TileMapSize.rows) & end == 0 ; y++)
-        {
-            if (MouseChecker(mousePosition.x, mousePosition.y, TileArray[x][y].getPositionX(), TileArray[x][y].getPositionY()))
-            {
-                std::cout << "Tile ID of Tile [" << x << "][" << y << "] is " << TileArray[x][y].getID() << std::endl;
-				end = 1;
-            }
-        }
-    }*/
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
+	int a = OptimisedChecker(worldPos.x, worldPos.y);
+	if (a > -1)
+	{
+		CurTile.y = a % 256;
+		CurTile.x = (a - (a % 256)) / 256;
+	}
 }
 
 bool TileMap::MouseChecker(int mouseposx, int mouseposy, int tileposx, int tileposy)
