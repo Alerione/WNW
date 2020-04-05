@@ -16,10 +16,10 @@ public:
 
 	//Overloads//
 	TavernBuilding& operator=(const TavernBuilding &input);
-	bool operator<(const TavernBuilding &input);
 
 	//Methods//
 	void SetupBuildingDatabyType();
+	void DrawBuildingSpecific(sf::RenderWindow& target);
 };
 
 #endif

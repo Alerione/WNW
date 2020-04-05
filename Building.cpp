@@ -2,7 +2,8 @@
 
 bool Building::BusyBuilding = 0;
 sf::Sprite Building::CollisionSprite = sf::Sprite();
-bool Building::CollisionSpriteSet = 0;
+sf::Sprite Building::BlueOverlaySprite = sf::Sprite();
+bool Building::StaticSpriteSet = 0;
 
 Building::Building()
 	: TileBase{}
@@ -11,6 +12,7 @@ Building::Building()
 	, GameData{}
 	, Map(nullptr)
 {
+
 }
 
 Building::Building(const Building & input)
@@ -38,13 +40,6 @@ Building & Building::operator=(const Building & input)
 	Map = input.Map;
 
 	return *this;
-}
-
-bool Building::operator<(const Building & input)
-{
-	if (input.TileBase[0][0]->getPositionY() > this->TileBase[0][0]->getPositionY()) return true;
-	else if (input.TileBase[0][0]->getPositionY() == this->TileBase[0][0]->getPositionY() && input.TileBase[0][0]->getPositionX() > this->TileBase[0][0]->getPositionX()) return true;
-	else return false;
 }
 
 
@@ -107,6 +102,7 @@ void Building::draw(sf::RenderWindow& target)
 	{
 		target.draw(DrawData.Sprite);
 	}
+	DrawBuildingSpecific(target);
 }
 
 void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
@@ -128,7 +124,7 @@ void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
 			if ((Map->getCurrentTileY() + y - x) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if((Map->getCurrentTileY() + y - x )% 2 == 0) xadjx++;
+		if((Map->getCurrentTileY() - x )% 2 == 0) xadjx++;
 	}
 }
 

@@ -8,7 +8,8 @@
 enum BuildingType {
 	Unspecified = 0,
 	Tavern = 1,
-	Well = 2
+	Well = 2,
+	Stables = 3
 };
 struct BuildingDataDraw
 {
@@ -35,7 +36,8 @@ protected:
 	BuildingDataGame GameData;
 	static bool BusyBuilding;
 	static sf::Sprite CollisionSprite;
-	static bool CollisionSpriteSet;
+	static sf::Sprite BlueOverlaySprite;
+	static bool StaticSpriteSet;
 
 public:
 	//Constructors and Destructors//
@@ -47,7 +49,6 @@ public:
 
 	//Overloads//
 	Building& operator=(const Building &input);
-	bool operator<(const Building &input);
 
 	//Methods//
 	bool CheckCollision(); // Is there Collision (True/False)
@@ -57,6 +58,14 @@ public:
 	void UpdatePositionbyMouse(sf::RenderWindow& target);
 	static bool CheckBusy();
 	virtual void SetupBuildingDatabyType() = 0;
+	virtual void DrawBuildingSpecific(sf::RenderWindow& target) = 0;
+	static bool sort(Building *a, Building *b)
+	{
+		if ((b->TileBase[0][0]->getID() % 256) > (a->TileBase[0][0]->getID() % 256)) return true;
+		else if ((b->TileBase[0][0]->getID() % 256) < (a->TileBase[0][0]->getID() % 256)) return false;
+		else if (b->TileBase[0][0]->getID() > a->TileBase[0][0]->getID()) return true;
+		else return false;
+	}
 };
 
 

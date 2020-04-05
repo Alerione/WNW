@@ -1,36 +1,49 @@
 #include "TileMap.h"
 #include "TavernBuilding.h"
-#include "InterfaceElement.h"
+#include "WellBuilding.h"
+#include "StablesBuilding.h"
+#include "InterfaceManager.h"
 #include <algorithm>
+#include <iostream>
 
-unsigned int SCR_WIDTH = 1900;
+unsigned int SCR_WIDTH = 1920;
 unsigned int SCR_HEIGHT = 1200;
 
 
 int main()
 {
+    sf::Texture background;
+    background.loadFromFile("water.jpg");
+    background.setRepeated(true);
+
+    sf::Sprite backgroundSprite(background);
+    backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCR_WIDTH, SCR_HEIGHT)); // Tekstura ma np. rozmiar 100x100, wiêc obszar jest wiêkszy od niej 10 razy
+
+
 	std::vector <Building*> BuildingsList;
 	int BuildingNum = 0;
 
-    TileMap Map(5, 10);
+    TileMap Map(10, 20);
     Map.BuildTileMap();
     sf::RenderWindow window(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "My window"/*, sf::Style::Fullscreen*/);
     window.setFramerateLimit(60);
 
     double interfaceHeight = (double)SCR_HEIGHT * 0.05;
-    InterfaceElement Ie1(0, 0, (float)SCR_WIDTH, (float)interfaceHeight, sf::Color::Blue, true);
-    InterfaceElement Ie2(0, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.3, (float)interfaceHeight, sf::Color::Blue, true);
-    InterfaceElement Ie3((float)SCR_WIDTH - (float)SCR_WIDTH * (float)0.15, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.15, (float)interfaceHeight, sf::Color::Blue, true);
+    InterfaceManager IM1((float)SCR_WIDTH, (float)SCR_HEIGHT);
+    IM1.buildInterface(interfaceHeight);
 
-    sf::View view(sf::Vector2f((float)SCR_WIDTH/2, (float)SCR_HEIGHT/2 - 2*interfaceHeight), sf::Vector2f((float)SCR_WIDTH, (float)SCR_HEIGHT-2*interfaceHeight));
-    window.setView(view);
+    sf::View view(sf::Vector2f((float)SCR_WIDTH/2, (float)SCR_HEIGHT/2 - 2*(float)interfaceHeight), sf::Vector2f((float)SCR_WIDTH, (float)SCR_HEIGHT-2*(float)interfaceHeight));
+	view.setCenter(float(Map.getColumns() * 32), float(Map.getRows() * 8));
 
-    sf::View interfaceTopView(sf::Vector2f(0+SCR_WIDTH/2,0+SCR_HEIGHT/2), sf::Vector2f(SCR_WIDTH, SCR_HEIGHT));
-
+    sf::View interfaceView(sf::Vector2f(0+ (float)SCR_WIDTH/2,0+ (float)SCR_HEIGHT/2), sf::Vector2f((float)SCR_WIDTH, (float)SCR_HEIGHT));
+	window.setMouseCursorGrabbed(1);
 
     while (window.isOpen())
     {
         sf::Event event;
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        sf::Vector2f mousePosf = sf::Vector2f((float)mousePos.x, (float)mousePos.y);
+        window.setView(interfaceView);
         if (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
@@ -43,7 +56,7 @@ int main()
 					{
 						BuildingsList.back()->Build();
 						if(Building::CheckBusy() == false)
-							std::sort(BuildingsList.begin(), BuildingsList.end());
+							std::sort(BuildingsList.begin(), BuildingsList.end(), Building::sort);
 					}
 				}
 
@@ -56,8 +69,22 @@ int main()
                 }
 				if (event.key.code == sf::Keyboard::C)
 				{
-					view.setCenter(SCR_WIDTH * 0.5,SCR_HEIGHT * 0.4);
+					view.setCenter(float(SCR_WIDTH * 0.5), float(SCR_HEIGHT * 0.4));
 					window.setView(view);
+				}
+				if (event.key.code == sf::Keyboard::M)
+				{
+					view.setCenter(float(Map.getColumns()*32), float(Map.getRows()*8));
+					window.setView(view);
+				}
+				if (event.key.code == sf::Keyboard::S)
+				{
+					if (Building::CheckBusy() == false)
+					{
+						BuildingNum++;
+						BuildingsList.resize(BuildingNum);
+						BuildingsList.back() = new StablesBuilding(&Map);
+					}
 				}
 				if (event.key.code == sf::Keyboard::T)
 				{
@@ -68,19 +95,34 @@ int main()
 						BuildingsList.back() = new TavernBuilding(&Map);
 					}
 				}
+				if (event.key.code == sf::Keyboard::W)
+				{
+					if (Building::CheckBusy() == false)
+					{
+						BuildingNum++;
+						BuildingsList.resize(BuildingNum);
+						BuildingsList.back() = new WellBuilding(&Map);
+					}
+				}
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                IM1.clickedUpdateInterface(mousePosf);
             }
         }
-
+        window.setView(interfaceView);
         window.clear(sf::Color::Black);
+        window.draw(backgroundSprite);
+        window.setView(view);
 
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        sf::Vector2f mousePosf = sf::Vector2f((float)mousePos.x, (float)mousePos.y);
+
+        
         if (mousePos.x <= 10)
         {
             view.setCenter(view.getCenter().x - 5.0f, view.getCenter().y);
             window.setView(view);
         }
-        if (mousePos.x >= SCR_WIDTH-10)
+        if (mousePos.x >= (int)SCR_WIDTH-10)
         {
             view.setCenter(view.getCenter().x + 5.0f, view.getCenter().y);
             window.setView(view);
@@ -90,7 +132,7 @@ int main()
             view.setCenter(view.getCenter().x, view.getCenter().y - 5.0f);
             window.setView(view);
         }
-        if (mousePos.y >= SCR_HEIGHT - 10)
+        if (mousePos.y >= (int)SCR_HEIGHT - 10)
         {
             view.setCenter(view.getCenter().x, view.getCenter().y + 5.0f);
             window.setView(view);
@@ -103,11 +145,9 @@ int main()
 		{
 			BuildingsList[build]->draw(window);
 		}
-        window.setView(interfaceTopView);
-        Ie1.draw(window);
-        Ie2.draw(window);
-        Ie3.draw(window);
-        Ie1.update(mousePosf);
+        window.setView(interfaceView);
+        IM1.drawInterface(window);
+        IM1.updateInterace(mousePosf);
         window.setView(view);
         // end the current frame
         window.display();

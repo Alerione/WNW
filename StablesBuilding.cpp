@@ -1,11 +1,11 @@
-#include "TavernBuilding.h"
+#include "StablesBuilding.h"
 
-TavernBuilding::TavernBuilding()
+StablesBuilding::StablesBuilding()
 	: Building()
 {
 }
 
-TavernBuilding::TavernBuilding(const TavernBuilding & input)
+StablesBuilding::StablesBuilding(const StablesBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ TavernBuilding::TavernBuilding(const TavernBuilding & input)
 	Map = input.Map;
 }
 
-TavernBuilding::TavernBuilding(TileMap * input)
+StablesBuilding::StablesBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,11 +38,11 @@ TavernBuilding::TavernBuilding(TileMap * input)
 }
 
 
-TavernBuilding::~TavernBuilding()
+StablesBuilding::~StablesBuilding()
 {
 }
 
-TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
+StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -55,16 +55,16 @@ TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 	return *this;
 }
 
-void TavernBuilding::SetupBuildingDatabyType()
+void StablesBuilding::SetupBuildingDatabyType()
 {
-	Type = Tavern;
-	DrawData.BuildingSizeX = 2;
-	DrawData.BuildingSizeY = 2;
-	DrawData.SpriteOffsetX = 13;
-	DrawData.SpriteOffsetY = 100;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getTavernTexture());
+	Type = Stables;
+	DrawData.BuildingSizeX = 3;
+	DrawData.BuildingSizeY = 3;
+	DrawData.SpriteOffsetX = 20;
+	DrawData.SpriteOffsetY = 105;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getStablesTexture());
 }
 
-void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void StablesBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
