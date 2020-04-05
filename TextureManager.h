@@ -10,6 +10,9 @@ protected:
 	sf::Texture defaultTileTexture;
 	sf::Texture TavernTexture;
 	sf::Texture CollisionTexture;
+	sf::Texture WellTexture;
+	sf::Texture BlueOverlayTexture;
+	sf::Texture StablesTexture;
 public:
 	//Constructors and Destructors//
 	TextureManager();
@@ -20,6 +23,9 @@ public:
 	sf::Texture& getDefaultTileTexture();
 	sf::Texture& getTavernTexture();
 	sf::Texture& getCollisionTexture();
+	sf::Texture& getWellTexture();
+	sf::Texture& getBlueOverlayTexture();
+	sf::Texture& getStablesTexture();
 
 	//Overloads//
 	TextureManager& operator=(const TextureManager& input);

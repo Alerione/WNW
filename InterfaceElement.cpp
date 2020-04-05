@@ -25,10 +25,32 @@ void InterfaceElement::update(sf::Vector2f mouse_)
     {
         if (_shape.getGlobalBounds().contains(mouse_))
         {
-            std::cout << "interface najechany" << std::endl;
         }
     }
 
+}
+
+void InterfaceElement::clickedUpdate(sf::Vector2f mouse_)
+{
+    if (this->_clickable == true)
+    {
+        if (_shape.getGlobalBounds().contains(mouse_))
+        {
+			std::cout << "Button Clicked" << std::endl;
+			if(action!=0) action();
+        }
+    }
+
+}
+
+void InterfaceElement::setTexture(sf::Texture* txt)
+{
+    _shape.setTexture(txt);
+}
+
+void InterfaceElement::setAction(void(*newaction)())
+{
+    action = newaction;
 }
 
 InterfaceElement::~InterfaceElement()
