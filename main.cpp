@@ -1,4 +1,3 @@
-#include "TileMap.h"
 #include "TavernBuilding.h"
 #include "WellBuilding.h"
 #include "StablesBuilding.h"
@@ -6,8 +5,8 @@
 #include <algorithm>
 #include <iostream>
 
-unsigned int SCR_WIDTH = 1920;
-unsigned int SCR_HEIGHT = 1200;
+unsigned int SCR_WIDTH = 1280;
+unsigned int SCR_HEIGHT = 720;
 
 
 int main()
@@ -19,13 +18,12 @@ int main()
     sf::Sprite backgroundSprite(background);
     backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCR_WIDTH, SCR_HEIGHT)); // Tekstura ma np. rozmiar 100x100, wiêc obszar jest wiêkszy od niej 10 razy
 
-
 	std::vector <Building*> BuildingsList;
 	int BuildingNum = 0;
 
     TileMap Map(10, 20);
     Map.BuildTileMap();
-    sf::RenderWindow window(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "My window"/*, sf::Style::Fullscreen*/);
+    sf::RenderWindow window(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "My window");
     window.setFramerateLimit(60);
 
     double interfaceHeight = (double)SCR_HEIGHT * 0.05;
@@ -52,12 +50,14 @@ int main()
 			{
 				if (event.key.code == sf::Mouse::Left)
 				{
+                    
 					if (Building::CheckBusy() == true)
 					{
 						BuildingsList.back()->Build();
 						if(Building::CheckBusy() == false)
-							std::sort(BuildingsList.begin(), BuildingsList.end(), Building::sort);
+						std::sort(BuildingsList.begin(), BuildingsList.end(), Building::sort);
 					}
+                    IM1.clickedUpdateInterface(mousePosf, IM1);
 				}
 
 			}
@@ -105,10 +105,7 @@ int main()
 					}
 				}
             }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
-                IM1.clickedUpdateInterface(mousePosf);
-            }
+
         }
         window.setView(interfaceView);
         window.clear(sf::Color::Black);
@@ -147,7 +144,7 @@ int main()
 		}
         window.setView(interfaceView);
         IM1.drawInterface(window);
-        IM1.updateInterace(mousePosf);
+        IM1.updateInterace(mousePosf, BuildingsList, Map, BuildingNum);
         window.setView(view);
         // end the current frame
         window.display();
