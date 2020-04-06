@@ -25,19 +25,19 @@ void InterfaceElement::update(sf::Vector2f mouse_)
     {
         if (_shape.getGlobalBounds().contains(mouse_))
         {
+
         }
     }
 
 }
 
-void InterfaceElement::clickedUpdate(sf::Vector2f mouse_)
+void InterfaceElement::clickedUpdate(sf::Vector2f mouse_, InterfaceManager& im_)
 {
     if (this->_clickable == true)
     {
         if (_shape.getGlobalBounds().contains(mouse_))
         {
-			std::cout << "Button Clicked" << std::endl;
-			if(action!=0) action();
+			if(action!=0) action(im_);
         }
     }
 
@@ -48,7 +48,7 @@ void InterfaceElement::setTexture(sf::Texture* txt)
     _shape.setTexture(txt);
 }
 
-void InterfaceElement::setAction(void(*newaction)())
+void InterfaceElement::setAction(void(*newaction)(InterfaceManager& im_))
 {
     action = newaction;
 }

@@ -13,6 +13,8 @@ protected:
 	sf::Texture WellTexture;
 	sf::Texture BlueOverlayTexture;
 	sf::Texture StablesTexture;
+    sf::Texture InterfaceBuildButton;
+    sf::Texture MenuCat1Texture;
 public:
 	//Constructors and Destructors//
 	TextureManager();
@@ -26,6 +28,8 @@ public:
 	sf::Texture& getWellTexture();
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
+    sf::Texture& getInterfaceBuildButton();
+    sf::Texture& getMenuCat1Texture();
 
 	//Overloads//
 	TextureManager& operator=(const TextureManager& input);

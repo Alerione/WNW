@@ -14,10 +14,10 @@ public:
 
     void draw(sf::RenderTarget&);
     void update(sf::Vector2f);
-    void clickedUpdate(sf::Vector2f);
+    void clickedUpdate(sf::Vector2f, InterfaceManager&);
     void setTexture(sf::Texture*);
 
-    void setAction(void(*newaction)());
+    void setAction(void(*newaction)(InterfaceManager&));
 
     ~InterfaceElement();
 
@@ -26,7 +26,7 @@ protected:
     sf::RectangleShape _shape;
     sf::Color _color;
     bool _clickable;
-    void (*action)();
+    void (*action)(InterfaceManager&);
 };
 
 #endif /* _INTERFACE_ELEMENT_H_ */

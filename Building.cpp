@@ -121,10 +121,10 @@ void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
 			{
 				TileBase[x][y] = nullptr;
 			}
-			if ((Map->getCurrentTileY() + y - x) % 2 == 1) xadjy++;
+			if ((abs(Map->getCurrentTileY() + y - x)) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if((Map->getCurrentTileY() - x )% 2 == 0) xadjx++;
+		if((abs(Map->getCurrentTileY() - x ))% 2 == 0) xadjx++;
 	}
 }
 
