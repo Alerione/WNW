@@ -45,9 +45,9 @@ Building & Building::operator=(const Building & input)
 
 bool Building::CheckCollision()
 {
-	for (int x = 0; x < DrawData.BuildingSizeX; x++)
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
-		for (int y = 0; y < DrawData.BuildingSizeY; y++)
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
 			if (TileBase[x][y] == nullptr || TileBase[x][y]->CheckBuilding() == true)
 			{
@@ -60,13 +60,13 @@ bool Building::CheckCollision()
 
 void Building::DrawCollision(sf::RenderTarget & target)
 {
-	for (int x = 0; x < DrawData.BuildingSizeX; x++)
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
-		for (int y = 0; y < DrawData.BuildingSizeY; y++)
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
 			if (TileBase[x][y] != nullptr && TileBase[x][y]->CheckBuilding() == true)
 			{
-				CollisionSprite.setPosition(TileBase[x][y]->getPositionX(), TileBase[x][y]->getPositionY());
+				CollisionSprite.setPosition((float)TileBase[x][y]->getPositionX(), (float)TileBase[x][y]->getPositionY());
 				target.draw(CollisionSprite);
 			}
 		}
@@ -77,16 +77,16 @@ void Building::Build()
 {
 	if (CheckCollision() == true) return;
 
-	for (int x = 0; x < DrawData.BuildingSizeX; x++)
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
-		for (int y = 0; y < DrawData.BuildingSizeY; y++)
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
 			TileBase[x][y]->SetBulding(this);
 		}
 	}
 	DrawData.Built = true;
 	BusyBuilding = false;
-	DrawData.Sprite.setPosition(TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, TileBase[0][0]->getPositionY()-DrawData.SpriteOffsetY);
+	DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, (float)TileBase[0][0]->getPositionY()-DrawData.SpriteOffsetY);
 }
 
 void Building::draw(sf::RenderWindow& target)
@@ -94,7 +94,7 @@ void Building::draw(sf::RenderWindow& target)
 	if (DrawData.Built == false)
 	{
 		UpdatePositionbyMouse(target);
-		DrawData.Sprite.setPosition(TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, TileBase[0][0] ->getPositionY() - DrawData.SpriteOffsetY);
+		DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, (float)TileBase[0][0] ->getPositionY() - DrawData.SpriteOffsetY);
 		target.draw(DrawData.Sprite);
 		DrawCollision(target);
 	}
@@ -108,9 +108,9 @@ void Building::draw(sf::RenderWindow& target)
 void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
 {
 	int x, y, xadjx, yadj, xadjy;
-	for (x = 0, xadjx = 0, xadjy=0; x < DrawData.BuildingSizeX;x++)
+	for (x = 0, xadjx = 0, xadjy=0; x < (int)DrawData.BuildingSizeX;x++)
 	{
-		for (y = 0, yadj = 0; y < DrawData.BuildingSizeY; y++)
+		for (y = 0, yadj = 0; y < (int)DrawData.BuildingSizeY; y++)
 		{
 			yadj = y - x;
 			if (Map->checkCurrentTileAdj(x+xadjy-xadjx, yadj))

@@ -21,10 +21,10 @@ WellBuilding::WellBuilding(TileMap * input)
 	Map = input;
 	SetupBuildingDatabyType();
 	TileBase.resize(DrawData.BuildingSizeX);
-	for (int x = 0; x < DrawData.BuildingSizeX; x++)
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
 		TileBase[x].resize(DrawData.BuildingSizeY);
-		for (int y = 0; y < DrawData.BuildingSizeY; y++)
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
 			TileBase[x][y] = nullptr;
 		}
@@ -79,7 +79,7 @@ void WellBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 				{
-					BlueOverlaySprite.setPosition(Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->getPositionX(), Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->getPositionY());
+					BlueOverlaySprite.setPosition((float)Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->getPositionX(), (float)Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->getPositionY());
 					target.draw(BlueOverlaySprite);
 				}
 				else

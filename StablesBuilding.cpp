@@ -21,10 +21,10 @@ StablesBuilding::StablesBuilding(TileMap * input)
 	Map = input;
 	SetupBuildingDatabyType();
 	TileBase.resize(DrawData.BuildingSizeX);
-	for (int x = 0; x < DrawData.BuildingSizeX; x++)
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
 		TileBase[x].resize(DrawData.BuildingSizeY);
-		for (int y = 0; y < DrawData.BuildingSizeY; y++)
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
 			TileBase[x][y] = nullptr;
 		}

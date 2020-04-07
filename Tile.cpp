@@ -204,7 +204,7 @@ Tile & Tile::operator=(const Tile & input)
 
 void Tile::updateSpritePos()
 {
-	Sprite.setPosition(TilePos.x, TilePos.y + TilePos.z);
+	Sprite.setPosition((float)TilePos.x, float(TilePos.y + TilePos.z));
 }
 
 void Tile::draw(sf::RenderTarget & target)
