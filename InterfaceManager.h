@@ -10,19 +10,12 @@
 #endif /* _VECTOR_ */
 #include <SFML/Graphics.hpp>
 
-#ifndef __WNW_TextureManagerClass_
-#include "TextureManager.h"
-#endif /* __WNW_TextureManagerClass_ */
-
-#include "TavernBuilding.h"
-#include "WellBuilding.h"
-#include "StablesBuilding.h"
+#include "ResourceManager.h"
 
 class InterfaceElement;
 class InterfaceManager
 {
 public:
-    InterfaceManager();
     InterfaceManager(float, float);
     void buildInterface(double);
     void drawInterface(sf::RenderWindow&);
@@ -40,6 +33,7 @@ public:
     ~InterfaceManager();
 
 protected:
+	InterfaceManager();
 
     TextureManager interfaceTextureManager;
     TileMap *tileMap;

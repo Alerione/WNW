@@ -106,6 +106,14 @@ void InterfaceManager::cat1Building3(InterfaceManager& im_)
 	}
 }
 
+InterfaceManager::InterfaceManager()
+{
+	InterfaceManager::SCR_WIDTH = 1280;
+	InterfaceManager::SCR_HEIGHT = 720;
+	button1actionStatus = false;
+	interfaceHeight = 0;
+}
+
 InterfaceManager::InterfaceManager(float scrw, float scrh)
 {
     InterfaceManager::SCR_WIDTH = scrw;
@@ -138,10 +146,14 @@ void InterfaceManager::buildInterface(double interfaceHeight)
     InterfaceElement Ie2Button1(10, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
     Ie2Button1.setTexture(&interfaceTextureManager.getInterfaceBuildButton());
     InterfaceElement Ie2Button2(10 + (float)SCR_WIDTH*(float)0.05 + 10, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
+    Ie2Button2.setTexture(&interfaceTextureManager.getInterfaceDelButton());
     InterfaceElement Ie2Button3(10 + 2 * (float)SCR_WIDTH*(float)0.05 + 20, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
+    Ie2Button3.setTexture(&interfaceTextureManager.getInterfaceCamButton());
     InterfaceElement Ie2Button4(10 + 3 * (float)SCR_WIDTH*(float)0.05 + 30, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
+    Ie2Button4.setTexture(&interfaceTextureManager.getInterfaceStatsButton());
     InterfaceElement Ie2Button5(10 + 4 * (float)SCR_WIDTH*(float)0.05 + 40, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-    
+    Ie2Button5.setTexture(&interfaceTextureManager.getInterfaceMenuButton());
+
     //Actions
     Ie2Button1.setAction(&InterfaceManager::button1action);
 

@@ -19,6 +19,11 @@ TextureManager::~TextureManager()
 {
 }
 
+sf::Texture & TextureManager::getBackgroundTexture()
+{
+	return BackgroundTexture;
+}
+
 sf::Texture & TextureManager::getDefaultTileTexture()
 {
 	return defaultTileTexture;
@@ -54,6 +59,26 @@ sf::Texture& TextureManager::getInterfaceBuildButton()
     return InterfaceBuildButton;
 }
 
+sf::Texture& TextureManager::getInterfaceStatsButton()
+{
+    return InterfaceStatsButton;
+}
+
+sf::Texture& TextureManager::getInterfaceMenuButton()
+{
+    return InterfaceMenuButton;
+}
+
+sf::Texture& TextureManager::getInterfaceDelButton()
+{
+    return InterfaceDelButton;
+}
+
+sf::Texture& TextureManager::getInterfaceCamButton()
+{
+    return InterfaceCamButton;
+}
+
 sf::Texture& TextureManager::getMenuCat1Texture()
 {
     return MenuCat1Texture;
@@ -68,15 +93,24 @@ TextureManager & TextureManager::operator=(const TextureManager & input)
 
 void TextureManager::loadTextures()
 {
+	//Background//
+	if (BackgroundTexture.loadFromFile("water.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
+	//Tile//
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
+	//Buildings//
 	if(TavernTexture.loadFromFile("tavern.png")) std::cout << "Tavern texture loaded!" <<std::endl;
 	if (StablesTexture.loadFromFile("stables.png")) std::cout << "Stables texture loaded!" << std::endl;
-	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (WellTexture.loadFromFile("well.png")) std::cout << "Well texture loaded!" << std::endl;
+	//Tile Overlays//
+	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
+	//Interface//
     if (InterfaceBuildButton.loadFromFile("build.png")) std::cout << "InterfaceBuildButton texture loaded!" << std::endl;
+    if (InterfaceCamButton.loadFromFile("cam.png")) std::cout << "InterfaceCamButton texture loaded!" << std::endl;
+    if (InterfaceMenuButton.loadFromFile("menu.png")) std::cout << "InterfaceMenuButton texture loaded!" << std::endl;
+    if (InterfaceStatsButton.loadFromFile("stats.png")) std::cout << "InterfaceStatsButton texture loaded!" << std::endl;
+    if (InterfaceDelButton.loadFromFile("del.png")) std::cout << "InterfaceDelButton texture loaded!" << std::endl;
+
     if (MenuCat1Texture.loadFromFile("cat1.png")) std::cout << "Menu Cat1 Texture loaded!" << std::endl;
 	std::cout << "Textures loaded!" << std::endl;
 }
-
-

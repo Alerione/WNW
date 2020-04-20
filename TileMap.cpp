@@ -114,7 +114,7 @@ void TileMap::update(sf::RenderWindow& window)
 {
 	mousePosition = sf::Mouse::getPosition(window);
     sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
-	int a = OptimisedChecker(worldPos.x, worldPos.y);
+	int a = OptimisedChecker((int)worldPos.x, (int)worldPos.y);
 	if (a > -1)
 	{
 		CurTile.y = a % 256;

@@ -59,6 +59,7 @@ public:
 	static bool CheckBusy();
 	virtual void SetupBuildingDatabyType() = 0;
 	virtual void DrawBuildingSpecific(sf::RenderWindow& target) = 0;
+	//virtual void ResourceUpdateTick() = 0;
 	static bool sort(Building *a, Building *b)
 	{
 		if ((b->TileBase[0][0]->getID() % 256) > (a->TileBase[0][0]->getID() % 256)) return true;
