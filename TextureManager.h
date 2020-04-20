@@ -7,6 +7,7 @@
 class TextureManager
 {
 protected:
+	sf::Texture BackgroundTexture;
 	sf::Texture defaultTileTexture;
 	sf::Texture TavernTexture;
 	sf::Texture CollisionTexture;
@@ -14,6 +15,10 @@ protected:
 	sf::Texture BlueOverlayTexture;
 	sf::Texture StablesTexture;
     sf::Texture InterfaceBuildButton;
+    sf::Texture InterfaceDelButton;
+    sf::Texture InterfaceStatsButton;
+    sf::Texture InterfaceCamButton;
+    sf::Texture InterfaceMenuButton;
     sf::Texture MenuCat1Texture;
 public:
 	//Constructors and Destructors//
@@ -22,6 +27,7 @@ public:
 	~TextureManager();
 
 	//Texture getters//
+	sf::Texture& getBackgroundTexture();
 	sf::Texture& getDefaultTileTexture();
 	sf::Texture& getTavernTexture();
 	sf::Texture& getCollisionTexture();
@@ -30,6 +36,10 @@ public:
 	sf::Texture& getStablesTexture();
     sf::Texture& getInterfaceBuildButton();
     sf::Texture& getMenuCat1Texture();
+    sf::Texture& getInterfaceDelButton();
+    sf::Texture& getInterfaceStatsButton();
+    sf::Texture& getInterfaceCamButton();
+    sf::Texture& getInterfaceMenuButton();
 
 	//Overloads//
 	TextureManager& operator=(const TextureManager& input);
