@@ -22,6 +22,7 @@ public:
     void updateInterace(sf::Vector2f, std::vector <Building*>&, TileMap&, int&);
     void clickedUpdateInterface(sf::Vector2f, InterfaceManager&);
 	void getResources(ResourceList* list);
+	void updateResources();
 
     static void button1action(InterfaceManager&);
     static void button1action_button1(InterfaceManager&);

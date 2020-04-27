@@ -353,6 +353,17 @@ void InterfaceManager::getResources(ResourceList * list)
 	Resources = list;
 }
 
+void InterfaceManager::updateResources()
+{
+	interfaceTexts[0].setString(std::to_string(Resources->Lumber));
+	interfaceTexts[1].setString(std::to_string(Resources->Clay));
+	interfaceTexts[2].setString(std::to_string(Resources->Marble));
+	interfaceTexts[3].setString(std::to_string(Resources->Planks));
+	interfaceTexts[4].setString(std::to_string(Resources->Bricks));
+	interfaceTexts[5].setString(std::to_string(Resources->MarbleBlocks));
+	interfaceTexts[6].setString(std::to_string(Resources->Ducats));
+}
+
 void InterfaceManager::setResourceInterfaceValue(int index, std::string& value)
 {
     interfaceTexts.at(index).setString(value);
