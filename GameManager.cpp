@@ -86,12 +86,12 @@ void GameManager::RenderPass()
 	{
 		BManager.BuildingsList[build]->draw(*window);
 	}
-	if (time(NULL) % 5 == 0 && timer == false) 
+	if (time(NULL) % 3 == 0 && timer == false) 
 	{
 		timer = true;
 		RManager.ResourceUpdateTick();
 	}
-	else if (time(NULL) % 5 != 0)
+	else if (time(NULL) % 3 != 0)
 	{
 		timer = false;
 	}

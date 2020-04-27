@@ -1,33 +1,33 @@
 struct ResourceList
 {
 	//Money//
-	unsigned int Ducats;
+	int Ducats;
 	//Base resources//
-	unsigned int Lumber;
-	unsigned int Clay;
-	unsigned int Marble;
-	unsigned int Horses;
-	unsigned int Food;
+	int Lumber;
+	int Clay;
+	int Marble;
+	int Horses;
+	int Food;
 	//Processed resources//
-	unsigned int Planks;
-	unsigned int Bricks;
-	unsigned int MarbleBlocks;
-	unsigned int Beer;
+	int Planks;
+	int Bricks;
+	int MarbleBlocks;
+	int Beer;
 	//Capacities//
-	unsigned int PopulationCap;// softcap = 0.75*Cap
-	unsigned int HorseCap;
+	int PopulationCap;// softcap = 0.75*Cap
+	int HorseCap;
 	//Others//
-	unsigned int Population;
+	int Population;
 	//Previous Values//
-	unsigned int Prev_Ducats;
-	unsigned int Prev_Lumber;
-	unsigned int Prev_Clay;
-	unsigned int Prev_Marble;
-	unsigned int Prev_Horses;
-	unsigned int Prev_Food;
-	unsigned int Prev_Planks;
-	unsigned int Prev_Bricks;
-	unsigned int Prev_MarbleBlocks;
-	unsigned int Prev_Beer;
-	unsigned int Prev_Population;
+	int Prev_Ducats;
+	int Prev_Lumber;
+	int Prev_Clay;
+	int Prev_Marble;
+	int Prev_Horses;
+	int Prev_Food;
+	int Prev_Planks;
+	int Prev_Bricks;
+	int Prev_MarbleBlocks;
+	int Prev_Beer;
+	int Prev_Population;
 };
