@@ -59,20 +59,31 @@ WellBuilding& WellBuilding::operator=(const WellBuilding & input)
 void WellBuilding::ResourceUpdateTick()
 {
 	UpdateBuildingGameData();
-	Resources->Ducats -= 1;
-	UpdateArea(true);
+	if (Resources->Ducats >= 1) {
+		Resources->Ducats -= 1;
+		UpdateArea(true);
+	}
+	else
+	{
+		UpdateArea(false);
+		//Lower local health?
+	}
 }
 
 void WellBuilding::BuildCost()
 {
 	Resources->Ducats -= 100;
+	Resources->Prev_Ducats -= 100;
 	Resources->Bricks -= 50;
+	Resources->Prev_Bricks -= 50;
 }
 
 void WellBuilding::RemovalPass()
 {
 	Resources->Ducats += 50;
+	Resources->Prev_Ducats += 50;
 	Resources->Bricks += 25;
+	Resources->Prev_Bricks += 25;
 	UpdateArea(false);
 }
 

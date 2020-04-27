@@ -44,6 +44,11 @@ Building & Building::operator=(const Building & input)
 }
 
 
+ResourceList * Building::getResources()
+{
+	return Resources;
+}
+
 bool Building::CheckCollision()
 {
 	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
@@ -161,7 +166,7 @@ bool Building::CheckResources()
 
 void Building::UpdateBuildingGameData()
 {
-	int mod = 10;
+	int mod = 5;
 	bool water = false;
 	int TileCount = DrawData.BuildingSizeX*DrawData.BuildingSizeY;
 	double HappinessSum = 0;

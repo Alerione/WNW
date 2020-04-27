@@ -65,12 +65,16 @@ void TavernBuilding::ResourceUpdateTick()
 void TavernBuilding::BuildCost()
 {
 	Resources->Ducats -= 250;
+	Resources->Prev_Ducats -= 250;
 	Resources->Bricks -= 100;
+	Resources->Prev_Bricks -= 100;
 }
 
 void TavernBuilding::RemovalPass()
 {
+	Resources->Prev_Ducats += 125;
 	Resources->Ducats += 125;
+	Resources->Prev_Bricks += 50;
 	Resources->Bricks += 50;
 }
 

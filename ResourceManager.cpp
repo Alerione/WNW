@@ -16,6 +16,10 @@ ResourceManager::ResourceManager(BuildingManager * BManager)
 	Resources.Bricks = 400;
 	Resources.Planks = 400;
 	Resources.Food = 1000;
+	Resources.Prev_Ducats = 1000;
+	Resources.Prev_Bricks = 400;
+	Resources.Prev_Planks = 400;
+	Resources.Prev_Food = 1000;
 }
 
 ResourceManager::ResourceManager(const ResourceManager & org)
@@ -34,10 +38,11 @@ void ResourceManager::ResourceUpdateTick()
 	RollOverPrev();
 	for (int n = 0; n < BManager->BuildingNum; n++)
 	{
-		BManager->BuildingsList[n]->ResourceUpdateTick();
+		if(BManager->BuildingsList[n]->getResources()!=nullptr)BManager->BuildingsList[n]->ResourceUpdateTick();
 	}
 	//HorseCapCheck();
 	//PopulationCapCheck();
+	//ResourceCheck();
 }
 
 ResourceList * ResourceManager::GetResources()

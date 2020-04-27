@@ -60,6 +60,7 @@ public:
 	Building& operator=(const Building &input);
 
 	//Methods//
+	ResourceList* getResources();
 	bool CheckCollision(); // Is there Collision (True/False)
 	void DrawCollision(sf::RenderTarget& target);
 	void Build(ResourceList* Resources);

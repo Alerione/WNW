@@ -66,12 +66,14 @@ void StablesBuilding::BuildCost()
 {
 	Resources->HorseCap += 10;
 	Resources->Ducats -= 150;
+	Resources->Prev_Ducats -= 150;
 }
 
 void StablesBuilding::RemovalPass()
 {
 	Resources->HorseCap -= 10;
 	Resources->Ducats += 75;
+	Resources->Prev_Ducats += 75;
 }
 
 void StablesBuilding::SetupBuildingDatabyType()
