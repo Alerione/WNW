@@ -40,6 +40,7 @@ WellBuilding::WellBuilding(TileMap * input)
 
 WellBuilding::~WellBuilding()
 {
+	if (DrawData.Built == 1) RemovalPass();
 }
 
 WellBuilding& WellBuilding::operator=(const WellBuilding & input)
@@ -53,6 +54,26 @@ WellBuilding& WellBuilding::operator=(const WellBuilding & input)
 	Map = input.Map;
 
 	return *this;
+}
+
+void WellBuilding::ResourceUpdateTick()
+{
+	UpdateBuildingGameData();
+	Resources->Ducats -= 1;
+	UpdateArea(true);
+}
+
+void WellBuilding::BuildCost()
+{
+	Resources->Ducats -= 100;
+	Resources->Bricks -= 50;
+}
+
+void WellBuilding::RemovalPass()
+{
+	Resources->Ducats += 50;
+	Resources->Bricks += 25;
+	UpdateArea(false);
 }
 
 void WellBuilding::SetupBuildingDatabyType()
@@ -93,5 +114,28 @@ void WellBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	}
 	else
 	{
+	}
+}
+
+void WellBuilding::UpdateArea(bool a)
+{
+	int Range = 2;
+	int x, y, xadjx, yadj, xadjy;
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 1; x++)
+	{
+		for (y = 0, yadj = 0; y < 2 * Range + 1; y++)
+		{
+			yadj = y - x - Range;
+			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			{
+				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->setWaterAccess(a);
+			}
+			else
+			{
+			}
+			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+		}
+		xadjy = 0;
+		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
 	}
 }

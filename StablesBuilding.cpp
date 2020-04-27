@@ -40,6 +40,7 @@ StablesBuilding::StablesBuilding(TileMap * input)
 
 StablesBuilding::~StablesBuilding()
 {
+	if (DrawData.Built == 1) RemovalPass();
 }
 
 StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
@@ -53,6 +54,24 @@ StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 	Map = input.Map;
 
 	return *this;
+}
+
+void StablesBuilding::ResourceUpdateTick()
+{
+	UpdateBuildingGameData();
+	Resources->Ducats += (unsigned int)(5 * GameData.ResourceMod);
+}
+
+void StablesBuilding::BuildCost()
+{
+	Resources->HorseCap += 10;
+	Resources->Ducats -= 150;
+}
+
+void StablesBuilding::RemovalPass()
+{
+	Resources->HorseCap -= 10;
+	Resources->Ducats += 75;
 }
 
 void StablesBuilding::SetupBuildingDatabyType()

@@ -40,6 +40,7 @@ TavernBuilding::TavernBuilding(TileMap * input)
 
 TavernBuilding::~TavernBuilding()
 {
+	if (DrawData.Built == 1) RemovalPass();
 }
 
 TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
@@ -53,6 +54,24 @@ TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 	Map = input.Map;
 
 	return *this;
+}
+
+void TavernBuilding::ResourceUpdateTick()
+{
+	UpdateBuildingGameData();
+	Resources->Ducats += (unsigned int)(25*GameData.ResourceMod);
+}
+
+void TavernBuilding::BuildCost()
+{
+	Resources->Ducats -= 250;
+	Resources->Bricks -= 100;
+}
+
+void TavernBuilding::RemovalPass()
+{
+	Resources->Ducats += 125;
+	Resources->Bricks += 50;
 }
 
 void TavernBuilding::SetupBuildingDatabyType()

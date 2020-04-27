@@ -36,6 +36,8 @@ public:
 	unsigned int SCR_HEIGHT;
 	sf::Sprite backgroundSprite;
 
+	//Temp//
+	bool timer;
 protected:
 	GameManager();
 

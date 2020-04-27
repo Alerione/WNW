@@ -2,7 +2,7 @@
 
 
 Tile::Tile()
-	: Data{ 0,0,0,0 }
+	: Data{ 0,0,80,80,100 }
 	, Sprite()
 	, TileBuilding(nullptr)
 	, TilePos{ 0,0,0 }
@@ -13,7 +13,7 @@ Tile::Tile()
 }
 
 Tile::Tile(const sf::Sprite & sprite, Position pos, TextureManager* address, int ID)
-	: Data{ 0,0,0,0 }
+	: Data{ 0,0,80,80,100 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
@@ -24,7 +24,7 @@ Tile::Tile(const sf::Sprite & sprite, Position pos, TextureManager* address, int
 }
 
 Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ, TextureManager* address, int ID)
-	: Data{ 0,0,0,0 }
+	: Data{ 0,0,80,80,100 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)	
 	, TilePos{posX,posY,posZ}
@@ -35,7 +35,7 @@ Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ, TextureManag
 }
 
 Tile::Tile(const sf::Texture & texture, Position pos, TextureManager* address, int ID)
-	: Data{ 0,0,0,0 }
+	: Data{ 0,0,80,80,100 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
@@ -46,7 +46,7 @@ Tile::Tile(const sf::Texture & texture, Position pos, TextureManager* address, i
 }
 
 Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ, TextureManager* address, int ID)
-	: Data{ 0,0,0,0 }
+	: Data{ 0,0,80,80,100 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos{ posX,posY,posZ }
@@ -89,6 +89,18 @@ int Tile::addHappiness(int input)
 {
 	Data.Happiness += input;
 	return Data.Happiness;
+}
+
+int Tile::setHealth(int input)
+{
+	Data.Health = input;
+	return Data.Health;
+}
+
+int Tile::addHealth(int input)
+{
+	Data.Health += input;
+	return Data.Health;
 }
 
 int Tile::addPublicOrder(int input)
@@ -153,6 +165,11 @@ int Tile::getPublicOrder()
 int Tile::getHappiness()
 {
 	return Data.Happiness;
+}
+
+int Tile::getHealth()
+{
+	return Data.Health;
 }
 
 Position& Tile::getPosition()

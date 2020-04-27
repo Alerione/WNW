@@ -17,6 +17,11 @@ public:
 	//Overloads//
 	StablesBuilding& operator=(const StablesBuilding &input);
 
+	//ResourceUpdateMethods//
+	void ResourceUpdateTick();
+	void BuildCost();
+	void RemovalPass();
+
 	//Methods//
 	void SetupBuildingDatabyType();
 	void DrawBuildingSpecific(sf::RenderWindow& target);

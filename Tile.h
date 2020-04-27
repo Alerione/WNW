@@ -9,6 +9,7 @@ struct TileGameData
 	bool RoadAccess;
 	unsigned int PublicOrder;
 	unsigned int Happiness;
+	unsigned int Health;
 };
 struct Position
 {
@@ -43,6 +44,8 @@ public:
 	int setPublicOrder(int);
 	int setHappiness(int);
 	int addHappiness(int);
+	int setHealth(int);
+	int addHealth(int);
 	int addPublicOrder(int);
 	Position& setPosition(Position&);
 	int setHeigth(int);
@@ -55,6 +58,7 @@ public:
 	bool getRoadAccess();
 	int getPublicOrder();
 	int getHappiness();
+	int getHealth();
 	Position& getPosition();
 	int getPositionX();
 	int getPositionY();
