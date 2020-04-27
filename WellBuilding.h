@@ -17,9 +17,17 @@ public:
 	//Overloads//
 	WellBuilding& operator=(const WellBuilding &input);
 
+	//ResourceUpdateMethods//
+	void ResourceUpdateTick();
+	void BuildCost();
+	void RemovalPass();
+
 	//Methods//
 	void SetupBuildingDatabyType();
 	void DrawBuildingSpecific(sf::RenderWindow& target);
+
+	//Building Specific Methods//
+	void UpdateArea(bool);
 };
 
 #endif

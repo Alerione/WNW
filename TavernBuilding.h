@@ -1,7 +1,6 @@
 #ifndef __WNW_TavernBuildingClass_
 #define __WNW_TavernBuildingClass_
 
-
 #include "Building.h"
 class TavernBuilding :
 	public Building
@@ -16,6 +15,11 @@ public:
 
 	//Overloads//
 	TavernBuilding& operator=(const TavernBuilding &input);
+
+	//ResourceUpdateMethods//
+	void ResourceUpdateTick();
+	void BuildCost();
+	void RemovalPass();
 
 	//Methods//
 	void SetupBuildingDatabyType();

@@ -14,9 +14,12 @@ public:
 	BuildingManager* BManager;
 	//Methods//
 	void ResourceUpdateTick();
+	ResourceList* GetResources();
+	void RollOverPrev();
 	//Overloads//
 	ResourceManager& operator=(const ResourceManager& input);
 
+	ResourceList Resources;
 protected:
 
 

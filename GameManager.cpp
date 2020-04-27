@@ -1,5 +1,5 @@
 #include "GameManager.h"
-
+#include <time.h> 
 
 
 GameManager::GameManager()
@@ -13,8 +13,9 @@ GameManager::GameManager()
 	, view{}
 	, window(nullptr)
 	, interfaceView{}
-	, InputManager(&Map, &BManager, &IM1)
+	, InputManager(&Map, &BManager, &IM1, &RManager)
 {
+	IM1.getResources(RManager.GetResources());
 }
 
 
@@ -29,8 +30,9 @@ GameManager::GameManager(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, unsign
 	, view{}
 	, window(nullptr)
 	, interfaceView{}
-	, InputManager(&Map, &BManager, &IM1, SCR_WIDTH, SCR_HEIGHT)
+	, InputManager(&Map, &BManager, &IM1, &RManager, SCR_WIDTH, SCR_HEIGHT)
 {
+	IM1.getResources(RManager.GetResources());
 }
 
 GameManager::GameManager(const GameManager & input)
@@ -84,9 +86,19 @@ void GameManager::RenderPass()
 	{
 		BManager.BuildingsList[build]->draw(*window);
 	}
+	if (time(NULL) % 5 == 0 && timer == false) 
+	{
+		timer = true;
+		RManager.ResourceUpdateTick();
+	}
+	else if (time(NULL) % 5 != 0)
+	{
+		timer = false;
+	}
 	window->setView(interfaceView);
 	IM1.drawInterface(*window);
 	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
+	//Update resource interface//
 	window->setView(view);
 }
 

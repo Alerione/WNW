@@ -1,4 +1,5 @@
 #include "Building.h"
+#include <algorithm>
 
 bool Building::BusyBuilding = 0;
 sf::Sprite Building::CollisionSprite = sf::Sprite();
@@ -73,9 +74,14 @@ void Building::DrawCollision(sf::RenderTarget & target)
 	}
 }
 
-void Building::Build()
+void Building::Build(ResourceList* Resources)
 {
 	if (CheckCollision() == true) return;
+	this->Resources = Resources;
+	if (CheckResources() == false)
+	{
+		this->Resources = nullptr; return;
+	}
 
 	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
 	{
@@ -86,6 +92,7 @@ void Building::Build()
 	}
 	DrawData.Built = true;
 	BusyBuilding = false;
+	BuildCost();
 	DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, (float)TileBase[0][0]->getPositionY()-DrawData.SpriteOffsetY);
 }
 
@@ -131,4 +138,81 @@ void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
 bool Building::CheckBusy()
 {
 	return BusyBuilding;
+}
+
+bool Building::CheckResources()
+{
+	//Building Costs Switch//
+	switch (Type) {
+		case 1:
+			if (Resources->Ducats < 250 || Resources->Bricks < 100) return false;
+			break;
+		case 2:
+			if (Resources->Ducats < 100 || Resources->Bricks < 50) return false;
+			break;
+		case 3:
+			if (Resources->Ducats < 150) return false;
+			break;
+		default:
+			return false;
+	}
+	return true;
+}
+
+void Building::UpdateBuildingGameData()
+{
+	int mod = 10;
+	bool water = false;
+	int TileCount = DrawData.BuildingSizeX*DrawData.BuildingSizeY;
+	double HappinessSum = 0;
+	double PublicOrderSum = 0;
+	double HealthSum = 0;
+
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
+	{
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
+		{
+			if (TileBase[x][y]->getWaterAccess() == true) water = true;
+			HappinessSum += TileBase[x][y]->getHappiness();
+			PublicOrderSum += TileBase[x][y]->getPublicOrder();
+			HealthSum += TileBase[x][y]->getHealth();
+
+		}
+	}
+	GameData.WaterAccess = water;
+	HappinessSum /= TileCount;
+	PublicOrderSum /= TileCount;
+	HealthSum /= TileCount;
+	double tPublicOrderSum = PublicOrderSum;
+	PublicOrderSum -= mod - (mod * (HappinessSum / 100));
+	HappinessSum -= mod - (mod * (tPublicOrderSum / 100));
+	HappinessSum -= 0.5*mod - (0.5 * mod * (HealthSum / 100));
+	if (Resources->Population > 0.75*Resources->PopulationCap && Resources->PopulationCap!=0)
+	{
+		HappinessSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
+		PublicOrderSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
+		HealthSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
+	}
+	if (water == false)
+	{
+		HealthSum -= mod;
+		HappinessSum -= mod;
+	}
+	GameData.Happiness = (unsigned int)fmin(100, fmax(0, HappinessSum));
+	GameData.PublicOrder = (unsigned int)fmin(100, fmax(0, PublicOrderSum));
+	GameData.Health = (unsigned int)fmin(100, fmax(0, HealthSum));
+
+	for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
+	{
+		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
+		{
+			TileBase[x][y]->setHappiness(GameData.Happiness);
+			TileBase[x][y]->setHealth(GameData.Health);
+			TileBase[x][y]->setPublicOrder(GameData.PublicOrder);
+		}
+	}
+	double a = 0.4 * (1-((double)GameData.Happiness / 100));
+	double b = 0.4 * (1 - ((double)GameData.PublicOrder / 100));
+	double c = 0.2 * (1 - ((double)GameData.Health / 100));
+	GameData.ResourceMod = 1 * (1-a) * (1-b) * (1-c);
 }

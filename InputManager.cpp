@@ -6,6 +6,7 @@ InputManager::InputManager(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT)
 	:IM1(nullptr)
 	,BManager(nullptr)
 	,Map(nullptr)
+	,RManager(nullptr)
 	, mousePos{}
 	,mousePosf{}
 	, SCR_WIDTH(SCR_WIDTH)
@@ -13,10 +14,11 @@ InputManager::InputManager(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT)
 {
 }
 
-InputManager::InputManager(TileMap * m, BuildingManager * b, InterfaceManager * i, unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT)
+InputManager::InputManager(TileMap * m, BuildingManager * b, InterfaceManager * i, ResourceManager * r,unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT)
 	:IM1(i)
 	,BManager(b)
 	,Map(m)
+	,RManager(r)
 	, mousePos{}
 	, mousePosf{}
 	, SCR_WIDTH(SCR_WIDTH)
@@ -28,6 +30,7 @@ InputManager::InputManager(const InputManager & org)
 	:IM1(org.IM1)
 	, BManager(org.BManager)
 	, Map(org.Map)
+	, RManager(org.RManager)
 	, mousePos(org.mousePos)
 	, mousePosf(org.mousePos)
 	, SCR_WIDTH(org.SCR_WIDTH)
@@ -56,7 +59,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 
 				if (Building::CheckBusy() == true)
 				{
-					BManager->BuildingsList.back()->Build();
+					BManager->BuildingsList.back()->Build(RManager->GetResources());
 					if (Building::CheckBusy() == false)
 						std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
 				}
@@ -149,6 +152,7 @@ InputManager & InputManager::operator=(const InputManager & input)
 	IM1 = input.IM1;
 	BManager = input.BManager;
 	Map = input.Map;
+	RManager = input.RManager;
 	mousePos = input.mousePos;
 	mousePosf = input.mousePosf;
 	SCR_WIDTH = input.SCR_WIDTH;

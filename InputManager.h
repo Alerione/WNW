@@ -11,7 +11,7 @@ protected:
 public:
 	//Constructors and Destructors//
 	InputManager(unsigned int SCR_WIDTH = 1280, unsigned int SCR_HEIGHT = 720);
-	InputManager(TileMap*, BuildingManager*, InterfaceManager*, unsigned int SCR_WIDTH = 1280, unsigned int SCR_HEIGHT = 720);
+	InputManager(TileMap*, BuildingManager*, InterfaceManager*, ResourceManager*,unsigned int SCR_WIDTH = 1280, unsigned int SCR_HEIGHT = 720);
 	InputManager(const InputManager& org);
 	~InputManager();
 
@@ -26,6 +26,7 @@ protected:
 	InterfaceManager* IM1;
 	BuildingManager* BManager;
 	TileMap *Map;
+	ResourceManager* RManager;
 	sf::Vector2i mousePos;
 	sf::Vector2f mousePosf;
 	unsigned int SCR_WIDTH;
