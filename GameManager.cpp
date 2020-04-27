@@ -98,7 +98,7 @@ void GameManager::RenderPass()
 	window->setView(interfaceView);
 	IM1.drawInterface(*window);
 	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
-	//Update resource interface//
+	IM1.updateResources();
 	window->setView(view);
 }
 
