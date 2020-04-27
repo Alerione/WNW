@@ -115,6 +115,7 @@ InterfaceManager::InterfaceManager()
 }
 
 InterfaceManager::InterfaceManager(float scrw, float scrh)
+	:Resources(nullptr)
 {
     InterfaceManager::SCR_WIDTH = scrw;
     InterfaceManager::SCR_HEIGHT = scrh;
@@ -169,6 +170,97 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 
     interfaceVec.push_back(Ie3);
 
+    //------------ wood -----------
+    if (!font.loadFromFile("slkscr.ttf")) {}
+
+    InterfaceElement woodIcon(0, 0, 24, 24, sf::Color::White, 0);
+    woodIcon.setTexture(&interfaceTextureManager.getIeWoodTexture());
+    interfaceIcons.push_back(woodIcon);
+
+    sf::Text woodValue;
+    woodValue.setFont(font);
+	woodValue.setString(std::to_string(Resources->Lumber));
+    woodValue.setCharacterSize(14);
+    woodValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(woodValue);
+
+    //---------------------------
+
+    InterfaceElement clayIcon(0, 0, 24, 24, sf::Color::White, 0);
+    clayIcon.setTexture(&interfaceTextureManager.getIeClayTexture());
+    interfaceIcons.push_back(clayIcon);
+
+    sf::Text clayValue;
+    clayValue.setFont(font);
+    clayValue.setString(std::to_string(Resources->Clay));
+    clayValue.setCharacterSize(14);
+    clayValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(clayValue);
+
+    //---------------------------
+
+    InterfaceElement marbleIcon(0, 0, 24, 24, sf::Color::White, 0);
+    marbleIcon.setTexture(&interfaceTextureManager.getIeMarbleTexture());
+    interfaceIcons.push_back(marbleIcon);
+
+    sf::Text marbleValue;
+    marbleValue.setFont(font);
+    marbleValue.setString(std::to_string(Resources->Marble));
+    marbleValue.setCharacterSize(14);
+    marbleValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(marbleValue);
+
+    //---------------------------
+
+    InterfaceElement planksIcon(0, 0, 24, 24, sf::Color::White, 0);
+    planksIcon.setTexture(&interfaceTextureManager.getIePlanksTexture());
+    interfaceIcons.push_back(planksIcon);
+
+    sf::Text planksValue;
+    planksValue.setFont(font);
+    planksValue.setString(std::to_string(Resources->Planks));
+    planksValue.setCharacterSize(14);
+    planksValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(planksValue);
+
+    //---------------------------
+
+    InterfaceElement bricksIcon(0, 0, 24, 24, sf::Color::White, 0);
+    bricksIcon.setTexture(&interfaceTextureManager.getIeBricksTexture());
+    interfaceIcons.push_back(bricksIcon);
+
+    sf::Text bricksValue;
+    bricksValue.setFont(font);
+    bricksValue.setString(std::to_string(Resources->Bricks));
+    bricksValue.setCharacterSize(14);
+    bricksValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(bricksValue);
+
+    //---------------------------
+
+    InterfaceElement polishedMarbleIcon(0, 0, 24, 24, sf::Color::White, 0);
+    polishedMarbleIcon.setTexture(&interfaceTextureManager.getIePolishedMarbleTexture());
+    interfaceIcons.push_back(polishedMarbleIcon);
+
+    sf::Text polishedMarbleValue;
+    polishedMarbleValue.setFont(font);
+    polishedMarbleValue.setString(std::to_string(Resources->MarbleBlocks));
+    polishedMarbleValue.setCharacterSize(14);
+    polishedMarbleValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(polishedMarbleValue);
+
+    //---------------------------
+
+    InterfaceElement moneyIcon(10, 10, 24, 24, sf::Color::White, 0);
+    moneyIcon.setTexture(&interfaceTextureManager.getIeGoldTexture());
+    interfaceIcons.push_back(moneyIcon);
+	
+    sf::Text moneyValue;
+    moneyValue.setFont(font);
+    moneyValue.setString(std::to_string(Resources->Ducats));
+    moneyValue.setCharacterSize(14);
+    moneyValue.setFillColor(sf::Color::White);
+    interfaceTexts.push_back(moneyValue);
 }
 
 void InterfaceManager::drawInterface(sf::RenderWindow& window)
@@ -189,6 +281,22 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
         for (size_t i = 0; i < interfacePop2Vec.size(); i++)
         {
             interfacePop2Vec[i].draw(window);
+        }
+    }
+    if (!interfaceIcons.empty())
+    {
+        for (size_t i = 0; i < interfaceIcons.size(); i++)
+        {
+            interfaceIcons[i]._shape.setPosition((float)i * 70 + 10, 4);
+            interfaceIcons[i].draw(window);
+        }
+    }
+    if (!interfaceTexts.empty())
+    {
+        for (size_t i = 0; i < interfaceTexts.size(); i++)
+        {
+            interfaceTexts[i].setPosition((float)i * 70+50, 10);
+            window.draw(interfaceTexts[i]);
         }
     }
 }
@@ -238,6 +346,16 @@ void InterfaceManager::clickedUpdateInterface(sf::Vector2f mouse, InterfaceManag
             interfacePop2Vec[i].clickedUpdate(mouse, im);
         }
     }
+}
+
+void InterfaceManager::getResources(ResourceList * list)
+{
+	Resources = list;
+}
+
+void InterfaceManager::setResourceInterfaceValue(int index, std::string& value)
+{
+    interfaceTexts.at(index).setString(value);
 }
 
 InterfaceManager::~InterfaceManager()

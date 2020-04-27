@@ -84,6 +84,41 @@ sf::Texture& TextureManager::getMenuCat1Texture()
     return MenuCat1Texture;
 }
 
+sf::Texture& TextureManager::getIeGoldTexture()
+{
+    return ieGold;
+}
+
+sf::Texture& TextureManager::getIeMarbleTexture()
+{
+    return ieMarble;
+}
+
+sf::Texture& TextureManager::getIePolishedMarbleTexture()
+{
+    return iePolishedMarble;
+}
+
+sf::Texture& TextureManager::getIeBricksTexture()
+{
+    return ieBricks;
+}
+
+sf::Texture& TextureManager::getIePlanksTexture()
+{
+    return iePlanks;
+}
+
+sf::Texture& TextureManager::getIeWoodTexture()
+{
+    return ieWood;
+}
+
+sf::Texture& TextureManager::getIeClayTexture()
+{
+    return ieClay;
+}
+
 
 
 TextureManager & TextureManager::operator=(const TextureManager & input)
@@ -112,5 +147,14 @@ void TextureManager::loadTextures()
     if (InterfaceDelButton.loadFromFile("del.png")) std::cout << "InterfaceDelButton texture loaded!" << std::endl;
 
     if (MenuCat1Texture.loadFromFile("cat1.png")) std::cout << "Menu Cat1 Texture loaded!" << std::endl;
+
+    if (ieGold.loadFromFile("gold.png")) std::cout << "Gold Texture loaded!" << std::endl;
+    if (ieBricks.loadFromFile("brick.png")) std::cout << "Bricks Texture loaded!" << std::endl;
+    if (ieMarble.loadFromFile("marble2.png")) std::cout << "Marble2 Texture loaded!" << std::endl;
+    if (iePolishedMarble.loadFromFile("marble1.png")) std::cout << "Marble1 Texture loaded!" << std::endl;
+    if (ieWood.loadFromFile("wood.png")) std::cout << "Wood Texture loaded!" << std::endl;
+    if (iePlanks.loadFromFile("planks.png")) std::cout << "Planks Texture loaded!" << std::endl;
+    if (ieClay.loadFromFile("clay.png")) std::cout << "Clay Texture loaded!" << std::endl;
+
 	std::cout << "Textures loaded!" << std::endl;
 }

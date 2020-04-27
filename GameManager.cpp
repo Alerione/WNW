@@ -15,6 +15,7 @@ GameManager::GameManager()
 	, interfaceView{}
 	, InputManager(&Map, &BManager, &IM1, &RManager)
 {
+	IM1.getResources(RManager.GetResources());
 }
 
 
@@ -31,6 +32,7 @@ GameManager::GameManager(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, unsign
 	, interfaceView{}
 	, InputManager(&Map, &BManager, &IM1, &RManager, SCR_WIDTH, SCR_HEIGHT)
 {
+	IM1.getResources(RManager.GetResources());
 }
 
 GameManager::GameManager(const GameManager & input)
@@ -84,10 +86,6 @@ void GameManager::RenderPass()
 	{
 		BManager.BuildingsList[build]->draw(*window);
 	}
-	window->setView(interfaceView);
-	IM1.drawInterface(*window);
-	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
-	window->setView(view);
 	if (time(NULL) % 5 == 0 && timer == false) 
 	{
 		timer = true;
@@ -97,6 +95,11 @@ void GameManager::RenderPass()
 	{
 		timer = false;
 	}
+	window->setView(interfaceView);
+	IM1.drawInterface(*window);
+	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
+	//Update resource interface//
+	window->setView(view);
 }
 
 GameManager & GameManager::operator=(const GameManager & input)

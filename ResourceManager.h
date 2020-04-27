@@ -15,6 +15,7 @@ public:
 	//Methods//
 	void ResourceUpdateTick();
 	ResourceList* GetResources();
+	void RollOverPrev();
 	//Overloads//
 	ResourceManager& operator=(const ResourceManager& input);
 

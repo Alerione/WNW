@@ -21,12 +21,15 @@ public:
     void drawInterface(sf::RenderWindow&);
     void updateInterace(sf::Vector2f, std::vector <Building*>&, TileMap&, int&);
     void clickedUpdateInterface(sf::Vector2f, InterfaceManager&);
+	void getResources(ResourceList* list);
 
     static void button1action(InterfaceManager&);
     static void button1action_button1(InterfaceManager&);
     static void cat1Building1(InterfaceManager&);
     static void cat1Building2(InterfaceManager&);
     static void cat1Building3(InterfaceManager&);
+
+    void setResourceInterfaceValue(int, std::string&);
 
 	friend class InterfaceElement;
 
@@ -39,6 +42,7 @@ protected:
     TileMap *tileMap;
     std::vector <Building*> *buildings;
 	int *bcounter;
+	ResourceList *Resources;
 
     static float SCR_HEIGHT;
     static float SCR_WIDTH;
@@ -46,6 +50,9 @@ protected:
     std::vector<InterfaceElement> interfaceVec;
     std::vector<InterfaceElement> interfacePopVec;
     std::vector<InterfaceElement> interfacePop2Vec;
+    std::vector<InterfaceElement> interfaceIcons;
+    sf::Font font;
+    std::vector<sf::Text> interfaceTexts;
     
     bool button1actionStatus;
     bool button1action_button1Status;

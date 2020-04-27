@@ -20,6 +20,14 @@ protected:
     sf::Texture InterfaceCamButton;
     sf::Texture InterfaceMenuButton;
     sf::Texture MenuCat1Texture;
+
+    sf::Texture ieGold;
+    sf::Texture ieMarble;
+    sf::Texture iePolishedMarble;
+    sf::Texture iePlanks;
+    sf::Texture ieWood;
+    sf::Texture ieBricks;
+    sf::Texture ieClay;
 public:
 	//Constructors and Destructors//
 	TextureManager();
@@ -40,6 +48,13 @@ public:
     sf::Texture& getInterfaceStatsButton();
     sf::Texture& getInterfaceCamButton();
     sf::Texture& getInterfaceMenuButton();
+    sf::Texture& getIeGoldTexture();
+    sf::Texture& getIeWoodTexture();
+    sf::Texture& getIePlanksTexture();
+    sf::Texture& getIeBricksTexture();
+    sf::Texture& getIeMarbleTexture();
+    sf::Texture& getIePolishedMarbleTexture();
+    sf::Texture& getIeClayTexture();
 
 	//Overloads//
 	TextureManager& operator=(const TextureManager& input);

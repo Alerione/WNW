@@ -31,6 +31,7 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::ResourceUpdateTick()
 {
+	RollOverPrev();
 	for (int n = 0; n < BManager->BuildingNum; n++)
 	{
 		BManager->BuildingsList[n]->ResourceUpdateTick();
@@ -42,6 +43,21 @@ void ResourceManager::ResourceUpdateTick()
 ResourceList * ResourceManager::GetResources()
 {
 	return &Resources;
+}
+
+void ResourceManager::RollOverPrev()
+{
+	Resources.Prev_Beer = Resources.Beer;
+	Resources.Prev_Bricks = Resources.Bricks;
+	Resources.Prev_Clay = Resources.Clay;
+	Resources.Prev_Ducats = Resources.Ducats;
+	Resources.Prev_Food = Resources.Food;
+	Resources.Prev_Horses = Resources.Horses;
+	Resources.Prev_Lumber = Resources.Lumber;
+	Resources.Prev_Marble = Resources.Marble;
+	Resources.Prev_MarbleBlocks = Resources.MarbleBlocks;
+	Resources.Prev_Planks = Resources.Planks;
+	Resources.Prev_Population = Resources.Population;
 }
 
 ResourceManager & ResourceManager::operator=(const ResourceManager & input)

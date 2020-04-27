@@ -18,4 +18,16 @@ struct ResourceList
 	unsigned int HorseCap;
 	//Others//
 	unsigned int Population;
+	//Previous Values//
+	unsigned int Prev_Ducats;
+	unsigned int Prev_Lumber;
+	unsigned int Prev_Clay;
+	unsigned int Prev_Marble;
+	unsigned int Prev_Horses;
+	unsigned int Prev_Food;
+	unsigned int Prev_Planks;
+	unsigned int Prev_Bricks;
+	unsigned int Prev_MarbleBlocks;
+	unsigned int Prev_Beer;
+	unsigned int Prev_Population;
 };
