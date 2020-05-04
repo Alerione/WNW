@@ -2,7 +2,7 @@
 
 int main()
 {
-	GameManager Engine(1280, 720, 10, 20); 
+	GameManager Engine(1920, 1080, 10, 20);
 	sf::RenderWindow window(sf::VideoMode(Engine.SCR_WIDTH, Engine.SCR_HEIGHT), "Wicked New World");
 	window.setFramerateLimit(60);
 	Engine.grabWindow(window);

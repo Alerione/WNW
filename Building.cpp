@@ -28,6 +28,7 @@ Building::Building(const Building & input)
 
 Building::~Building()
 {
+	if (DrawData.Built == 0) BusyBuilding = 0;
 }
 
 Building & Building::operator=(const Building & input)
@@ -158,6 +159,12 @@ bool Building::CheckResources()
 		case 3:
 			if (Resources->Ducats < 150) return false;
 			break;
+		case 4:
+			if (Resources->Ducats < 100 || Resources->Lumber < 100) return false;
+			break;
+		case 5:
+			if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
+			break;
 		default:
 			return false;
 	}
@@ -216,7 +223,7 @@ void Building::UpdateBuildingGameData()
 			TileBase[x][y]->setPublicOrder(GameData.PublicOrder);
 		}
 	}
-	double a = 0.4 * (1-((double)GameData.Happiness / 100));
+	double a = 0.4 * (1 - ((double)GameData.Happiness / 100));
 	double b = 0.4 * (1 - ((double)GameData.PublicOrder / 100));
 	double c = 0.2 * (1 - ((double)GameData.Health / 100));
 	GameData.ResourceMod = 1 * (1-a) * (1-b) * (1-c);

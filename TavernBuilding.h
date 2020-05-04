@@ -24,6 +24,9 @@ public:
 	//Methods//
 	void SetupBuildingDatabyType();
 	void DrawBuildingSpecific(sf::RenderWindow& target);
+
+	//Building Specific Methods//
+	void UpdateArea(bool);
 };
 
 #endif

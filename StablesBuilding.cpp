@@ -58,8 +58,10 @@ StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 
 void StablesBuilding::ResourceUpdateTick()
 {
-	UpdateBuildingGameData();
-	Resources->Ducats += (unsigned int)(5 * GameData.ResourceMod);
+	if (DrawData.Built == 1) {
+		UpdateBuildingGameData();
+		Resources->Ducats += (unsigned int)(5 * GameData.ResourceMod);
+	}
 }
 
 void StablesBuilding::BuildCost()

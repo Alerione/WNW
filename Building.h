@@ -12,7 +12,9 @@ enum BuildingType {
 	Unspecified = 0,
 	Tavern = 1,
 	Well = 2,
-	Stables = 3
+	Stables = 3,
+	Sawmill = 4,
+	Quarry = 5
 };
 struct BuildingDataDraw
 {
