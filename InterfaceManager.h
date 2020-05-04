@@ -39,7 +39,6 @@ public:
 protected:
 	InterfaceManager();
 	std::vector<sf::Text> interfacePrev;
-    TextureManager interfaceTextureManager;
     TileMap *tileMap;
     std::vector <Building*> *buildings;
 	int *bcounter;

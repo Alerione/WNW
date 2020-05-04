@@ -15,10 +15,12 @@ ResourceManager::ResourceManager(BuildingManager * BManager)
 	Resources.Ducats = 1000;
 	Resources.Bricks = 400;
 	Resources.Planks = 400;
+	Resources.Lumber = 400;
 	Resources.Food = 1000;
 	Resources.Prev_Ducats = 1000;
 	Resources.Prev_Bricks = 400;
 	Resources.Prev_Planks = 400;
+	Resources.Prev_Lumber = 400;
 	Resources.Prev_Food = 1000;
 }
 

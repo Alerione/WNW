@@ -12,6 +12,8 @@ protected:
 	sf::Texture TavernTexture;
 	sf::Texture CollisionTexture;
 	sf::Texture WellTexture;
+	sf::Texture QuarryTexture;
+	sf::Texture SawmillTexture;
 	sf::Texture BlueOverlayTexture;
 	sf::Texture StablesTexture;
     sf::Texture InterfaceBuildButton;
@@ -40,6 +42,8 @@ public:
 	sf::Texture& getTavernTexture();
 	sf::Texture& getCollisionTexture();
 	sf::Texture& getWellTexture();
+	sf::Texture& getQuarryTexture();
+	sf::Texture& getSawmillTexture();
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
     sf::Texture& getInterfaceBuildButton();

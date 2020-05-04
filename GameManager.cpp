@@ -57,8 +57,9 @@ GameManager::~GameManager()
 void GameManager::Initialise()
 {
 	backgroundSprite = sf::Sprite(Map.getTexMngr().getBackgroundTexture());
-	backgroundSprite.setTextureRect(sf::IntRect(0, 0, SCR_WIDTH, SCR_HEIGHT));
+	backgroundSprite.setScale((double)SCR_WIDTH / Map.getTexMngr().getBackgroundTexture().getSize().x, (double)SCR_HEIGHT / Map.getTexMngr().getBackgroundTexture().getSize().y);
 	double interfaceHeight = (double)SCR_HEIGHT * 0.05;
+	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
 	IM1.buildInterface(interfaceHeight);
 	view = sf::View(sf::Vector2f((float)SCR_WIDTH / 2, (float)SCR_HEIGHT / 2 - 2 * (float)interfaceHeight), sf::Vector2f((float)SCR_WIDTH, (float)SCR_HEIGHT - 2 * (float)interfaceHeight));
 	view.setCenter(float(Map.getColumns() * 32), float(Map.getRows() * 8));

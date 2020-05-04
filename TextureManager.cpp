@@ -44,6 +44,16 @@ sf::Texture & TextureManager::getWellTexture()
 	return WellTexture;
 }
 
+sf::Texture & TextureManager::getQuarryTexture()
+{
+	return QuarryTexture;
+}
+
+sf::Texture & TextureManager::getSawmillTexture()
+{
+	return SawmillTexture;
+}
+
 sf::Texture & TextureManager::getBlueOverlayTexture()
 {
 	return BlueOverlayTexture;
@@ -129,13 +139,15 @@ TextureManager & TextureManager::operator=(const TextureManager & input)
 void TextureManager::loadTextures()
 {
 	//Background//
-	if (BackgroundTexture.loadFromFile("water.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
+	if (BackgroundTexture.loadFromFile("bgmap.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
 	//Tile//
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
 	//Buildings//
 	if(TavernTexture.loadFromFile("tavern.png")) std::cout << "Tavern texture loaded!" <<std::endl;
 	if (StablesTexture.loadFromFile("stables.png")) std::cout << "Stables texture loaded!" << std::endl;
 	if (WellTexture.loadFromFile("well.png")) std::cout << "Well texture loaded!" << std::endl;
+	if (QuarryTexture.loadFromFile("quarry.png")) std::cout << "Quarry texture loaded!" << std::endl;
+	if (SawmillTexture.loadFromFile("sawmill.png")) std::cout << "Sawmill texture loaded!" << std::endl;
 	//Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
@@ -155,6 +167,5 @@ void TextureManager::loadTextures()
     if (ieWood.loadFromFile("wood.png")) std::cout << "Wood Texture loaded!" << std::endl;
     if (iePlanks.loadFromFile("planks.png")) std::cout << "Planks Texture loaded!" << std::endl;
     if (ieClay.loadFromFile("clay.png")) std::cout << "Clay Texture loaded!" << std::endl;
-
 	std::cout << "Textures loaded!" << std::endl;
 }
