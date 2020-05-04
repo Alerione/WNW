@@ -59,7 +59,8 @@ WellBuilding& WellBuilding::operator=(const WellBuilding & input)
 void WellBuilding::ResourceUpdateTick()
 {
 	UpdateBuildingGameData();
-	if (Resources->Ducats >= 1) {
+	if (Resources->Ducats >= 1) 
+	{
 		Resources->Ducats -= 1;
 		UpdateArea(true);
 	}
@@ -72,10 +73,12 @@ void WellBuilding::ResourceUpdateTick()
 
 void WellBuilding::BuildCost()
 {
-	Resources->Ducats -= 100;
-	Resources->Prev_Ducats -= 100;
-	Resources->Bricks -= 50;
-	Resources->Prev_Bricks -= 50;
+	if (DrawData.Built == 1) {
+		Resources->Ducats -= 100;
+		Resources->Prev_Ducats -= 100;
+		Resources->Bricks -= 50;
+		Resources->Prev_Bricks -= 50;
+	}
 }
 
 void WellBuilding::RemovalPass()
@@ -140,6 +143,7 @@ void WellBuilding::UpdateArea(bool a)
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
 				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->setWaterAccess(a);
+
 			}
 			else
 			{

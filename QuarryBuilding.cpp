@@ -1,11 +1,11 @@
-#include "StablesBuilding.h"
+#include "QuarryBuilding.h"
 
-StablesBuilding::StablesBuilding()
+QuarryBuilding::QuarryBuilding()
 	: Building()
 {
 }
 
-StablesBuilding::StablesBuilding(const StablesBuilding & input)
+QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ StablesBuilding::StablesBuilding(const StablesBuilding & input)
 	Map = input.Map;
 }
 
-StablesBuilding::StablesBuilding(TileMap * input)
+QuarryBuilding::QuarryBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ StablesBuilding::StablesBuilding(TileMap * input)
 }
 
 
-StablesBuilding::~StablesBuilding()
+QuarryBuilding::~QuarryBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
+QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,38 +56,40 @@ StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 	return *this;
 }
 
-void StablesBuilding::ResourceUpdateTick()
+void QuarryBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Ducats += (unsigned int)(5 * GameData.ResourceMod);
+		Resources->Marble += 20 * GameData.ResourceMod;
 	}
 }
 
-void StablesBuilding::BuildCost()
+void QuarryBuilding::BuildCost()
 {
-	Resources->HorseCap += 10;
-	Resources->Ducats -= 150;
-	Resources->Prev_Ducats -= 150;
+	Resources->Ducats -= 50;
+	Resources->Prev_Ducats -= 50;
+	Resources->Planks -= 50;
+	Resources->Prev_Planks -= 50;
 }
 
-void StablesBuilding::RemovalPass()
+void QuarryBuilding::RemovalPass()
 {
-	Resources->HorseCap -= 10;
-	Resources->Ducats += 75;
-	Resources->Prev_Ducats += 75;
+	Resources->Ducats += 25;
+	Resources->Prev_Ducats += 25;
+	Resources->Planks += 25;
+	Resources->Prev_Planks += 25;
 }
 
-void StablesBuilding::SetupBuildingDatabyType()
+void QuarryBuilding::SetupBuildingDatabyType()
 {
-	Type = Stables;
-	DrawData.BuildingSizeX = 3;
-	DrawData.BuildingSizeY = 3;
-	DrawData.SpriteOffsetX = 20;
-	DrawData.SpriteOffsetY = 105;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getStablesTexture());
+	Type = Quarry;
+	DrawData.BuildingSizeX = 4;
+	DrawData.BuildingSizeY = 4;
+	DrawData.SpriteOffsetX = -3;
+	DrawData.SpriteOffsetY = 80;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getQuarryTexture());
 }
 
-void StablesBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }

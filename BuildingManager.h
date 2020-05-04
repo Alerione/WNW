@@ -4,6 +4,8 @@
 #include "TavernBuilding.h"
 #include "WellBuilding.h"
 #include "StablesBuilding.h"
+#include "SawmillBuilding.h"
+#include "QuarryBuilding.h"
 
 class BuildingManager
 {

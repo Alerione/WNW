@@ -148,7 +148,6 @@ int TileMap::OptimisedChecker(int mouseposx, int mouseposy)
 
 void TileMap::draw(sf::RenderTarget & target)
 {
-	Tile a;
 	for (int y = 0; y < TileMapSize.rows; y++)
 	{
 		for (int x = 0; x < TileMapSize.columns; x++)

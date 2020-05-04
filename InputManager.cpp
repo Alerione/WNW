@@ -65,6 +65,18 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 				}
 				IM1->clickedUpdateInterface(mousePosf, *IM1);
 			}
+			if (event.key.code == sf::Mouse::Right)
+			{
+
+				if (Building::CheckBusy() == true)
+				{
+					delete BManager->BuildingsList.back();
+					
+					BManager->BuildingNum--;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+				}
+				//IM1->clickedUpdateInterface(mousePosf, *IM1);
+			}
 
 		}
 		if (event.type == sf::Event::KeyPressed)
@@ -83,13 +95,22 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 				view.setCenter(float(Map->getColumns() * 32), float(Map->getRows() * 8));
 				window.setView(view);
 			}
+			if (event.key.code == sf::Keyboard::Q)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new QuarryBuilding(Map);
+				}
+			}
 			if (event.key.code == sf::Keyboard::S)
 			{
 				if (Building::CheckBusy() == false)
 				{
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
-					BManager->BuildingsList.back() = new StablesBuilding(Map);
+					BManager->BuildingsList.back() = new SawmillBuilding(Map);
 				}
 			}
 			if (event.key.code == sf::Keyboard::T)

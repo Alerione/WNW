@@ -55,7 +55,7 @@ Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ, TextureMan
 {
 	updateSpritePos();
 }
-
+ 
 
 Tile::~Tile()
 {
@@ -75,37 +75,37 @@ bool Tile::setRoadAccess(bool input)
 
 int Tile::setPublicOrder(int input)
 {
-	Data.PublicOrder = input;
+	Data.PublicOrder = fmax(fmin(input, 100), 0);
 	return Data.PublicOrder;
 }
 
 int Tile::setHappiness(int input)
 {
-	Data.Happiness = input;
+	Data.Happiness = fmax(fmin(input, 100), 0);
 	return Data.Happiness;
 }
 
 int Tile::addHappiness(int input)
 {
-	Data.Happiness += input;
+	Data.Happiness = fmax(fmin(Data.Happiness + input, 100), 0);
 	return Data.Happiness;
 }
 
 int Tile::setHealth(int input)
 {
-	Data.Health = input;
+	Data.Health = fmax(fmin(input, 100), 0);
 	return Data.Health;
 }
 
 int Tile::addHealth(int input)
 {
-	Data.Health += input;
+	Data.Health = fmax(fmin(Data.Health + input, 100), 0);
 	return Data.Health;
 }
 
 int Tile::addPublicOrder(int input)
 {
-	Data.PublicOrder += input;
+	Data.PublicOrder = fmax(fmin(Data.PublicOrder + input, 100), 0);
 	return Data.PublicOrder;
 }
 
@@ -221,7 +221,7 @@ Tile & Tile::operator=(const Tile & input)
 
 void Tile::updateSpritePos()
 {
-	Sprite.setPosition((float)TilePos.x, float(TilePos.y + TilePos.z));
+	Sprite.setPosition((float)TilePos.x, float(TilePos.y + TilePos.z - 12));
 }
 
 void Tile::draw(sf::RenderTarget & target)

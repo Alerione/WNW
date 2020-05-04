@@ -24,7 +24,7 @@ void InterfaceManager::button1action(InterfaceManager& im_)
 	{
 		InterfaceElement Ie2Button1Pop1(0, 0 + interfaceHeight, (float)SCR_WIDTH / 16, SCR_HEIGHT - 2 * interfaceHeight, color, false);
 		InterfaceElement Ie2Button1Pop1Button1(0 + SCR_HEIGHT / 12 / 7, 0 + interfaceHeight + 16, (float)SCR_WIDTH / 16 - 20, SCR_HEIGHT / 12, sf::Color::White, true);
-		Ie2Button1Pop1Button1.setTexture(&im_.interfaceTextureManager.getMenuCat1Texture());
+		Ie2Button1Pop1Button1.setTexture(&im_.tileMap->getTexMngr().getMenuCat1Texture());
 		Ie2Button1Pop1Button1.setAction(&InterfaceManager::button1action_button1);
 		im_.interfacePopVec.push_back(Ie2Button1Pop1);
 		im_.interfacePopVec.push_back(Ie2Button1Pop1Button1);
@@ -54,17 +54,17 @@ void InterfaceManager::button1action_button1(InterfaceManager& im_)
 		im_.button1action_button1Status = true;
 		//buttons
 		InterfaceElement Ie2Button1Pop1Button1PanelButton1(SCR_WIDTH / 16 + SCR_WIDTH / 16 / 4, 0 + interfaceHeight + 20, (float)SCR_WIDTH / 21, (float)SCR_HEIGHT / 14, sf::Color::White, true);
-		Ie2Button1Pop1Button1PanelButton1.setTexture(&im_.interfaceTextureManager.getTavernTexture());
+		Ie2Button1Pop1Button1PanelButton1.setTexture(&im_.tileMap->getTexMngr().getTavernTexture());
 		Ie2Button1Pop1Button1PanelButton1.setAction(cat1Building1);
 		im_.interfacePop2Vec.push_back(Ie2Button1Pop1Button1PanelButton1);
 
 		InterfaceElement Ie2Button1Pop1Button1PanelButton2(SCR_WIDTH / 16 + SCR_WIDTH / 16 / 4 + (float)SCR_HEIGHT / 14 + 16, 0 + interfaceHeight + 20, (float)SCR_WIDTH / 21, (float)SCR_HEIGHT / 14, sf::Color::White, true);
-		Ie2Button1Pop1Button1PanelButton2.setTexture(&im_.interfaceTextureManager.getStablesTexture());
+		Ie2Button1Pop1Button1PanelButton2.setTexture(&im_.tileMap->getTexMngr().getStablesTexture());
 		Ie2Button1Pop1Button1PanelButton2.setAction(cat1Building2);
 		im_.interfacePop2Vec.push_back(Ie2Button1Pop1Button1PanelButton2);
 
 		InterfaceElement Ie2Button1Pop1Button1PanelButton3(SCR_WIDTH / 16 + SCR_WIDTH / 16 / 4 + 2 * (float)SCR_HEIGHT / 14 + 2 * 16, 0 + interfaceHeight + 20, (float)SCR_WIDTH / 21, (float)SCR_HEIGHT / 14, sf::Color::White, true);
-		Ie2Button1Pop1Button1PanelButton3.setTexture(&im_.interfaceTextureManager.getWellTexture());
+		Ie2Button1Pop1Button1PanelButton3.setTexture(&im_.tileMap->getTexMngr().getWellTexture());
 		Ie2Button1Pop1Button1PanelButton3.setAction(cat1Building3);
 		im_.interfacePop2Vec.push_back(Ie2Button1Pop1Button1PanelButton3);
 	}
@@ -133,7 +133,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	color.b = 40;
 	color.a = 200;
 
-	InterfaceElement Ie1(0, 0, (float)SCR_WIDTH, (float)interfaceHeight, color, false);
+	InterfaceElement Ie1(0, 0, (float)SCR_WIDTH, 60, color, false);
 	InterfaceElement Ie2(0, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.3, (float)interfaceHeight, color, false);
 	InterfaceElement Ie3((float)SCR_WIDTH - (float)SCR_WIDTH * (float)0.15, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.15, (float)interfaceHeight, color, false);
 
@@ -145,15 +145,15 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	buttonColor.a = 255;
 
 	InterfaceElement Ie2Button1(10, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-	Ie2Button1.setTexture(&interfaceTextureManager.getInterfaceBuildButton());
+	Ie2Button1.setTexture(&tileMap->getTexMngr().getInterfaceBuildButton());
 	InterfaceElement Ie2Button2(10 + (float)SCR_WIDTH*(float)0.05 + 10, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-	Ie2Button2.setTexture(&interfaceTextureManager.getInterfaceDelButton());
+	Ie2Button2.setTexture(&tileMap->getTexMngr().getInterfaceDelButton());
 	InterfaceElement Ie2Button3(10 + 2 * (float)SCR_WIDTH*(float)0.05 + 20, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-	Ie2Button3.setTexture(&interfaceTextureManager.getInterfaceCamButton());
+	Ie2Button3.setTexture(&tileMap->getTexMngr().getInterfaceCamButton());
 	InterfaceElement Ie2Button4(10 + 3 * (float)SCR_WIDTH*(float)0.05 + 30, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-	Ie2Button4.setTexture(&interfaceTextureManager.getInterfaceStatsButton());
+	Ie2Button4.setTexture(&tileMap->getTexMngr().getInterfaceStatsButton());
 	InterfaceElement Ie2Button5(10 + 4 * (float)SCR_WIDTH*(float)0.05 + 40, (float)SCR_HEIGHT - ((float)interfaceHeight + (float)interfaceHeight / (float)1.25) / 2, (float)SCR_WIDTH*(float)0.05, (float)interfaceHeight / (float)1.25, buttonColor, true);
-	Ie2Button5.setTexture(&interfaceTextureManager.getInterfaceMenuButton());
+	Ie2Button5.setTexture(&tileMap->getTexMngr().getInterfaceMenuButton());
 
 	//Actions
 	Ie2Button1.setAction(&InterfaceManager::button1action);
@@ -174,7 +174,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	if (!font.loadFromFile("slkscr.ttf")) {}
 
 	InterfaceElement woodIcon(0, 0, 24, 24, sf::Color::White, 0);
-	woodIcon.setTexture(&interfaceTextureManager.getIeWoodTexture());
+	woodIcon.setTexture(&tileMap->getTexMngr().getIeWoodTexture());
 	interfaceIcons.push_back(woodIcon);
 
 	sf::Text woodValue;
@@ -187,7 +187,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement clayIcon(0, 0, 24, 24, sf::Color::White, 0);
-	clayIcon.setTexture(&interfaceTextureManager.getIeClayTexture());
+	clayIcon.setTexture(&tileMap->getTexMngr().getIeClayTexture());
 	interfaceIcons.push_back(clayIcon);
 
 	sf::Text clayValue;
@@ -200,7 +200,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement marbleIcon(0, 0, 24, 24, sf::Color::White, 0);
-	marbleIcon.setTexture(&interfaceTextureManager.getIeMarbleTexture());
+	marbleIcon.setTexture(&tileMap->getTexMngr().getIeMarbleTexture());
 	interfaceIcons.push_back(marbleIcon);
 
 	sf::Text marbleValue;
@@ -213,7 +213,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement planksIcon(0, 0, 24, 24, sf::Color::White, 0);
-	planksIcon.setTexture(&interfaceTextureManager.getIePlanksTexture());
+	planksIcon.setTexture(&tileMap->getTexMngr().getIePlanksTexture());
 	interfaceIcons.push_back(planksIcon);
 
 	sf::Text planksValue;
@@ -226,7 +226,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement bricksIcon(0, 0, 24, 24, sf::Color::White, 0);
-	bricksIcon.setTexture(&interfaceTextureManager.getIeBricksTexture());
+	bricksIcon.setTexture(&tileMap->getTexMngr().getIeBricksTexture());
 	interfaceIcons.push_back(bricksIcon);
 
 	sf::Text bricksValue;
@@ -239,7 +239,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement polishedMarbleIcon(0, 0, 24, 24, sf::Color::White, 0);
-	polishedMarbleIcon.setTexture(&interfaceTextureManager.getIePolishedMarbleTexture());
+	polishedMarbleIcon.setTexture(&tileMap->getTexMngr().getIePolishedMarbleTexture());
 	interfaceIcons.push_back(polishedMarbleIcon);
 
 	sf::Text polishedMarbleValue;
@@ -252,7 +252,7 @@ void InterfaceManager::buildInterface(double interfaceHeight)
 	//---------------------------
 
 	InterfaceElement moneyIcon(10, 10, 24, 24, sf::Color::White, 0);
-	moneyIcon.setTexture(&interfaceTextureManager.getIeGoldTexture());
+	moneyIcon.setTexture(&tileMap->getTexMngr().getIeGoldTexture());
 	interfaceIcons.push_back(moneyIcon);
 
 	sf::Text moneyValue;
@@ -431,7 +431,7 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
 	{
 		for (size_t i = 0; i < interfaceIcons.size(); i++)
 		{
-			interfaceIcons[i]._shape.setPosition((float)i * 120 + 50, 4);
+			interfaceIcons[i]._shape.setPosition((float)((i - i % 2) / 2) * 160 + 25, 2 + 26*(i%2));
 			interfaceIcons[i].draw(window);
 		}
 	}
@@ -439,7 +439,8 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
 	{
 		for (size_t i = 0; i < interfaceTexts.size(); i++)
 		{
-			interfaceTexts[i].setPosition((float)i * 120 + 80, 10);
+			interfaceTexts[i].setOrigin(sf::Vector2f(interfaceTexts[i].getGlobalBounds().width, 0));
+			interfaceTexts[i].setPosition((float)((i-i%2)/2) * 160 + 65+ interfaceTexts[i].getGlobalBounds().width, 5 + 26 * (i%2));
 			window.draw(interfaceTexts[i]);
 		}
 	}
@@ -447,7 +448,7 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
 	{
 		for (size_t i = 0; i < interfacePrev.size(); i++)
 		{
-			interfacePrev[i].setPosition((float)i * 120 + 120, 10);
+			interfacePrev[i].setPosition((float)((i - i % 2) / 2) * 160 + 70 + interfaceTexts[i].getGlobalBounds().width, 5 + 26 * (i%2));
 			window.draw(interfacePrev[i]);
 		}
 	}
@@ -477,7 +478,7 @@ void InterfaceManager::updateInterace(sf::Vector2f mouse, std::vector <Building*
 		}
 	}
 }
-
+	
 void InterfaceManager::clickedUpdateInterface(sf::Vector2f mouse, InterfaceManager& im)
 {
 	for (size_t i = 0; i < interfaceVec.size(); i++)                                // caly czas widoczny

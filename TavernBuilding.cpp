@@ -58,8 +58,10 @@ TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 
 void TavernBuilding::ResourceUpdateTick()
 {
-	UpdateBuildingGameData();
-	Resources->Ducats += (unsigned int)(25*GameData.ResourceMod);
+	if (DrawData.Built == 1) {
+		UpdateBuildingGameData();
+		Resources->Ducats += (unsigned int)(25 * GameData.ResourceMod);
+	}
 }
 
 void TavernBuilding::BuildCost()
@@ -90,4 +92,29 @@ void TavernBuilding::SetupBuildingDatabyType()
 
 void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
+}
+
+void TavernBuilding::UpdateArea(bool)
+{
+	int Range = 4;
+	int x, y, xadjx, yadj, xadjy;
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 1; x++)
+	{
+		for (y = 0, yadj = 0; y < 2 * Range + 1; y++)
+		{
+			yadj = y - x - Range;
+			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			{
+				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addHappiness(8);
+				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addPublicOrder(-2);
+			}
+			else
+			{
+			}
+			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+		}
+		xadjy = 0;
+		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
+	}
+
 }
