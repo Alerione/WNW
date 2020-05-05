@@ -17,6 +17,7 @@ public:
 	TavernBuilding& operator=(const TavernBuilding &input);
 
 	//ResourceUpdateMethods//
+	bool CheckResources();
 	void ResourceUpdateTick();
 	void BuildCost();
 	void RemovalPass();

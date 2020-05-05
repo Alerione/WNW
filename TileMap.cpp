@@ -65,6 +65,11 @@ bool TileMap::checkCurrentTileAdj(int AdjustX, int AdjustY)
 	return true;
 }
 
+bool TileMap::CheckBounds()
+{
+	return CurTile.bounds;
+}
+
 Tile* TileMap::getCurrentTileAdj(int AdjustX, int AdjustY)
 {
 	if (CurTile.x + AdjustX < 0 || CurTile.x + AdjustX >= TileMapSize.columns) return nullptr;
@@ -117,8 +122,13 @@ void TileMap::update(sf::RenderWindow& window)
 	int a = OptimisedChecker((int)worldPos.x, (int)worldPos.y);
 	if (a > -1)
 	{
+		CurTile.bounds = true;
 		CurTile.y = a % 256;
 		CurTile.x = (a - (a % 256)) / 256;
+	}
+	else
+	{
+		CurTile.bounds = false;
 	}
 }
 

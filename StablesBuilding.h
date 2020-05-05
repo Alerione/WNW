@@ -18,6 +18,7 @@ public:
 	StablesBuilding& operator=(const StablesBuilding &input);
 
 	//ResourceUpdateMethods//
+	bool CheckResources();
 	void ResourceUpdateTick();
 	void BuildCost();
 	void RemovalPass();

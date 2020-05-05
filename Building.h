@@ -14,7 +14,8 @@ enum BuildingType {
 	Well = 2,
 	Stables = 3,
 	Sawmill = 4,
-	Quarry = 5
+	Quarry = 5,
+	Barracks = 6
 };
 struct BuildingDataDraw
 {
@@ -57,6 +58,7 @@ public:
 	virtual ~Building();
 
 	//Set and Get Methods//
+    BuildingDataGame& getDataGame();
 
 	//Overloads//
 	Building& operator=(const Building &input);
@@ -68,9 +70,9 @@ public:
 	void Build(ResourceList* Resources);
 	void draw(sf::RenderWindow& target);
 	void UpdatePositionbyMouse(sf::RenderWindow& target);
-	static bool CheckBusy();
-	bool CheckResources(); // Is  there enough resources (True/False)
+	static bool CheckBusy(); // Is  there enough resources (True/False)
 	void UpdateBuildingGameData();
+	virtual bool CheckResources() = 0;
 	virtual void SetupBuildingDatabyType() = 0;
 	virtual void DrawBuildingSpecific(sf::RenderWindow& target) = 0;
 	virtual void ResourceUpdateTick() = 0;

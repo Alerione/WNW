@@ -56,6 +56,12 @@ SawmillBuilding& SawmillBuilding::operator=(const SawmillBuilding & input)
 	return *this;
 }
 
+bool SawmillBuilding::CheckResources()
+{
+	if (Resources->Ducats < 100 || Resources->Lumber < 100) return false;
+	return true;
+}
+
 void SawmillBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {

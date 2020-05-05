@@ -21,7 +21,14 @@ protected:
     sf::Texture InterfaceStatsButton;
     sf::Texture InterfaceCamButton;
     sf::Texture InterfaceMenuButton;
+    sf::Texture BarracksTexture;
+    
     sf::Texture MenuCat1Texture;
+    sf::Texture MenuCat2Texture;
+
+    sf::Texture ieBg;
+    sf::Texture ieBg2;
+    sf::Texture ieBg3;
 
     sf::Texture ieGold;
     sf::Texture ieMarble;
@@ -46,8 +53,16 @@ public:
 	sf::Texture& getSawmillTexture();
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
+    sf::Texture& getBarracksTexture();
     sf::Texture& getInterfaceBuildButton();
+
     sf::Texture& getMenuCat1Texture();
+    sf::Texture& getMenuCat2Texture();
+
+    sf::Texture& getIeBgTexture();
+    sf::Texture& getIeBg2Texture();
+    sf::Texture& getIeBg3Texture();
+
     sf::Texture& getInterfaceDelButton();
     sf::Texture& getInterfaceStatsButton();
     sf::Texture& getInterfaceCamButton();
@@ -59,6 +74,7 @@ public:
     sf::Texture& getIeMarbleTexture();
     sf::Texture& getIePolishedMarbleTexture();
     sf::Texture& getIeClayTexture();
+   
 
 	//Overloads//
 	TextureManager& operator=(const TextureManager& input);

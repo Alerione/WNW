@@ -18,6 +18,7 @@ struct Position
 	int z;
 };
 class Building;
+
 class Tile
 {
 protected:
@@ -52,7 +53,7 @@ public:
 	int changeHeigth(int);
 	void setPosition(int, int, int = 0);
 	sf::Sprite& setSprite(sf::Texture &texture);
-	void SetBulding(Building* building);
+	void SetBuilding(Building* building);
 
 	bool getWaterAccess();
 	bool getRoadAccess();
@@ -66,6 +67,7 @@ public:
 	sf::Sprite& getSprite();
 	int getID() const;
 	bool CheckBuilding();
+    Building* getBuilding();
 
 	//Overloads//
 	Tile& operator=(const Tile &input);

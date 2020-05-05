@@ -57,12 +57,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			if (event.key.code == sf::Mouse::Left)
 			{
 
-				if (Building::CheckBusy() == true)
+				if (Building::CheckBusy() == true && Map->CheckBounds())
 				{
 					BManager->BuildingsList.back()->Build(RManager->GetResources());
-					if (Building::CheckBusy() == false)
-						std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+                    if (Building::CheckBusy() == false)
+                        std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
 				}
+                else if(Map->CheckBounds())
+                {
+                    IM1->infoBarAction(*IM1, Map->getCurrentTile().getBuilding());
+                }
 				IM1->clickedUpdateInterface(mousePosf, *IM1);
 			}
 			if (event.key.code == sf::Mouse::Right)
@@ -71,9 +75,13 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 				if (Building::CheckBusy() == true)
 				{
 					delete BManager->BuildingsList.back();
-					
+
 					BManager->BuildingNum--;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
+				}
+				else
+				{
+					IM1->infoBarAction(*IM1, nullptr);
 				}
 				//IM1->clickedUpdateInterface(mousePosf, *IM1);
 			}
@@ -85,6 +93,15 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				window.close();
 			}
+            if (event.key.code == sf::Keyboard::B)
+            {
+                if (Building::CheckBusy() == false)
+                {
+                    BManager->BuildingNum++;
+                    BManager->BuildingsList.resize(BManager->BuildingNum);
+                    BManager->BuildingsList.back() = new BarracksBuilding(Map);
+                }
+            }
 			if (event.key.code == sf::Keyboard::C)
 			{
 				view.setCenter(float(SCR_WIDTH * 0.5), float(SCR_HEIGHT * 0.4));

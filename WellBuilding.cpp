@@ -56,6 +56,12 @@ WellBuilding& WellBuilding::operator=(const WellBuilding & input)
 	return *this;
 }
 
+bool WellBuilding::CheckResources()
+{	
+	if (Resources->Ducats < 100 || Resources->Bricks < 50) return false;
+	return true;
+}
+
 void WellBuilding::ResourceUpdateTick()
 {
 	UpdateBuildingGameData();
@@ -143,7 +149,7 @@ void WellBuilding::UpdateArea(bool a)
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
 				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->setWaterAccess(a);
-
+				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addHealth(int(5*a));
 			}
 			else
 			{

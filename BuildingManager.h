@@ -6,6 +6,7 @@
 #include "StablesBuilding.h"
 #include "SawmillBuilding.h"
 #include "QuarryBuilding.h"
+#include "BarracksBuilding.h"
 
 class BuildingManager
 {

@@ -28,8 +28,20 @@ Building::Building(const Building & input)
 
 Building::~Building()
 {
+	if (DrawData.Built == 1) 
+	{
+		for (unsigned int x = 0; x < DrawData.BuildingSizeX; x++)
+		{
+			for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
+			{
+                TileBase[x][y]->SetBuilding(nullptr);
+			}
+		}
+	}
 	if (DrawData.Built == 0) BusyBuilding = 0;
 }
+
+
 
 Building & Building::operator=(const Building & input)
 {
@@ -44,6 +56,10 @@ Building & Building::operator=(const Building & input)
 	return *this;
 }
 
+BuildingDataGame& Building::getDataGame()
+{
+    return GameData;
+}
 
 ResourceList * Building::getResources()
 {
@@ -93,7 +109,7 @@ void Building::Build(ResourceList* Resources)
 	{
 		for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
 		{
-			TileBase[x][y]->SetBulding(this);
+			TileBase[x][y]->SetBuilding(this);
 		}
 	}
 	DrawData.Built = true;
@@ -104,14 +120,14 @@ void Building::Build(ResourceList* Resources)
 
 void Building::draw(sf::RenderWindow& target)
 {
-	if (DrawData.Built == false)
+	if (DrawData.Built == false && Map->CheckBounds())
 	{
 		UpdatePositionbyMouse(target);
 		DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX()-DrawData.SpriteOffsetX, (float)TileBase[0][0] ->getPositionY() - DrawData.SpriteOffsetY);
 		target.draw(DrawData.Sprite);
 		DrawCollision(target);
 	}
-	else
+	else if(DrawData.Built == true)
 	{
 		target.draw(DrawData.Sprite);
 	}
@@ -144,31 +160,6 @@ void Building::UpdatePositionbyMouse(sf::RenderWindow & target)
 bool Building::CheckBusy()
 {
 	return BusyBuilding;
-}
-
-bool Building::CheckResources()
-{
-	//Building Costs Switch//
-	switch (Type) {
-		case 1:
-			if (Resources->Ducats < 250 || Resources->Bricks < 100) return false;
-			break;
-		case 2:
-			if (Resources->Ducats < 100 || Resources->Bricks < 50) return false;
-			break;
-		case 3:
-			if (Resources->Ducats < 150) return false;
-			break;
-		case 4:
-			if (Resources->Ducats < 100 || Resources->Lumber < 100) return false;
-			break;
-		case 5:
-			if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
-			break;
-		default:
-			return false;
-	}
-	return true;
 }
 
 void Building::UpdateBuildingGameData()

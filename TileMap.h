@@ -14,6 +14,7 @@ struct CurrentTilebyMouse
 {
 	int x;
 	int y;
+	bool bounds;
 };
 
 
@@ -42,6 +43,7 @@ public:
 	Tile& getTile(int x, int y);//x - column, y - row
 	Tile& getCurrentTile();
 	bool checkCurrentTileAdj(int AdjustX, int AdjustY);
+	bool CheckBounds();
 	Tile* getCurrentTileAdj(int AdjustX, int AdjustY);
 	int getCurrentTileX();
 	int getCurrentTileY();

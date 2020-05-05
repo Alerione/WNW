@@ -31,15 +31,17 @@ void InterfaceElement::update(sf::Vector2f mouse_)
 
 }
 
-void InterfaceElement::clickedUpdate(sf::Vector2f mouse_, InterfaceManager& im_)
+bool InterfaceElement::clickedUpdate(sf::Vector2f mouse_, InterfaceManager& im_)
 {
     if (this->_clickable == true)
     {
         if (_shape.getGlobalBounds().contains(mouse_))
         {
 			if(action!=0) action(im_);
+            return true;
         }
     }
+    return false;
 
 }
 
