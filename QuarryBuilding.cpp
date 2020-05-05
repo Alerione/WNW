@@ -56,6 +56,12 @@ QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
 	return *this;
 }
 
+bool QuarryBuilding::CheckResources()
+{
+	if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
+	return true;
+}
+
 void QuarryBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {

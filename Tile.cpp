@@ -142,7 +142,7 @@ sf::Sprite& Tile::setSprite(sf::Texture & texture)
 	return Sprite;
 }
 
-void Tile::SetBulding(Building * building)
+void Tile::SetBuilding(Building * building)
 {
 	TileBuilding = building;
 }
@@ -227,4 +227,9 @@ void Tile::updateSpritePos()
 void Tile::draw(sf::RenderTarget & target)
 {
 	target.draw(Sprite);
+}
+
+Building* Tile::getBuilding()
+{
+    return TileBuilding;
 }

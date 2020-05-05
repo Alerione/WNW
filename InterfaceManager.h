@@ -26,9 +26,14 @@ public:
 
     static void button1action(InterfaceManager&);
     static void button1action_button1(InterfaceManager&);
+    static void button1action_button2(InterfaceManager&);
     static void cat1Building1(InterfaceManager&);
     static void cat1Building2(InterfaceManager&);
     static void cat1Building3(InterfaceManager&);
+    static void cat1Building4(InterfaceManager&);
+    static void cat2Building1(InterfaceManager&);
+    static void cat2Building2(InterfaceManager&);
+    static void infoBarAction(InterfaceManager&, Building*);
 
     void setResourceInterfaceValue(int, std::string&);
 
@@ -51,12 +56,16 @@ protected:
     std::vector<InterfaceElement> interfacePopVec;
     std::vector<InterfaceElement> interfacePop2Vec;
     std::vector<InterfaceElement> interfaceIcons;
+    std::vector<InterfaceElement> infoBar;
+    std::vector<sf::Text> infoBarTexts;
     sf::Font font;
     std::vector<sf::Text> interfaceTexts;
     
     bool button1actionStatus;
     bool button1action_button1Status;
-
+    bool button1action_button2Status;
+    bool infoBarShowed;
+	Building* InfobarGrab;
     
 };
 

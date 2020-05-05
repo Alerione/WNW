@@ -56,6 +56,12 @@ StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 	return *this;
 }
 
+bool StablesBuilding::CheckResources()
+{
+	if (Resources->Ducats < 150) return false;
+	return true;
+}
+
 void StablesBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {

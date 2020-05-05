@@ -14,7 +14,7 @@ public:
 
     void draw(sf::RenderTarget&);
     void update(sf::Vector2f);
-    void clickedUpdate(sf::Vector2f, InterfaceManager&);
+    bool clickedUpdate(sf::Vector2f, InterfaceManager&);
     void setTexture(sf::Texture*);
 
     void setAction(void(*newaction)(InterfaceManager&));

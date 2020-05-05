@@ -94,6 +94,27 @@ sf::Texture& TextureManager::getMenuCat1Texture()
     return MenuCat1Texture;
 }
 
+sf::Texture& TextureManager::getMenuCat2Texture()
+{
+    return MenuCat2Texture;
+}
+
+sf::Texture& TextureManager::getIeBgTexture()
+{
+    return ieBg;
+}
+
+sf::Texture& TextureManager::getIeBg2Texture()
+{
+    return ieBg2;
+}
+
+sf::Texture& TextureManager::getIeBg3Texture()
+{
+    return ieBg3;
+}
+
+
 sf::Texture& TextureManager::getIeGoldTexture()
 {
     return ieGold;
@@ -129,6 +150,11 @@ sf::Texture& TextureManager::getIeClayTexture()
     return ieClay;
 }
 
+sf::Texture& TextureManager::getBarracksTexture()
+{
+    return BarracksTexture;
+}
+
 
 
 TextureManager & TextureManager::operator=(const TextureManager & input)
@@ -148,6 +174,7 @@ void TextureManager::loadTextures()
 	if (WellTexture.loadFromFile("well.png")) std::cout << "Well texture loaded!" << std::endl;
 	if (QuarryTexture.loadFromFile("quarry.png")) std::cout << "Quarry texture loaded!" << std::endl;
 	if (SawmillTexture.loadFromFile("sawmill.png")) std::cout << "Sawmill texture loaded!" << std::endl;
+    if (BarracksTexture.loadFromFile("barracks.png")) std::cout << "Barracks texture loaded!" << std::endl;
 	//Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
@@ -159,6 +186,14 @@ void TextureManager::loadTextures()
     if (InterfaceDelButton.loadFromFile("del.png")) std::cout << "InterfaceDelButton texture loaded!" << std::endl;
 
     if (MenuCat1Texture.loadFromFile("cat1.png")) std::cout << "Menu Cat1 Texture loaded!" << std::endl;
+    if (MenuCat2Texture.loadFromFile("cat2.png")) std::cout << "Menu Cat2 Texture loaded!" << std::endl;
+
+    if (ieBg.loadFromFile("bg.png")) std::cout << "bg Texture loaded!" << std::endl;
+    ieBg.setRepeated(1);
+    if (ieBg2.loadFromFile("bg2.png")) std::cout << "bg2 Texture loaded!" << std::endl;
+    ieBg2.setRepeated(1);
+    if (ieBg3.loadFromFile("bg3.jpg")) std::cout << "bg3 Texture loaded!" << std::endl;
+    ieBg2.setRepeated(1);
 
     if (ieGold.loadFromFile("gold.png")) std::cout << "Gold Texture loaded!" << std::endl;
     if (ieBricks.loadFromFile("brick.png")) std::cout << "Bricks Texture loaded!" << std::endl;

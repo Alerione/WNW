@@ -1,11 +1,11 @@
-#include "TavernBuilding.h"
+#include "BarracksBuilding.h"
 
-TavernBuilding::TavernBuilding()
+BarracksBuilding::BarracksBuilding()
 	: Building()
 {
 }
 
-TavernBuilding::TavernBuilding(const TavernBuilding & input)
+BarracksBuilding::BarracksBuilding(const BarracksBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ TavernBuilding::TavernBuilding(const TavernBuilding & input)
 	Map = input.Map;
 }
 
-TavernBuilding::TavernBuilding(TileMap * input)
+BarracksBuilding::BarracksBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ TavernBuilding::TavernBuilding(TileMap * input)
 }
 
 
-TavernBuilding::~TavernBuilding()
+BarracksBuilding::~BarracksBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
+BarracksBuilding& BarracksBuilding::operator=(const BarracksBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,53 +56,61 @@ TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 	return *this;
 }
 
-bool TavernBuilding::CheckResources()
+bool BarracksBuilding::CheckResources()
 {
-	if (Resources->Ducats < 250 || Resources->Bricks < 100) return false;
+	if (Resources->Ducats < 350 || Resources->Planks < 100 || Resources->Bricks < 200) return false;
 	return true;
 }
 
-void TavernBuilding::ResourceUpdateTick()
+void BarracksBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Ducats += (unsigned int)(25 * GameData.ResourceMod);
+		if (Resources->Ducats >= 25)
+		{
+			Resources->Ducats -= 25;
+			UpdateArea(1);
+		}
 	}
 }
 
-void TavernBuilding::BuildCost()
+void BarracksBuilding::BuildCost()
 {
-	Resources->Ducats -= 250;
-	Resources->Prev_Ducats -= 250;
-	Resources->Bricks -= 100;
-	Resources->Prev_Bricks -= 100;
+	Resources->Ducats -= 350;
+	Resources->Prev_Ducats -= 350;
+	Resources->Bricks -= 200;
+	Resources->Prev_Bricks -= 200;
+	Resources->Planks -= 100;
+	Resources->Prev_Planks -= 100;
 }
 
-void TavernBuilding::RemovalPass()
+void BarracksBuilding::RemovalPass()
 {
-	Resources->Prev_Ducats += 125;
-	Resources->Ducats += 125;
-	Resources->Prev_Bricks += 50;
-	Resources->Bricks += 50;
+	Resources->Ducats += 175;
+	Resources->Prev_Ducats += 175;
+	Resources->Bricks += 100;
+	Resources->Prev_Bricks += 100;
+	Resources->Planks += 50;
+	Resources->Prev_Planks += 50;
 }
 
-void TavernBuilding::SetupBuildingDatabyType()
+void BarracksBuilding::SetupBuildingDatabyType()
 {
-	Type = Tavern;
+	Type = Barracks;
 	DrawData.BuildingSizeX = 2;
 	DrawData.BuildingSizeY = 2;
-	DrawData.SpriteOffsetX = 13;
-	DrawData.SpriteOffsetY = 100;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getTavernTexture());
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 104;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getBarracksTexture());
 }
 
-void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void BarracksBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
 
-void TavernBuilding::UpdateArea(bool)
+void BarracksBuilding::UpdateArea(bool a)
 {
-	int Range = 4;
+	int Range = 5;
 	int x, y, xadjx, yadj, xadjy;
 	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 1; x++)
 	{
@@ -111,8 +119,7 @@ void TavernBuilding::UpdateArea(bool)
 			yadj = y - x - Range;
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addHappiness(8);
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addPublicOrder(-2);
+				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addPublicOrder(int(15*a));
 			}
 			else
 			{
@@ -122,5 +129,4 @@ void TavernBuilding::UpdateArea(bool)
 		xadjy = 0;
 		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
 	}
-
 }

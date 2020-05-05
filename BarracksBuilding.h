@@ -1,21 +1,21 @@
-#ifndef __WNW_WellBuildingClass_
-#define __WNW_WellBuildingClass_
+#ifndef __WNW_BarracksBuildingClass_
+#define __WNW_BarracksBuildingClass_
 
 
 #include "Building.h"
-class WellBuilding :
+class BarracksBuilding :
 	public Building
 {
 public:
-	WellBuilding();
-	WellBuilding(const WellBuilding& input);
-	WellBuilding(TileMap* input);
-	virtual ~WellBuilding();
+	BarracksBuilding();
+	BarracksBuilding(const BarracksBuilding& input);
+	BarracksBuilding(TileMap* input);
+	virtual ~BarracksBuilding();
 
 	//Set and Get Methods//
 
 	//Overloads//
-	WellBuilding& operator=(const WellBuilding &input);
+	BarracksBuilding& operator=(const BarracksBuilding &input);
 
 	//ResourceUpdateMethods//
 	bool CheckResources();
@@ -26,8 +26,6 @@ public:
 	//Methods//
 	void SetupBuildingDatabyType();
 	void DrawBuildingSpecific(sf::RenderWindow& target);
-
-	//Building Specific Methods//
 	void UpdateArea(bool);
 };
 
