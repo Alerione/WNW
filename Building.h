@@ -15,7 +15,9 @@ enum BuildingType {
 	Stables = 3,
 	Sawmill = 4,
 	Quarry = 5,
-	Barracks = 6
+	Barracks = 6,
+    Farm = 7,
+    Trees = 997
 };
 struct BuildingDataDraw
 {

@@ -2,6 +2,8 @@
 #define __WNW_TileMapClass_
 
 #include "Tile.h"
+
+
 #include <algorithm>
 #include <iostream>
 
@@ -59,6 +61,11 @@ public:
     //Mouse
     bool MouseChecker(int mouseposx, int mouseposy, int tileposx, int tileposy);
     int OptimisedChecker(int mouseposx, int mouseposy);
+
+    //Check tile adj
+    bool checkTileAdj(int x, int y, int AdjustX, int AdjustY);
+    Tile* getTileAdj(int x, int y, int AdjustX, int AdjustY);
+
 
 	//Draw//
 	void draw(sf::RenderTarget& target);

@@ -7,6 +7,8 @@
 #include "SawmillBuilding.h"
 #include "QuarryBuilding.h"
 #include "BarracksBuilding.h"
+#include "FarmBuilding.h"
+#include "Tree.h"
 
 class BuildingManager
 {

@@ -67,6 +67,23 @@ void GameManager::Initialise()
 	if(window!=nullptr)window->setMouseCursorGrabbed(1);
 
 	Map.BuildTileMap();
+    generateTrees();
+    
+}
+
+void GameManager::generateTrees()
+{
+    for(int i=0; i<Map.getColumns(); i++)
+        for (int j = 0; j < Map.getRows(); j++)
+        {
+            int treerand = rand() % 6;
+            if (treerand == 2)
+            {
+                BManager.BuildingNum++;
+                BManager.BuildingsList.resize(BManager.BuildingNum);
+                BManager.BuildingsList.back() = new Tree(&Map, &Map.getTile(i, j), &RManager.Resources);
+            }
+        }
 }
 
 void GameManager::grabWindow(sf::RenderWindow & window)
@@ -81,6 +98,7 @@ void GameManager::RenderPass()
 	window->clear(sf::Color::Black);
 	window->draw(backgroundSprite);
 	window->setView(view);
+    window->setFramerateLimit(60);
 	Map.draw(*window);
 	Map.update(*window);
 	for (int build = 0; build < BManager.BuildingNum; build++)

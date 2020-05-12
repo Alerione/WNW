@@ -6,6 +6,7 @@
 class GameManager
 {
 protected:
+    void generateTrees();
 public:
 	//Constructors and Destructors//
 	GameManager(unsigned int SCR_WIDTH = 1280, unsigned int SCR_HEIGHT = 720, unsigned int MapX = 10, unsigned int MapY = 20);
