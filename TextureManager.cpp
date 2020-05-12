@@ -26,8 +26,30 @@ sf::Texture & TextureManager::getBackgroundTexture()
 
 sf::Texture & TextureManager::getDefaultTileTexture()
 {
-	return defaultTileTexture;
+    return defaultTileTexture;
 }
+
+sf::Texture & TextureManager::getDefaultTileTexture1()
+{
+    return defaultTileTexture1;
+}
+
+sf::Texture & TextureManager::getDefaultTileTexture2()
+{
+	return defaultTileTexture2;
+}
+
+sf::Texture & TextureManager::getDefaultTileTexture3()
+{
+    return defaultTileTexture3;
+}
+
+sf::Texture & TextureManager::getDefaultTileTexture4()
+{
+    return defaultTileTexture4;
+}
+
+
 
 sf::Texture & TextureManager::getTavernTexture()
 {
@@ -155,7 +177,28 @@ sf::Texture& TextureManager::getBarracksTexture()
     return BarracksTexture;
 }
 
+sf::Texture& TextureManager::getTreeTexture()
+{
+    return treeTexture;
+}
+sf::Texture& TextureManager::getTreeTexture2()
+{
+    return treeTexture2;
+}
+sf::Texture& TextureManager::getTreeTexture3()
+{
+    return treeTexture3;
+}
 
+sf::Texture & TextureManager::getFarmTexture()
+{
+    return FarmTexture;
+}
+
+sf::Texture & TextureManager::getFarmlandTexture(int a)
+{
+    return FarmlandTexture[a];
+}
 
 TextureManager & TextureManager::operator=(const TextureManager & input)
 {
@@ -168,6 +211,11 @@ void TextureManager::loadTextures()
 	if (BackgroundTexture.loadFromFile("bgmap.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
 	//Tile//
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
+    if (defaultTileTexture1.loadFromFile("tilenull.png")) std::cout << "Tile1 texture loaded!" << std::endl;
+    if (defaultTileTexture2.loadFromFile("tile2.png")) std::cout << "Tile2 texture loaded!" << std::endl;
+    if (defaultTileTexture3.loadFromFile("tile3.png")) std::cout << "Tile3 texture loaded!" << std::endl;
+    if (defaultTileTexture4.loadFromFile("tile4.png")) std::cout << "Tile4 texture loaded!" << std::endl;
+
 	//Buildings//
 	if(TavernTexture.loadFromFile("tavern.png")) std::cout << "Tavern texture loaded!" <<std::endl;
 	if (StablesTexture.loadFromFile("stables.png")) std::cout << "Stables texture loaded!" << std::endl;
@@ -202,5 +250,61 @@ void TextureManager::loadTextures()
     if (ieWood.loadFromFile("wood.png")) std::cout << "Wood Texture loaded!" << std::endl;
     if (iePlanks.loadFromFile("planks.png")) std::cout << "Planks Texture loaded!" << std::endl;
     if (ieClay.loadFromFile("clay.png")) std::cout << "Clay Texture loaded!" << std::endl;
+
+    if (treeTexture.loadFromFile("tree.png")) std::cout << "Tree Texture loaded!" << std::endl;
+    if (treeTexture2.loadFromFile("tree2.png")) std::cout << "Tree Texture loaded!" << std::endl;
+    if (treeTexture3.loadFromFile("tree3.png")) std::cout << "Tree Texture loaded!" << std::endl;
+
+    if (FarmTexture.loadFromFile("farm.png")) std::cout << "Farm texture loaded!" << std::endl;
+    //Terrain Features//
+    {
+        bool f = false;
+        if (FarmlandTexture[0].loadFromFile("farmland0.png"))
+        {
+            std::cout << "Farmland textures loaded.. 1";
+            f = true;
+        }
+
+        if (FarmlandTexture[1].loadFromFile("farmland1.png"))
+        {
+            if (!f)
+            {
+                std::cout << "Farmland textures loaded.. 2";
+                f = true;
+            }
+            else
+            {
+                std::cout << ".. 2";
+            }
+        }
+
+        if (FarmlandTexture[2].loadFromFile("farmland2.png"))
+        {
+            if (!f)
+            {
+                std::cout << "Farmland textures loaded.. 3";
+                f = true;
+            }
+            else
+            {
+                std::cout << ".. 3";
+            }
+        }
+
+        if (FarmlandTexture[3].loadFromFile("farmland3.png"))
+        {
+            if (!f)
+            {
+                std::cout << "Farmland textures loaded.. 4";
+                f = true;
+            }
+            else
+            {
+                std::cout << ".. 4";
+            }
+        }
+        std::cout << "!" << std::endl;
+    }
+
 	std::cout << "Textures loaded!" << std::endl;
 }

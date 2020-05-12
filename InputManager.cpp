@@ -139,6 +139,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new TavernBuilding(Map);
 				}
 			}
+
 			if (event.key.code == sf::Keyboard::W)
 			{
 				if (Building::CheckBusy() == false)
@@ -148,6 +149,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new WellBuilding(Map);
 				}
 			}
+
+            if (event.key.code == sf::Keyboard::F)
+            {
+                if (Building::CheckBusy() == false)
+                {
+                    BManager->BuildingNum++;
+                    BManager->BuildingsList.resize(BManager->BuildingNum);
+                    BManager->BuildingsList.back() = new FarmBuilding(Map);
+                }
+            }
 		}
 
 	}

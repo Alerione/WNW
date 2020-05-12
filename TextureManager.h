@@ -9,6 +9,10 @@ class TextureManager
 protected:
 	sf::Texture BackgroundTexture;
 	sf::Texture defaultTileTexture;
+    sf::Texture defaultTileTexture1;
+    sf::Texture defaultTileTexture2;
+    sf::Texture defaultTileTexture3;
+    sf::Texture defaultTileTexture4;
 	sf::Texture TavernTexture;
 	sf::Texture CollisionTexture;
 	sf::Texture WellTexture;
@@ -37,6 +41,14 @@ protected:
     sf::Texture ieWood;
     sf::Texture ieBricks;
     sf::Texture ieClay;
+
+    sf::Texture treeTexture;
+    sf::Texture treeTexture2;
+    sf::Texture treeTexture3;
+
+    sf::Texture FarmTexture;
+    sf::Texture FarmlandTexture[4];
+
 public:
 	//Constructors and Destructors//
 	TextureManager();
@@ -46,14 +58,24 @@ public:
 	//Texture getters//
 	sf::Texture& getBackgroundTexture();
 	sf::Texture& getDefaultTileTexture();
+    sf::Texture& getDefaultTileTexture1();
+    sf::Texture& getDefaultTileTexture2();
+    sf::Texture& getDefaultTileTexture3();
+    sf::Texture& getDefaultTileTexture4();
 	sf::Texture& getTavernTexture();
 	sf::Texture& getCollisionTexture();
 	sf::Texture& getWellTexture();
 	sf::Texture& getQuarryTexture();
 	sf::Texture& getSawmillTexture();
+
+
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
     sf::Texture& getBarracksTexture();
+
+    sf::Texture& getFarmTexture();
+    sf::Texture& getFarmlandTexture(int a = 0);
+
     sf::Texture& getInterfaceBuildButton();
 
     sf::Texture& getMenuCat1Texture();
@@ -74,6 +96,10 @@ public:
     sf::Texture& getIeMarbleTexture();
     sf::Texture& getIePolishedMarbleTexture();
     sf::Texture& getIeClayTexture();
+
+    sf::Texture& getTreeTexture();
+    sf::Texture& getTreeTexture2();
+    sf::Texture& getTreeTexture3();
    
 
 	//Overloads//
