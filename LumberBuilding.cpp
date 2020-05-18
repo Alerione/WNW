@@ -1,11 +1,11 @@
-#include "QuarryBuilding.h"
+#include "LumberBuilding.h"
 
-QuarryBuilding::QuarryBuilding()
+LumberBuilding::LumberBuilding()
 	: Building()
 {
 }
 
-QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
+LumberBuilding::LumberBuilding(const LumberBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
 	Map = input.Map;
 }
 
-QuarryBuilding::QuarryBuilding(TileMap * input)
+LumberBuilding::LumberBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ QuarryBuilding::QuarryBuilding(TileMap * input)
 }
 
 
-QuarryBuilding::~QuarryBuilding()
+LumberBuilding::~LumberBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
+LumberBuilding& LumberBuilding::operator=(const LumberBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,56 +56,54 @@ QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
 	return *this;
 }
 
-bool QuarryBuilding::CheckResources()
+bool LumberBuilding::CheckResources()
 {
-	if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
+	if (Resources->Ducats < 50) return false;
 	return true;
 }
 
-void QuarryBuilding::ResourceUpdateTick()
+void LumberBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Marble += 5 * FarmArea();
+		Resources->Lumber += 2 * FarmArea();
 	}
 }
 
-void QuarryBuilding::BuildCost()
+void LumberBuilding::BuildCost()
 {
-	Resources->Ducats -= 50;
-	Resources->Prev_Ducats -= 50;
-	Resources->Planks -= 50;
-	Resources->Prev_Planks -= 50;
+	if (DrawData.Built == 1) {
+		Resources->Ducats -= 50;
+		Resources->Prev_Ducats -= 50;
+	}
 }
 
-void QuarryBuilding::RemovalPass()
+void LumberBuilding::RemovalPass()
 {
 	Resources->Ducats += 25;
 	Resources->Prev_Ducats += 25;
-	Resources->Planks += 25;
-	Resources->Prev_Planks += 25;
 }
 
-void QuarryBuilding::SetupBuildingDatabyType()
+void LumberBuilding::SetupBuildingDatabyType()
 {
-	Type = Quarry;
-	DrawData.BuildingSizeX = 4;
-	DrawData.BuildingSizeY = 4;
-	DrawData.SpriteOffsetX = -3;
-	DrawData.SpriteOffsetY = 80;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getQuarryTexture());
+	Type = Lumber;
+	DrawData.BuildingSizeX = 2;
+	DrawData.BuildingSizeY = 2;
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 47;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getLumberTexture());
 }
 
-void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void LumberBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 	int Range = 4;
 
 	if (DrawData.Built == false)
 	{
 		int x, y, xadjx, yadj, xadjy;
-		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
 		{
-			for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+			for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
 			{
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
@@ -127,19 +125,19 @@ void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	}
 }
 
-int QuarryBuilding::FarmArea()
+int LumberBuilding::FarmArea()
 {
 	int a = 0;
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
-				//If has Marble
+				//If has tree
 				//a++;
 			}
 			else

@@ -24,6 +24,11 @@ sf::Texture & TextureManager::getBackgroundTexture()
 	return BackgroundTexture;
 }
 
+sf::Texture & TextureManager::getWaterTexture()
+{
+	return WaterTexture;
+}
+
 sf::Texture & TextureManager::getDefaultTileTexture()
 {
     return defaultTileTexture;
@@ -49,7 +54,10 @@ sf::Texture & TextureManager::getDefaultTileTexture4()
     return defaultTileTexture4;
 }
 
-
+sf::Texture & TextureManager::getLumberTexture()
+{
+	return LumberTexture;
+}
 
 sf::Texture & TextureManager::getTavernTexture()
 {
@@ -84,6 +92,16 @@ sf::Texture & TextureManager::getBlueOverlayTexture()
 sf::Texture & TextureManager::getStablesTexture()
 {
 	return StablesTexture;
+}
+
+sf::Texture & TextureManager::getClayMineTexture()
+{
+	return ClayMineTexture;
+}
+
+sf::Texture & TextureManager::getHorseBreederTexture()
+{
+	return HorseBreederTexture;
 }
 
 sf::Texture& TextureManager::getInterfaceBuildButton()
@@ -209,6 +227,7 @@ void TextureManager::loadTextures()
 {
 	//Background//
 	if (BackgroundTexture.loadFromFile("bgmap.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
+	if (WaterTexture.loadFromFile("water.png")) std::cout << "Water texture loaded!" << std::endl;
 	//Tile//
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
     if (defaultTileTexture1.loadFromFile("tilenull.png")) std::cout << "Tile1 texture loaded!" << std::endl;
@@ -223,7 +242,11 @@ void TextureManager::loadTextures()
 	if (QuarryTexture.loadFromFile("quarry.png")) std::cout << "Quarry texture loaded!" << std::endl;
 	if (SawmillTexture.loadFromFile("sawmill.png")) std::cout << "Sawmill texture loaded!" << std::endl;
     if (BarracksTexture.loadFromFile("barracks.png")) std::cout << "Barracks texture loaded!" << std::endl;
-	//Tile Overlays//
+	if (FarmTexture.loadFromFile("farm.png")) std::cout << "Farm texture loaded!" << std::endl;
+	if (LumberTexture.loadFromFile("lumberjack.png")) std::cout << "Lumberjack texture loaded!" << std::endl;
+	if (ClayMineTexture.loadFromFile("claymine.png")) std::cout << "Clay Mine texture loaded!" << std::endl;
+	if (HorseBreederTexture.loadFromFile("horsebreeder.png")) std::cout << "Horse Breeder texture loaded!" << std::endl;
+ 	//Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
 	//Interface//
@@ -242,7 +265,7 @@ void TextureManager::loadTextures()
     ieBg2.setRepeated(1);
     if (ieBg3.loadFromFile("bg3.jpg")) std::cout << "bg3 Texture loaded!" << std::endl;
     ieBg2.setRepeated(1);
-
+	//Resources//
     if (ieGold.loadFromFile("gold.png")) std::cout << "Gold Texture loaded!" << std::endl;
     if (ieBricks.loadFromFile("brick.png")) std::cout << "Bricks Texture loaded!" << std::endl;
     if (ieMarble.loadFromFile("marble2.png")) std::cout << "Marble2 Texture loaded!" << std::endl;
@@ -255,7 +278,6 @@ void TextureManager::loadTextures()
     if (treeTexture2.loadFromFile("tree2.png")) std::cout << "Tree Texture loaded!" << std::endl;
     if (treeTexture3.loadFromFile("tree3.png")) std::cout << "Tree Texture loaded!" << std::endl;
 
-    if (FarmTexture.loadFromFile("farm.png")) std::cout << "Farm texture loaded!" << std::endl;
     //Terrain Features//
     {
         bool f = false;

@@ -107,6 +107,33 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 				view.setCenter(float(SCR_WIDTH * 0.5), float(SCR_HEIGHT * 0.4));
 				window.setView(view);
 			}
+			if (event.key.code == sf::Keyboard::F)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new FarmBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::H)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new HorseBreederBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::L)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new LumberBuilding(Map);
+				}
+			}
 			if (event.key.code == sf::Keyboard::M)
 			{
 				view.setCenter(float(Map->getColumns() * 32), float(Map->getRows() * 8));
@@ -149,35 +176,34 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new WellBuilding(Map);
 				}
 			}
-
-            if (event.key.code == sf::Keyboard::F)
-            {
-                if (Building::CheckBusy() == false)
-                {
-                    BManager->BuildingNum++;
-                    BManager->BuildingsList.resize(BManager->BuildingNum);
-                    BManager->BuildingsList.back() = new FarmBuilding(Map);
-                }
-            }
+			if (event.key.code == sf::Keyboard::Y)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new ClayMineBuilding(Map);
+				}
+			}
 		}
 
 	}
-	if (mousePos.x <= 10)
+	if (mousePos.x <= 10 & view.getCenter().x > view.getSize().x/4)
 	{
 		view.setCenter(view.getCenter().x - 5.0f, view.getCenter().y);
 		window.setView(view);
 	}
-	if (mousePos.x >= (int)SCR_WIDTH - 10)
+	if (mousePos.x >= (int)SCR_WIDTH - 10 & view.getCenter().x < Map->getColumns()*64-view.getSize().x / 4)
 	{
 		view.setCenter(view.getCenter().x + 5.0f, view.getCenter().y);
 		window.setView(view);
 	}
-	if (mousePos.y <= 10)
+	if (mousePos.y <= 10 & view.getCenter().y > view.getSize().y / 4)
 	{
 		view.setCenter(view.getCenter().x, view.getCenter().y - 5.0f);
 		window.setView(view);
 	}
-	if (mousePos.y >= (int)SCR_HEIGHT - 10)
+	if (mousePos.y >= (int)SCR_HEIGHT - 10 & view.getCenter().y < Map->getRows() * 16 - view.getSize().y / 4)
 	{
 		view.setCenter(view.getCenter().x, view.getCenter().y + 5.0f);
 		window.setView(view);

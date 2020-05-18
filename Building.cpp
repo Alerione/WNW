@@ -13,7 +13,7 @@ Building::Building()
     , GameData{}
     , Map(nullptr)
 {
-
+	DrawData.AutoDrawSprite = true;
 }
 
 Building::Building(const Building & input)
@@ -127,12 +127,12 @@ void Building::draw(sf::RenderWindow& target)
     {
         UpdatePositionbyMouse(target);
         DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX() - DrawData.SpriteOffsetX, (float)TileBase[0][0]->getPositionY() - DrawData.SpriteOffsetY);
-        target.draw(DrawData.Sprite);
+        if(DrawData.AutoDrawSprite)target.draw(DrawData.Sprite);
         DrawCollision(target);
     }
     else if (DrawData.Built == true)
     {
-        target.draw(DrawData.Sprite);
+		if (DrawData.AutoDrawSprite)target.draw(DrawData.Sprite);
     }
 }
 

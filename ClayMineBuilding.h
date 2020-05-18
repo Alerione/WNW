@@ -1,21 +1,21 @@
-#ifndef __WNW_QuarryBuildingClass_
-#define __WNW_QuarryBuildingClass_
+#ifndef __WNW_ClayMineBuildingClass_
+#define __WNW_ClayMineBuildingClass_
 
 
 #include "Building.h"
-class QuarryBuilding :
+class ClayMineBuilding :
 	public Building
 {
 public:
-	QuarryBuilding();
-	QuarryBuilding(const QuarryBuilding& input);
-	QuarryBuilding(TileMap* input);
-	virtual ~QuarryBuilding();
+	ClayMineBuilding();
+	ClayMineBuilding(const ClayMineBuilding& input);
+	ClayMineBuilding(TileMap* input);
+	virtual ~ClayMineBuilding();
 
 	//Set and Get Methods//
 
 	//Overloads//
-	QuarryBuilding& operator=(const QuarryBuilding &input);
+	ClayMineBuilding& operator=(const ClayMineBuilding &input);
 
 	//ResourceUpdateMethods//
 	bool CheckResources();

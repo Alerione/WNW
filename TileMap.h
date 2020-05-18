@@ -29,6 +29,7 @@ protected:
 	TextureManager TexMngr;
 	sf::Vector2i mousePosition;
 	CurrentTilebyMouse CurTile;
+	sf::Sprite WaterSprite;
 
 public:
 	//Constructors and Destructors//
@@ -69,6 +70,7 @@ public:
 
 	//Draw//
 	void draw(sf::RenderTarget& target);
+	void drawWater(sf::RenderTarget& target, int r, bool left);
 };
 
 #endif
