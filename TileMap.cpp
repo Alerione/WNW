@@ -4,6 +4,7 @@ TileMap::TileMap()
     : TileMapSize{ 1,1 }
     , TileArray{}
     , TexMngr()
+	, WaterSprite()
 {
 }
 
@@ -11,6 +12,7 @@ TileMap::TileMap(MapSize size)
     : TileMapSize(size)
     , TileArray{}
     , TexMngr()
+	, WaterSprite()
 {
 }
 
@@ -18,6 +20,7 @@ TileMap::TileMap(int columns, int rows)
     : TileMapSize{ columns, rows }
     , TileArray{}
     , TexMngr()
+	, WaterSprite()
 {
 }
 
@@ -25,6 +28,7 @@ TileMap::TileMap(const TileMap & input)
     : TileMapSize(input.TileMapSize)
     , TileArray(input.TileArray)
     , TexMngr()
+	, WaterSprite()
 {
 }
 
@@ -127,6 +131,7 @@ void TileMap::BuildTileMap()
         
         }
     }
+	WaterSprite = sf::Sprite(getTexMngr().getWaterTexture());
 }
 
 void TileMap::update(sf::RenderWindow& window)
@@ -188,9 +193,56 @@ void TileMap::draw(sf::RenderTarget & target)
 {
     for (int y = 0; y < TileMapSize.rows; y++)
     {
+		drawWater(target,y, true);
         for (int x = 0; x < TileMapSize.columns; x++)
         {
             TileArray[x][y].draw(target);
         }
+		//drawWater(target, y, false);
     }
+	drawWater(target, TileMapSize.rows,true);
+}
+
+void TileMap::drawWater(sf::RenderTarget & target, int r, bool left)
+{
+	if (r == 0)
+	{
+		for (int y = -19; y < 1; y++)
+		{
+			for (int x = -9; x < TileMapSize.columns + 10; x++)
+			{
+				if (x < 0 || x >= TileMapSize.columns || y < 0 || y >= TileMapSize.rows)
+				{
+					WaterSprite.setPosition(64 * (x)+32 * ((y) % 2), 16 * (y));
+					target.draw(WaterSprite);
+				}
+			}
+		}
+	}
+	else if (r == TileMapSize.rows)
+	{
+		for (int y = TileMapSize.rows; y < TileMapSize.rows + 20; y++)
+		{
+
+			for (int x = -9; x < TileMapSize.columns + 10; x++)
+			{
+				if (x < 0 || x >= TileMapSize.columns || y < 0 || y >= TileMapSize.rows)
+				{
+					WaterSprite.setPosition(64 * (x)+32 * ((y) % 2), 16 * (y));
+					target.draw(WaterSprite);
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int x = -9; x < TileMapSize.columns + 10; x++)
+		{
+			if (x < 0 || x >= TileMapSize.columns)
+			{
+				WaterSprite.setPosition(64 * (x)+32 * ((r) % 2), 16 * (r));
+				target.draw(WaterSprite);
+			}
+		}
+	}
 }

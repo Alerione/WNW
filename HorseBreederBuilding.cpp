@@ -1,11 +1,11 @@
-#include "QuarryBuilding.h"
+#include "HorseBreederBuilding.h"
 
-QuarryBuilding::QuarryBuilding()
+HorseBreederBuilding::HorseBreederBuilding()
 	: Building()
 {
 }
 
-QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
+HorseBreederBuilding::HorseBreederBuilding(const HorseBreederBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
 	Map = input.Map;
 }
 
-QuarryBuilding::QuarryBuilding(TileMap * input)
+HorseBreederBuilding::HorseBreederBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ QuarryBuilding::QuarryBuilding(TileMap * input)
 }
 
 
-QuarryBuilding::~QuarryBuilding()
+HorseBreederBuilding::~HorseBreederBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
+HorseBreederBuilding& HorseBreederBuilding::operator=(const HorseBreederBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,56 +56,58 @@ QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
 	return *this;
 }
 
-bool QuarryBuilding::CheckResources()
+bool HorseBreederBuilding::CheckResources()
 {
-	if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
+	if (Resources->Ducats < 150 || Resources->Planks < 100) return false;
 	return true;
 }
 
-void QuarryBuilding::ResourceUpdateTick()
+void HorseBreederBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Marble += 5 * FarmArea();
+		//?
 	}
 }
 
-void QuarryBuilding::BuildCost()
+void HorseBreederBuilding::BuildCost()
 {
-	Resources->Ducats -= 50;
-	Resources->Prev_Ducats -= 50;
-	Resources->Planks -= 50;
-	Resources->Prev_Planks -= 50;
+	if (DrawData.Built == 1) {
+		Resources->Ducats -= 150;
+		Resources->Prev_Ducats -= 150;
+		Resources->Planks -= 100;
+		Resources->Prev_Planks -= 100;
+	}
 }
 
-void QuarryBuilding::RemovalPass()
+void HorseBreederBuilding::RemovalPass()
 {
-	Resources->Ducats += 25;
-	Resources->Prev_Ducats += 25;
-	Resources->Planks += 25;
-	Resources->Prev_Planks += 25;
+	Resources->Ducats += 75;
+	Resources->Prev_Ducats += 75;
+	Resources->Planks += 50;
+	Resources->Prev_Planks += 50;
 }
 
-void QuarryBuilding::SetupBuildingDatabyType()
+void HorseBreederBuilding::SetupBuildingDatabyType()
 {
-	Type = Quarry;
-	DrawData.BuildingSizeX = 4;
-	DrawData.BuildingSizeY = 4;
-	DrawData.SpriteOffsetX = -3;
-	DrawData.SpriteOffsetY = 80;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getQuarryTexture());
+	Type = HorseBreeder;
+	DrawData.BuildingSizeX = 3;
+	DrawData.BuildingSizeY = 3;
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 47;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getHorseBreederTexture());
 }
 
-void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void HorseBreederBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 	int Range = 4;
 
 	if (DrawData.Built == false)
 	{
 		int x, y, xadjx, yadj, xadjy;
-		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
 		{
-			for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+			for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 			{
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
@@ -127,20 +129,20 @@ void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	}
 }
 
-int QuarryBuilding::FarmArea()
+int HorseBreederBuilding::FarmArea()
 {
 	int a = 0;
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
-				//If has Marble
-				//a++;
+				//If has tree
+				//?
 			}
 			else
 			{

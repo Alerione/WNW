@@ -1,21 +1,21 @@
-#ifndef __WNW_QuarryBuildingClass_
-#define __WNW_QuarryBuildingClass_
+#ifndef __WNW_HorseBreederBuildingClass_
+#define __WNW_HorseBreederBuildingClass_
 
 
 #include "Building.h"
-class QuarryBuilding :
+class HorseBreederBuilding :
 	public Building
 {
 public:
-	QuarryBuilding();
-	QuarryBuilding(const QuarryBuilding& input);
-	QuarryBuilding(TileMap* input);
-	virtual ~QuarryBuilding();
+	HorseBreederBuilding();
+	HorseBreederBuilding(const HorseBreederBuilding& input);
+	HorseBreederBuilding(TileMap* input);
+	virtual ~HorseBreederBuilding();
 
 	//Set and Get Methods//
 
 	//Overloads//
-	QuarryBuilding& operator=(const QuarryBuilding &input);
+	HorseBreederBuilding& operator=(const HorseBreederBuilding &input);
 
 	//ResourceUpdateMethods//
 	bool CheckResources();

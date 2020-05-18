@@ -17,11 +17,16 @@ enum BuildingType {
 	Quarry = 5,
 	Barracks = 6,
     Farm = 7,
+	Lumber = 8,
+	ClayMine = 9,
+	HorseBreeder = 10,
+
     Trees = 997
 };
 struct BuildingDataDraw
 {
 	bool Built;
+	bool AutoDrawSprite;
 	sf::Sprite Sprite;
 	unsigned int BuildingSizeX;
 	unsigned int BuildingSizeY;

@@ -7,12 +7,16 @@
 class TextureManager
 {
 protected:
+	//BG//
 	sf::Texture BackgroundTexture;
+	sf::Texture WaterTexture;
+	//Tiles//
 	sf::Texture defaultTileTexture;
     sf::Texture defaultTileTexture1;
     sf::Texture defaultTileTexture2;
     sf::Texture defaultTileTexture3;
     sf::Texture defaultTileTexture4;
+	//Buildings//
 	sf::Texture TavernTexture;
 	sf::Texture CollisionTexture;
 	sf::Texture WellTexture;
@@ -20,6 +24,10 @@ protected:
 	sf::Texture SawmillTexture;
 	sf::Texture BlueOverlayTexture;
 	sf::Texture StablesTexture;
+	sf::Texture LumberTexture;
+	sf::Texture ClayMineTexture;
+	sf::Texture HorseBreederTexture;
+	//Interface
     sf::Texture InterfaceBuildButton;
     sf::Texture InterfaceDelButton;
     sf::Texture InterfaceStatsButton;
@@ -33,7 +41,7 @@ protected:
     sf::Texture ieBg;
     sf::Texture ieBg2;
     sf::Texture ieBg3;
-
+	//Resources
     sf::Texture ieGold;
     sf::Texture ieMarble;
     sf::Texture iePolishedMarble;
@@ -41,11 +49,11 @@ protected:
     sf::Texture ieWood;
     sf::Texture ieBricks;
     sf::Texture ieClay;
-
+	//Trees//
     sf::Texture treeTexture;
     sf::Texture treeTexture2;
     sf::Texture treeTexture3;
-
+	//Farm//
     sf::Texture FarmTexture;
     sf::Texture FarmlandTexture[4];
 
@@ -57,6 +65,7 @@ public:
 
 	//Texture getters//
 	sf::Texture& getBackgroundTexture();
+	sf::Texture& getWaterTexture();
 	sf::Texture& getDefaultTileTexture();
     sf::Texture& getDefaultTileTexture1();
     sf::Texture& getDefaultTileTexture2();
@@ -67,7 +76,9 @@ public:
 	sf::Texture& getWellTexture();
 	sf::Texture& getQuarryTexture();
 	sf::Texture& getSawmillTexture();
-
+	sf::Texture& getLumberTexture();
+	sf::Texture& getClayMineTexture();
+	sf::Texture& getHorseBreederTexture();
 
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();

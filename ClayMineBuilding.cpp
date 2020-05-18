@@ -1,11 +1,12 @@
-#include "QuarryBuilding.h"
+#include "ClayMineBuilding.h"
 
-QuarryBuilding::QuarryBuilding()
+
+ClayMineBuilding::ClayMineBuilding()
 	: Building()
 {
 }
 
-QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
+ClayMineBuilding::ClayMineBuilding(const ClayMineBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +15,7 @@ QuarryBuilding::QuarryBuilding(const QuarryBuilding & input)
 	Map = input.Map;
 }
 
-QuarryBuilding::QuarryBuilding(TileMap * input)
+ClayMineBuilding::ClayMineBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +39,12 @@ QuarryBuilding::QuarryBuilding(TileMap * input)
 }
 
 
-QuarryBuilding::~QuarryBuilding()
+ClayMineBuilding::~ClayMineBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
+ClayMineBuilding& ClayMineBuilding::operator=(const ClayMineBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,56 +57,58 @@ QuarryBuilding& QuarryBuilding::operator=(const QuarryBuilding & input)
 	return *this;
 }
 
-bool QuarryBuilding::CheckResources()
+bool ClayMineBuilding::CheckResources()
 {
-	if (Resources->Ducats < 50 || Resources->Planks < 50) return false;
+	if (Resources->Ducats < 50 || Resources->Lumber < 100) return false;
 	return true;
 }
 
-void QuarryBuilding::ResourceUpdateTick()
+void ClayMineBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Marble += 5 * FarmArea();
+		Resources->Clay += 4 * FarmArea();
 	}
 }
 
-void QuarryBuilding::BuildCost()
+void ClayMineBuilding::BuildCost()
 {
-	Resources->Ducats -= 50;
-	Resources->Prev_Ducats -= 50;
-	Resources->Planks -= 50;
-	Resources->Prev_Planks -= 50;
+	if (DrawData.Built == 1) {
+		Resources->Ducats -= 50;
+		Resources->Prev_Ducats -= 50;
+		Resources->Lumber -= 100;
+		Resources->Prev_Lumber -= 100;
+	}
 }
 
-void QuarryBuilding::RemovalPass()
+void ClayMineBuilding::RemovalPass()
 {
 	Resources->Ducats += 25;
 	Resources->Prev_Ducats += 25;
-	Resources->Planks += 25;
-	Resources->Prev_Planks += 25;
+	Resources->Lumber += 50;
+	Resources->Prev_Lumber += 50;
 }
 
-void QuarryBuilding::SetupBuildingDatabyType()
+void ClayMineBuilding::SetupBuildingDatabyType()
 {
-	Type = Quarry;
-	DrawData.BuildingSizeX = 4;
-	DrawData.BuildingSizeY = 4;
-	DrawData.SpriteOffsetX = -3;
-	DrawData.SpriteOffsetY = 80;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getQuarryTexture());
+	Type = ClayMine;
+	DrawData.BuildingSizeX = 3;
+	DrawData.BuildingSizeY = 3;
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 54;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getClayMineTexture());
 }
 
-void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void ClayMineBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 	int Range = 4;
 
 	if (DrawData.Built == false)
 	{
 		int x, y, xadjx, yadj, xadjy;
-		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
 		{
-			for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+			for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 			{
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
@@ -127,19 +130,19 @@ void QuarryBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	}
 }
 
-int QuarryBuilding::FarmArea()
+int ClayMineBuilding::FarmArea()
 {
 	int a = 0;
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
 			{
-				//If has Marble
+				//If has tree
 				//a++;
 			}
 			else
