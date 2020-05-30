@@ -23,6 +23,7 @@ public:
 	InputManager& operator=(const InputManager& input);
 
 protected:
+	bool DeleteMode;
 	InterfaceManager* IM1;
 	BuildingManager* BManager;
 	TileMap *Map;

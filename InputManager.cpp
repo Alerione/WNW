@@ -56,17 +56,55 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 		{
 			if (event.key.code == sf::Mouse::Left)
 			{
-
-				if (Building::CheckBusy() == true && Map->CheckBounds())
+				if (Map->CheckBounds()) 
 				{
-					BManager->BuildingsList.back()->Build(RManager->GetResources());
-                    if (Building::CheckBusy() == false)
-                        std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+					if (Building::CheckBusy() == true && DeleteMode == true) DeleteMode = false; //failsafe
+					if (Building::CheckBusy() == true)
+					{
+						BManager->BuildingsList.back()->Build(RManager->GetResources());
+						if (Building::CheckBusy() == false)
+							std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+					}
+					else if (DeleteMode == true && Map->getCurrentTile().getBuilding() != nullptr)
+					{
+						if (Map->getCurrentTile().getBuilding()->getType() < 900)
+						{
+							for (int i = 0; i < BManager->BuildingNum; i++)
+							{
+								if (BManager->BuildingsList[i] == Map->getCurrentTile().getBuilding())
+								{
+									delete BManager->BuildingsList[i];
+									BManager->BuildingsList[i] = BManager->BuildingsList.back();
+									BManager->BuildingNum--;
+									BManager->BuildingsList.resize(BManager->BuildingNum);
+									std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+									break;
+								}
+							}
+						}
+						else if(Map->getCurrentTile().getBuilding()->getType() == Trees && RManager->Resources.Ducats >= 5)
+						{
+							for (int i = 0; i < BManager->BuildingNum; i++)
+							{
+								if (BManager->BuildingsList[i] == Map->getCurrentTile().getBuilding())
+								{
+									RManager->Resources.Ducats -= 5;
+									RManager->Resources.Prev_Ducats -= 5;
+									delete BManager->BuildingsList[i];
+									BManager->BuildingsList[i] = BManager->BuildingsList.back();
+									BManager->BuildingNum--;
+									BManager->BuildingsList.resize(BManager->BuildingNum);
+									std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+									break;
+								}
+							}
+						}
+					}
+					else
+					{
+						IM1->infoBarAction(*IM1, Map->getCurrentTile().getBuilding());
+					}
 				}
-                else if(Map->CheckBounds())
-                {
-                    IM1->infoBarAction(*IM1, Map->getCurrentTile().getBuilding());
-                }
 				IM1->clickedUpdateInterface(mousePosf, *IM1);
 			}
 			if (event.key.code == sf::Mouse::Right)
@@ -78,6 +116,10 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 
 					BManager->BuildingNum--;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
+				}
+				else if (DeleteMode == true)
+				{
+					DeleteMode = false;
 				}
 				else
 				{
@@ -93,10 +135,23 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				window.close();
 			}
+			if (event.key.code == sf::Keyboard::Delete)
+			{
+				if (Building::CheckBusy() == true)
+				{
+					delete BManager->BuildingsList.back();
+
+					BManager->BuildingNum--;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+				}
+				else if (DeleteMode == false) DeleteMode = true;
+				else if (DeleteMode == true) DeleteMode = false;
+			}
             if (event.key.code == sf::Keyboard::B)
             {
                 if (Building::CheckBusy() == false)
                 {
+					DeleteMode = false;
                     BManager->BuildingNum++;
                     BManager->BuildingsList.resize(BManager->BuildingNum);
                     BManager->BuildingsList.back() = new BarracksBuilding(Map);
@@ -111,6 +166,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new FarmBuilding(Map);
@@ -120,6 +176,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new MerchantGuildBuilding(Map);
@@ -129,6 +186,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new HorseBreederBuilding(Map);
@@ -138,6 +196,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new LumberBuilding(Map);
@@ -152,6 +211,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new QuarryBuilding(Map);
@@ -161,6 +221,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new SawmillBuilding(Map);
@@ -170,6 +231,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new TavernBuilding(Map);
@@ -179,6 +241,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new HouseBuilding(Map);
@@ -188,6 +251,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new WellBuilding(Map);
@@ -197,6 +261,7 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				if (Building::CheckBusy() == false)
 				{
+					DeleteMode = false;
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new ClayMineBuilding(Map);
