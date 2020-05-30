@@ -66,7 +66,7 @@ void HorseBreederBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		//?
+		Resources->HorseOverflow += ((double)FarmArea() * Resources->PopMod);
 	}
 }
 
@@ -91,6 +91,7 @@ void HorseBreederBuilding::RemovalPass()
 void HorseBreederBuilding::SetupBuildingDatabyType()
 {
 	Type = HorseBreeder;
+	GameData.PopReq = 5;
 	DrawData.BuildingSizeX = 3;
 	DrawData.BuildingSizeY = 3;
 	DrawData.SpriteOffsetX = 0;
@@ -139,18 +140,20 @@ int HorseBreederBuilding::FarmArea()
 		for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 		{
 			yadj = y - x - Range;
-			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				//If has tree
-				//?
+				if (Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->CheckBuilding() != false)
+				{
+					if (Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->getBuilding()->getType() == Horsess) a++;
+				}
 			}
 			else
 			{
 			}
-			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+			if ((abs(TileBase[0][0]->getY() + y - x - Range)) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
+		if ((abs(TileBase[0][0]->getY() - x - Range)) % 2 == 0) xadjx++;
 	}
 	return a;
 }

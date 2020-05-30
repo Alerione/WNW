@@ -66,10 +66,10 @@ void SawmillBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		if (Resources->Lumber >= 10 * GameData.ResourceMod)
+		if (Resources->Lumber >= (int)(10 * GameData.ResourceMod * Resources->PopMod))
 		{
-			Resources->Lumber -= 10 * GameData.ResourceMod;
-			Resources->Planks += 10 * GameData.ResourceMod;
+			Resources->Lumber -= (unsigned int)(10 * GameData.ResourceMod * Resources->PopMod);
+			Resources->Planks += (unsigned int)(10 * GameData.ResourceMod * Resources->PopMod);
 		}
 	}
 }
@@ -93,6 +93,7 @@ void SawmillBuilding::RemovalPass()
 void SawmillBuilding::SetupBuildingDatabyType()
 {
 	Type = Sawmill;
+	GameData.PopReq = 5;
 	DrawData.BuildingSizeX = 2;
 	DrawData.BuildingSizeY = 2;
 	DrawData.SpriteOffsetX = 7;

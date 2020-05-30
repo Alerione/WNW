@@ -1,9 +1,7 @@
 #ifndef __WNW_BuildingClass_
 #define __WNW_BuildingClass_
 
-#include <vector>
 #include "TileMap.h"
-#include "TextureManager.h"
 #include "Structures.cpp"
 
 
@@ -16,11 +14,15 @@ enum BuildingType {
 	Sawmill = 4,
 	Quarry = 5,
 	Barracks = 6,
-    Farm = 7,
+	Farm = 7,
 	Lumber = 8,
 	ClayMine = 9,
 	HorseBreeder = 10,
-
+	House = 11,
+	MerchantGuild = 12,
+    Horsess = 994,
+    Marbles = 995,
+    Clays = 996,
     Trees = 997
 };
 struct BuildingDataDraw
@@ -40,7 +42,7 @@ struct BuildingDataGame
 	unsigned int Health;
 	unsigned int PublicOrder;
 	double ResourceMod;
-
+	int PopReq;
 };
 
 class Building
@@ -66,11 +68,13 @@ public:
 
 	//Set and Get Methods//
     BuildingDataGame& getDataGame();
+	BuildingDataDraw& getDataDraw();
 
 	//Overloads//
 	Building& operator=(const Building &input);
 
 	//Methods//
+	BuildingType getType();
 	ResourceList* getResources();
 	bool CheckCollision(); // Is there Collision (True/False)
 	void DrawCollision(sf::RenderTarget& target);
@@ -79,6 +83,7 @@ public:
 	void UpdatePositionbyMouse(sf::RenderWindow& target);
 	static bool CheckBusy(); // Is  there enough resources (True/False)
 	void UpdateBuildingGameData();
+	int getPopReq();
 	virtual bool CheckResources() = 0;
 	virtual void SetupBuildingDatabyType() = 0;
 	virtual void DrawBuildingSpecific(sf::RenderWindow& target) = 0;

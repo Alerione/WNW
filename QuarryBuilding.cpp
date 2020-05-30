@@ -66,7 +66,7 @@ void QuarryBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Marble += 5 * FarmArea();
+		Resources->Marble += (unsigned int)(5 * FarmArea() * Resources->PopMod);
 	}
 }
 
@@ -89,6 +89,7 @@ void QuarryBuilding::RemovalPass()
 void QuarryBuilding::SetupBuildingDatabyType()
 {
 	Type = Quarry;
+	GameData.PopReq = 15;
 	DrawData.BuildingSizeX = 4;
 	DrawData.BuildingSizeY = 4;
 	DrawData.SpriteOffsetX = -3;
@@ -132,23 +133,25 @@ int QuarryBuilding::FarmArea()
 	int a = 0;
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 4; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
 		{
 			yadj = y - x - Range;
-			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				//If has Marble
-				//a++;
+				if (Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->CheckBuilding() != false)
+				{
+					if (Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->getBuilding()->getType() == Marbles) a++;
+				}
 			}
 			else
 			{
 			}
-			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+			if ((abs(TileBase[0][0]->getY() + y - x - Range)) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
+		if ((abs(TileBase[0][0]->getY() - x - Range)) % 2 == 0) xadjx++;
 	}
 	return a;
 }

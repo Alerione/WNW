@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include <time.h> 
+#include <random>
 
 
 GameManager::GameManager()
@@ -57,7 +58,7 @@ GameManager::~GameManager()
 void GameManager::Initialise()
 {
 	backgroundSprite = sf::Sprite(Map.getTexMngr().getBackgroundTexture());
-	backgroundSprite.setScale((double)SCR_WIDTH / Map.getTexMngr().getBackgroundTexture().getSize().x, (double)SCR_HEIGHT / Map.getTexMngr().getBackgroundTexture().getSize().y);
+	backgroundSprite.setScale((float)SCR_WIDTH / Map.getTexMngr().getBackgroundTexture().getSize().x, (float)SCR_HEIGHT / Map.getTexMngr().getBackgroundTexture().getSize().y);
 	double interfaceHeight = (double)SCR_HEIGHT * 0.05;
 	IM1.updateInterace(InputManager.getmousePosf(), BManager.BuildingsList, Map, BManager.BuildingNum);
 	IM1.buildInterface(interfaceHeight);
@@ -67,23 +68,91 @@ void GameManager::Initialise()
 	if(window!=nullptr)window->setMouseCursorGrabbed(1);
 
 	Map.BuildTileMap();
-    generateTrees();
+    while (!generateClay()) { }
+    std::cout << "Clay generated successfully!" << std::endl;
+    while (!generateMarble()) {}
+    std::cout << "Marble generated successfully!" << std::endl;
+    while (!generateHorses()) {}
+    std::cout << "Horses generated successfully!" << std::endl;
+    while (!generateTrees()) {}
+    std::cout << "Trees generated successfully!" << std::endl;
+	std::sort(BManager.BuildingsList.begin(), BManager.BuildingsList.end(), Building::sort);
+   
+   
     
 }
 
-void GameManager::generateTrees()
+bool GameManager::generateTrees()
 {
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
     for(int i=0; i<Map.getColumns(); i++)
         for (int j = 0; j < Map.getRows(); j++)
         {
-            int treerand = rand() % 6;
-            if (treerand == 2)
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 6);
+            if (dist6(rng) == 1 && (!(Map.getTile(i, j).CheckBuilding())))
             {
                 BManager.BuildingNum++;
                 BManager.BuildingsList.resize(BManager.BuildingNum);
                 BManager.BuildingsList.back() = new Tree(&Map, &Map.getTile(i, j), &RManager.Resources);
             }
         }
+    return true;
+}
+
+bool GameManager::generateClay()
+{
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    for (int i = 0; i < Map.getColumns(); i++)
+        for (int j = 0; j < Map.getRows(); j++)
+        {
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 200); 
+            if (dist6(rng) == 1 && (!(Map.getTile(i, j).CheckBuilding())))
+            {
+                BManager.BuildingNum++;
+                BManager.BuildingsList.resize(BManager.BuildingNum);
+                BManager.BuildingsList.back() = new Clay(&Map, &Map.getTile(i, j), &RManager.Resources);
+            }
+        }
+    return true;
+}
+
+bool GameManager::generateMarble()
+{
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    for (int i = 0; i < Map.getColumns(); i++)
+        for (int j = 0; j < Map.getRows(); j++)
+        {
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 400);
+            if (dist6(rng) == 1 && (!(Map.getTile(i, j).CheckBuilding())))
+            {
+                BManager.BuildingNum++;
+                BManager.BuildingsList.resize(BManager.BuildingNum);
+                BManager.BuildingsList.back() = new Marble(&Map, &Map.getTile(i, j), &RManager.Resources);
+            }
+        }
+    return true;
+}
+
+bool GameManager::generateHorses()
+{
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    for (int i = 0; i < Map.getColumns(); i++)
+        for (int j = 0; j < Map.getRows(); j++)
+        {
+            std::uniform_int_distribution<std::mt19937::result_type> dist6(0, 400);
+            if (dist6(rng) == 1 && (!(Map.getTile(i, j).CheckBuilding())))
+            {
+                BManager.BuildingNum++;
+                BManager.BuildingsList.resize(BManager.BuildingNum);
+                BManager.BuildingsList.back() = new Horses(&Map, &Map.getTile(i, j), &RManager.Resources);
+            }
+        }
+    return true;
 }
 
 void GameManager::grabWindow(sf::RenderWindow & window)

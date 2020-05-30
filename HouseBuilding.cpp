@@ -1,11 +1,11 @@
-#include "StablesBuilding.h"
+#include "HouseBuilding.h"
 
-StablesBuilding::StablesBuilding()
+HouseBuilding::HouseBuilding()
 	: Building()
 {
 }
 
-StablesBuilding::StablesBuilding(const StablesBuilding & input)
+HouseBuilding::HouseBuilding(const HouseBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ StablesBuilding::StablesBuilding(const StablesBuilding & input)
 	Map = input.Map;
 }
 
-StablesBuilding::StablesBuilding(TileMap * input)
+HouseBuilding::HouseBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ StablesBuilding::StablesBuilding(TileMap * input)
 }
 
 
-StablesBuilding::~StablesBuilding()
+HouseBuilding::~HouseBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
+HouseBuilding& HouseBuilding::operator=(const HouseBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,43 +56,42 @@ StablesBuilding& StablesBuilding::operator=(const StablesBuilding & input)
 	return *this;
 }
 
-bool StablesBuilding::CheckResources()
+bool HouseBuilding::CheckResources()
 {
-	if (Resources->Ducats < 150) return false;
+	if (Resources->Ducats < 50) return false;
 	return true;
 }
 
-void StablesBuilding::ResourceUpdateTick()
+void HouseBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Ducats += (unsigned int)(5 * GameData.ResourceMod * Resources->PopMod);
 	}
 }
 
-void StablesBuilding::BuildCost()
+void HouseBuilding::BuildCost()
 {
-	Resources->Ducats -= 150;
-	Resources->Prev_Ducats -= 150;
+	Resources->Ducats -= 50;
+	Resources->Prev_Ducats -= 50;
 }
 
-void StablesBuilding::RemovalPass()
+void HouseBuilding::RemovalPass()
 {
-	Resources->Ducats += 75;
-	Resources->Prev_Ducats += 75;
+	Resources->Ducats += 25;
+	Resources->Prev_Ducats += 25;
 }
 
-void StablesBuilding::SetupBuildingDatabyType()
+void HouseBuilding::SetupBuildingDatabyType()
 {
-	Type = Stables;
-	GameData.PopReq = 5;
-	DrawData.BuildingSizeX = 3;
-	DrawData.BuildingSizeY = 3;
-	DrawData.SpriteOffsetX = 20;
-	DrawData.SpriteOffsetY = 105;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getStablesTexture());
+	Type = House;
+	GameData.PopReq = 2;
+	DrawData.BuildingSizeX = 2;
+	DrawData.BuildingSizeY = 2;
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 80;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getHouseTexture(rand()%2));
 }
 
-void StablesBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void HouseBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }

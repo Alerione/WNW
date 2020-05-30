@@ -1,20 +1,21 @@
-#ifndef __WNW_TavernBuildingClass_
-#define __WNW_TavernBuildingClass_
+#ifndef __WNW_HouseBuildingClass_
+#define __WNW_HouseBuildingClass_
+
 
 #include "Building.h"
-class TavernBuilding :
+class HouseBuilding :
 	public Building
 {
 public:
-	TavernBuilding();
-	TavernBuilding(const TavernBuilding& input);
-	TavernBuilding(TileMap* input);
-	virtual ~TavernBuilding();
+	HouseBuilding();
+	HouseBuilding(const HouseBuilding& input);
+	HouseBuilding(TileMap* input);
+	virtual ~HouseBuilding();
 
 	//Set and Get Methods//
 
 	//Overloads//
-	TavernBuilding& operator=(const TavernBuilding &input);
+	HouseBuilding& operator=(const HouseBuilding &input);
 
 	//ResourceUpdateMethods//
 	bool CheckResources();
@@ -25,9 +26,6 @@ public:
 	//Methods//
 	void SetupBuildingDatabyType();
 	void DrawBuildingSpecific(sf::RenderWindow& target);
-
-	//Building Specific Methods//
-	void UpdateArea();
 };
 
 #endif

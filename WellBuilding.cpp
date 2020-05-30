@@ -99,6 +99,7 @@ void WellBuilding::RemovalPass()
 void WellBuilding::SetupBuildingDatabyType()
 {
 	Type = Well;
+	GameData.PopReq = 1;
 	DrawData.BuildingSizeX = 1;
 	DrawData.BuildingSizeY = 1;
 	DrawData.SpriteOffsetX = 0;
@@ -139,24 +140,24 @@ void WellBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 
 void WellBuilding::UpdateArea(bool a)
 {
-	int Range = 2;
+	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
 	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 1; x++)
 	{
 		for (y = 0, yadj = 0; y < 2 * Range + 1; y++)
 		{
 			yadj = y - x - Range;
-			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->setWaterAccess(a);
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addHealth(int(5*a));
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->setWaterAccess(a);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(int(5*a));
 			}
 			else
 			{
 			}
-			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+			if ((abs(TileBase[0][0]->getY() + y - x - Range)) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
+		if ((abs(TileBase[0][0]->getY() - x - Range)) % 2 == 0) xadjx++;
 	}
 }

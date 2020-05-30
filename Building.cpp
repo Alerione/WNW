@@ -14,6 +14,7 @@ Building::Building()
     , Map(nullptr)
 {
 	DrawData.AutoDrawSprite = true;
+	GameData.PopReq = 0;
 }
 
 Building::Building(const Building & input)
@@ -59,6 +60,16 @@ Building & Building::operator=(const Building & input)
 BuildingDataGame& Building::getDataGame()
 {
     return GameData;
+}
+
+BuildingDataDraw & Building::getDataDraw()
+{
+	return DrawData;
+}
+
+BuildingType Building::getType()
+{
+	return Type;
 }
 
 ResourceList * Building::getResources()
@@ -110,7 +121,7 @@ void Building::Build(ResourceList* Resources)
         for (unsigned int y = 0; y < DrawData.BuildingSizeY; y++)
         {
             TileBase[x][y]->SetBuilding(this);
-            if (Type != BuildingType::Trees)
+            if (Type != BuildingType::Trees && Type!=BuildingType::Marbles)
                 TileBase[x][y]->setSprite(Map->getTexMngr().getDefaultTileTexture1());
         }
     }
@@ -122,9 +133,10 @@ void Building::Build(ResourceList* Resources)
 
 void Building::draw(sf::RenderWindow& target)
 {
-    DrawBuildingSpecific(target);
+    
     if (DrawData.Built == false && Map->CheckBounds())
     {
+		DrawBuildingSpecific(target);
         UpdatePositionbyMouse(target);
         DrawData.Sprite.setPosition((float)TileBase[0][0]->getPositionX() - DrawData.SpriteOffsetX, (float)TileBase[0][0]->getPositionY() - DrawData.SpriteOffsetY);
         if(DrawData.AutoDrawSprite)target.draw(DrawData.Sprite);
@@ -132,6 +144,7 @@ void Building::draw(sf::RenderWindow& target)
     }
     else if (DrawData.Built == true)
     {
+		DrawBuildingSpecific(target);
 		if (DrawData.AutoDrawSprite)target.draw(DrawData.Sprite);
     }
 }
@@ -166,7 +179,7 @@ bool Building::CheckBusy()
 
 void Building::UpdateBuildingGameData()
 {
-    int mod = 5;
+    int mod = 3;
     bool water = false;
     int TileCount = DrawData.BuildingSizeX*DrawData.BuildingSizeY;
     double HappinessSum = 0;
@@ -190,14 +203,22 @@ void Building::UpdateBuildingGameData()
     HealthSum /= TileCount;
     double tPublicOrderSum = PublicOrderSum;
     PublicOrderSum -= mod - (mod * (HappinessSum / 100));
-    HappinessSum -= mod - (mod * (tPublicOrderSum / 100));
-    HappinessSum -= 0.5*mod - (0.5 * mod * (HealthSum / 100));
-    if (Resources->Population > 0.75*Resources->PopulationCap && Resources->PopulationCap != 0)
+    HappinessSum -= 2 *(mod - (mod * (tPublicOrderSum / 100)));
+    HappinessSum -= mod - (mod * (HealthSum / 100));
+	HappinessSum -= 2 * mod*Resources->FoodPenalty;
+	HealthSum -= 2 * mod*Resources->FoodPenalty;
+    if (Resources->Population > 0.75*Resources->PopulationCap && Resources->PopulationCap != 0 && Resources->Population <= Resources->PopulationCap)
     {
-        HappinessSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
-        PublicOrderSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
-        HealthSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)) - 0.75) * 2;
+        HappinessSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)));
+        PublicOrderSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)));
+        HealthSum -= mod * ((((Resources->PopulationCap - Resources->Population) / Resources->PopulationCap)));
     }
+	else if (Resources->Population > Resources->PopulationCap && Resources->PopulationCap != 0)
+	{
+		HappinessSum -= mod * ((((Resources->Population - 0.75*Resources->PopulationCap) / Resources->PopulationCap)) - 0.75);
+		PublicOrderSum -= mod * ((((Resources->Population - 0.75*Resources->PopulationCap) / Resources->PopulationCap)) - 0.75);
+		HealthSum -= mod * ((((Resources->Population - 0.75*Resources->PopulationCap) / Resources->PopulationCap)) - 0.75);
+	}
     if (water == false)
     {
         HealthSum -= mod;
@@ -220,4 +241,9 @@ void Building::UpdateBuildingGameData()
     double b = 0.4 * (1 - ((double)GameData.PublicOrder / 100));
     double c = 0.2 * (1 - ((double)GameData.Health / 100));
     GameData.ResourceMod = 1 * (1 - a) * (1 - b) * (1 - c);
+}
+
+int Building::getPopReq()
+{
+	return GameData.PopReq;
 }

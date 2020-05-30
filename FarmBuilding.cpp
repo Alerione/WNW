@@ -81,7 +81,7 @@ void FarmBuilding::ResourceUpdateTick()
 		FarmGrowth++;
 		if (FarmGrowth == 16)
 		{
-			Resources->Food += 160;
+			Resources->Food += (unsigned int)(160 * Resources->PopMod);
 			FarmGrowth = 0;
 		}
 	}
@@ -111,6 +111,7 @@ void FarmBuilding::RemovalPass()
 void FarmBuilding::SetupBuildingDatabyType()
 {
 	Type = Farm;
+	GameData.PopReq = 5;
 	DrawData.BuildingSizeX = 3;
 	DrawData.BuildingSizeY = 3;
 	DrawData.SpriteOffsetX = 0;
@@ -133,7 +134,7 @@ void FarmBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 			for (y = 0, yadj = 0; y < Range + 1; y++)
 			{
 				yadj = y - x - Range;
-				if (x == 0 & y == 0)
+				if (x == 0 && y == 0)
 				{
 
 				}
@@ -154,22 +155,22 @@ void FarmBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	else
 	{
 		int adjuster = 36;
-		FarmSprite[FarmGrowth/4].setPosition(TileBase[2][0]->getPositionX(), TileBase[2][0]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth/4].setPosition((float)(TileBase[2][0]->getPositionX()), (float)(TileBase[2][0]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[1][0]->getPositionX(), TileBase[1][0]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[1][0]->getPositionX()), (float)(TileBase[1][0]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[2][1]->getPositionX(), TileBase[2][1]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[2][1]->getPositionX()), (float)(TileBase[2][1]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[1][1]->getPositionX(), TileBase[1][1]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[1][1]->getPositionX()), (float)(TileBase[1][1]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[2][2]->getPositionX(), TileBase[2][2]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[2][2]->getPositionX()), (float)(TileBase[2][2]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
 		target.draw(DrawData.Sprite);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[0][1]->getPositionX(), TileBase[0][1]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[0][1]->getPositionX()), (float)(TileBase[0][1]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[1][2]->getPositionX(), TileBase[1][2]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[1][2]->getPositionX()), (float)(TileBase[1][2]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
-		FarmSprite[FarmGrowth / 4].setPosition(TileBase[0][2]->getPositionX(), TileBase[0][2]->getPositionY() - adjuster);
+		FarmSprite[FarmGrowth / 4].setPosition((float)(TileBase[0][2]->getPositionX()), (float)(TileBase[0][2]->getPositionY() - adjuster));
 		target.draw(FarmSprite[FarmGrowth / 4]);
 	}
 }
