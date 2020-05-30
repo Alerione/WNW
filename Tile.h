@@ -60,6 +60,8 @@ public:
 	int getPublicOrder();
 	int getHappiness();
 	int getHealth();
+	int getX();
+	int getY();
 	Position& getPosition();
 	int getPositionX();
 	int getPositionY();

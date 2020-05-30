@@ -23,7 +23,7 @@ void InterfaceManager::button1action(InterfaceManager& im_)
     if (im_.button1actionStatus == false)
     {
         InterfaceElement Ie2Button1Pop1(0, 60, (float)SCR_WIDTH / 16, SCR_HEIGHT - 1 * interfaceHeight - 60, sf::Color::White, false);
-        sf::IntRect d(0, 0, float(SCR_WIDTH) / 16, (float)interfaceHeight * 5);
+        sf::IntRect d(0, 0, int(SCR_WIDTH) / 16, (int)interfaceHeight * 5);
         Ie2Button1Pop1._shape.setTextureRect(d);
         Ie2Button1Pop1.setTexture(&im_.tileMap->getTexMngr().getIeBg2Texture());
 
@@ -61,7 +61,7 @@ void InterfaceManager::button1action_button1(InterfaceManager& im_)
     if (im_.button1action_button1Status == false && im_.button1action_button2Status == false)
     {
         InterfaceElement Ie2Button1Pop1Button1Panel(SCR_WIDTH / 16, 0 + interfaceHeight + 16, (float)SCR_WIDTH / 3, SCR_HEIGHT / 12, sf::Color::White, true);
-        sf::IntRect d(0, 0, float(SCR_WIDTH) / 4, (float)interfaceHeight*3);
+        sf::IntRect d(0, 0, (int)SCR_WIDTH / 4, (int)interfaceHeight*3);
         Ie2Button1Pop1Button1Panel._shape.setTextureRect(d);
         Ie2Button1Pop1Button1Panel.setTexture(&im_.tileMap->getTexMngr().getIeBg3Texture());
 
@@ -112,7 +112,7 @@ void InterfaceManager::button1action_button2(InterfaceManager& im_)
     if (im_.button1action_button2Status == false && im_.button1action_button1Status == false)
     { 
         InterfaceElement Ie2Button1Pop1Button1Panel(SCR_WIDTH / 16, 0 + 3*interfaceHeight + 8, (float)SCR_WIDTH / 3, SCR_HEIGHT / 12, sf::Color::White, true);
-        sf::IntRect d(0, 0, float(SCR_WIDTH) / 4, (float)interfaceHeight * 3);
+        sf::IntRect d(0, 0, (int)SCR_WIDTH / 4, (int)interfaceHeight * 3);
         Ie2Button1Pop1Button1Panel._shape.setTextureRect(d);
         Ie2Button1Pop1Button1Panel.setTexture(&im_.tileMap->getTexMngr().getIeBg3Texture());
         im_.interfacePop2Vec.push_back(Ie2Button1Pop1Button1Panel);
@@ -205,13 +205,13 @@ void InterfaceManager::cat2Building2(InterfaceManager& im_)
 
 void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
 {
-    if (building!=nullptr && im_.infoBarShowed==false)
+    if (building!=nullptr && im_.infoBarShowed==false && building->getType() < 900)
     {
 		im_.InfobarGrab = building;
 
         im_.infoBarShowed = true;
         InterfaceElement InfoBarPanel((float)SCR_WIDTH - (float)SCR_WIDTH / 10, 60, (float)SCR_WIDTH / 10, (float)SCR_HEIGHT - interfaceHeight - 60, sf::Color::White, false);
-        sf::IntRect d(0, 0, float(SCR_WIDTH) / 8, (float)interfaceHeight * 5);
+        sf::IntRect d(0, 0, (int)SCR_WIDTH / 8, (int)interfaceHeight * 5);
         InfoBarPanel._shape.setTextureRect(d);
         InfoBarPanel.setTexture(&im_.tileMap->getTexMngr().getIeBg3Texture());
         im_.infoBar.push_back(InfoBarPanel);
@@ -220,7 +220,7 @@ void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
         happ.setFont(im_.font);
 		happ.setCharacterSize(14);
         happ.setFillColor(sf::Color::White);
-        happ.setPosition(sf::Vector2f((float)SCR_WIDTH - (float)SCR_WIDTH / 10 + 16, 1.5*(float)interfaceHeight));
+        happ.setPosition(sf::Vector2f((float)(SCR_WIDTH - SCR_WIDTH / 10 + 16), (float)(interfaceHeight*1.5)));
         happ.setString("Happiness: " + std::to_string(building->getDataGame().Happiness));
         im_.infoBarTexts.push_back(happ);
 
@@ -228,7 +228,7 @@ void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
         hp.setFont(im_.font);
 		hp.setCharacterSize(14);
         hp.setFillColor(sf::Color::White);
-        hp.setPosition(sf::Vector2f((float)SCR_WIDTH - (float)SCR_WIDTH / 10 + 16, 1.5*(float)interfaceHeight + 32));
+        hp.setPosition(sf::Vector2f((float)(SCR_WIDTH - SCR_WIDTH / 10 + 16), (float)(interfaceHeight*1.5 + 32)));
         hp.setString("Health: " + std::to_string(building->getDataGame().Health));
         im_.infoBarTexts.push_back(hp);
 
@@ -236,7 +236,7 @@ void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
         po.setFont(im_.font);
 		po.setCharacterSize(14);
         po.setFillColor(sf::Color::White);
-        po.setPosition(sf::Vector2f((float)SCR_WIDTH - (float)SCR_WIDTH / 10 + 16, 1.5*(float)interfaceHeight + 64));
+        po.setPosition(sf::Vector2f((float)(SCR_WIDTH - SCR_WIDTH / 10 + 16), (float)(interfaceHeight*1.5 + 64)));
         po.setString("Public Order: " + std::to_string(building->getDataGame().PublicOrder));
         im_.infoBarTexts.push_back(po);
 
@@ -244,7 +244,7 @@ void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
         wa.setFont(im_.font);
 		wa.setCharacterSize(14);
         wa.setFillColor(sf::Color::White);
-        wa.setPosition(sf::Vector2f((float)SCR_WIDTH - (float)SCR_WIDTH / 10 + 16, 1.5*(float)interfaceHeight + 96 ));
+        wa.setPosition(sf::Vector2f((float)(SCR_WIDTH - SCR_WIDTH / 10 + 16), (float)(interfaceHeight*1.5 + 96)));
 		if (building->getDataGame().WaterAccess)
 		{
 			wa.setString("Water Available");
@@ -255,7 +255,7 @@ void InterfaceManager::infoBarAction(InterfaceManager& im_, Building* building)
 		}
         im_.infoBarTexts.push_back(wa);
     }
-	else if (building != nullptr && im_.infoBarShowed == true)
+	else if (building != nullptr && im_.infoBarShowed == true && building->getType() < 900)
 	{
 		im_.InfobarGrab = building;
 		im_.infoBarTexts[0].setString("Happiness: " + std::to_string(im_.InfobarGrab->getDataGame().Happiness));
@@ -311,17 +311,17 @@ void InterfaceManager::buildInterface(double interfaceHeight)
     color.a = 200;
 
     InterfaceElement Ie1(0, 0, (float)SCR_WIDTH, (float)60, sf::Color::White, false);
-    sf::IntRect a(0, 0, float(SCR_WIDTH) * 5, (float)interfaceHeight * 5);
+    sf::IntRect a(0, 0, (int)(SCR_WIDTH * 5), (int)(interfaceHeight * 5));
     Ie1._shape.setTextureRect(a);
     Ie1.setTexture(&tileMap->getTexMngr().getIeBgTexture());
 
     InterfaceElement Ie2(0, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.3, (float)interfaceHeight, sf::Color::White, false);
-    sf::IntRect b(0, 0, float(SCR_WIDTH)*2, (float)interfaceHeight*5);
+    sf::IntRect b(0, 0, (int)(SCR_WIDTH*2), (int)(interfaceHeight*5));
     Ie2._shape.setTextureRect(b);
     Ie2.setTexture(&tileMap->getTexMngr().getIeBgTexture());
 
     InterfaceElement Ie3((float)SCR_WIDTH - (float)SCR_WIDTH * (float)0.15, (float)SCR_HEIGHT - (float)interfaceHeight, (float)SCR_WIDTH*(float)0.15, (float)interfaceHeight, sf::Color::White, false);
-    sf::IntRect c(0, 0, float(SCR_WIDTH) * 1, (float)interfaceHeight * 5);
+    sf::IntRect c(0, 0, (int)(SCR_WIDTH * 1), (int)(interfaceHeight * 5));
     Ie3._shape.setTextureRect(c);
     Ie3.setTexture(&tileMap->getTexMngr().getIeBgTexture());
 
@@ -622,7 +622,7 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
     {
         for (size_t i = 0; i < interfaceIcons.size(); i++)
         {
-            interfaceIcons[i]._shape.setPosition((float)((i - i % 2) / 2) * 160 + 25, 2 + 26 * (i % 2));
+            interfaceIcons[i]._shape.setPosition((float)((i - i % 2) / 2) * 160 + 25, (float)(2 + 26 * (i % 2)));
             interfaceIcons[i].draw(window);
         }
     }
@@ -631,7 +631,7 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
         for (size_t i = 0; i < interfaceTexts.size(); i++)
         {
             interfaceTexts[i].setOrigin(sf::Vector2f(interfaceTexts[i].getGlobalBounds().width, 0));
-            interfaceTexts[i].setPosition((float)((i - i % 2) / 2) * 160 + 65 + interfaceTexts[i].getGlobalBounds().width, 5 + 26 * (i % 2));
+            interfaceTexts[i].setPosition((float)((i - i % 2) / 2) * 160 + 65 + interfaceTexts[i].getGlobalBounds().width, (float)(5 + 26 * (i % 2)));
             window.draw(interfaceTexts[i]);
         }
     }
@@ -639,7 +639,7 @@ void InterfaceManager::drawInterface(sf::RenderWindow& window)
     {
         for (size_t i = 0; i < interfacePrev.size(); i++)
         {
-            interfacePrev[i].setPosition((float)((i - i % 2) / 2) * 160 + 70 + interfaceTexts[i].getGlobalBounds().width, 5 + 26 * (i % 2));
+            interfacePrev[i].setPosition((float)((i - i % 2) / 2) * 160 + 70 + interfaceTexts[i].getGlobalBounds().width, (float)(5 + 26 * (i % 2)));
             window.draw(interfacePrev[i]);
         }
     }

@@ -12,8 +12,13 @@
 #include "LumberBuilding.h"
 #include "ClayMineBuilding.h"
 #include "HorseBreederBuilding.h"
+#include "HouseBuilding.h"
+#include "MerchantGuildBuilding.h"
 //Features//
 #include "Tree.h"
+#include "Clay.h"
+#include "Marble.h"
+#include "Horses.h"
 
 class BuildingManager
 {

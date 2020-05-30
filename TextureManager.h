@@ -27,6 +27,8 @@ protected:
 	sf::Texture LumberTexture;
 	sf::Texture ClayMineTexture;
 	sf::Texture HorseBreederTexture;
+	sf::Texture HouseTexture[2];
+	sf::Texture MerchantGuildTexture;
 	//Interface
     sf::Texture InterfaceBuildButton;
     sf::Texture InterfaceDelButton;
@@ -56,6 +58,10 @@ protected:
 	//Farm//
     sf::Texture FarmTexture;
     sf::Texture FarmlandTexture[4];
+    //Res//
+    sf::Texture ClayTexture;
+    sf::Texture MarbleTexture;
+    sf::Texture HorsesTexture;
 
 public:
 	//Constructors and Destructors//
@@ -79,6 +85,8 @@ public:
 	sf::Texture& getLumberTexture();
 	sf::Texture& getClayMineTexture();
 	sf::Texture& getHorseBreederTexture();
+	sf::Texture& getHouseTexture(int a = 0);
+	sf::Texture& getMerchantGuildTexture();
 
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
@@ -111,6 +119,10 @@ public:
     sf::Texture& getTreeTexture();
     sf::Texture& getTreeTexture2();
     sf::Texture& getTreeTexture3();
+
+    sf::Texture& getClayTexture();
+    sf::Texture& getMarbleTexture();
+    sf::Texture& getHorsesTexture();
    
 
 	//Overloads//

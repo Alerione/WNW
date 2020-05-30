@@ -2,7 +2,7 @@
 
 
 Tile::Tile()
-	: Data{ 0,0,80,80,100 }
+	: Data{ 0,0,60,60,80 }
 	, Sprite()
 	, TileBuilding(nullptr)
 	, TilePos{ 0,0,0 }
@@ -13,7 +13,7 @@ Tile::Tile()
 }
 
 Tile::Tile(const sf::Sprite & sprite, Position pos, TextureManager* address, int ID)
-	: Data{ 0,0,80,80,100 }
+	: Data{ 0,0,60,60,80 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
@@ -24,7 +24,7 @@ Tile::Tile(const sf::Sprite & sprite, Position pos, TextureManager* address, int
 }
 
 Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ, TextureManager* address, int ID)
-	: Data{ 0,0,80,80,100 }
+	: Data{ 0,0,60,60,80 }
 	, Sprite(sprite)
 	, TileBuilding(nullptr)	
 	, TilePos{posX,posY,posZ}
@@ -35,7 +35,7 @@ Tile::Tile(const sf::Sprite & sprite, int posX, int posY, int posZ, TextureManag
 }
 
 Tile::Tile(const sf::Texture & texture, Position pos, TextureManager* address, int ID)
-	: Data{ 0,0,80,80,100 }
+	: Data{ 0,0,60,60,80 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos(pos)
@@ -46,7 +46,7 @@ Tile::Tile(const sf::Texture & texture, Position pos, TextureManager* address, i
 }
 
 Tile::Tile(const sf::Texture & texture, int posX, int posY, int posZ, TextureManager* address, int ID)
-	: Data{ 0,0,80,80,100 }
+	: Data{ 0,0,60,60,80 }
 	, Sprite(texture)
 	, TileBuilding(nullptr)
 	, TilePos{ posX,posY,posZ }
@@ -75,37 +75,37 @@ bool Tile::setRoadAccess(bool input)
 
 int Tile::setPublicOrder(int input)
 {
-	Data.PublicOrder = fmax(fmin(input, 100), 0);
+	Data.PublicOrder = (int)fmax(fmin(input, 100), 0);
 	return Data.PublicOrder;
 }
 
 int Tile::setHappiness(int input)
 {
-	Data.Happiness = fmax(fmin(input, 100), 0);
+	Data.Happiness = (int)fmax(fmin(input, 100), 0);
 	return Data.Happiness;
 }
 
 int Tile::addHappiness(int input)
 {
-	Data.Happiness = fmax(fmin(Data.Happiness + input, 100), 0);
+	Data.Happiness = (int)fmax(fmin(Data.Happiness + input, 100), 0);
 	return Data.Happiness;
 }
 
 int Tile::setHealth(int input)
 {
-	Data.Health = fmax(fmin(input, 100), 0);
+	Data.Health = (int)fmax(fmin(input, 100), 0);
 	return Data.Health;
 }
 
 int Tile::addHealth(int input)
 {
-	Data.Health = fmax(fmin(Data.Health + input, 100), 0);
+	Data.Health = (int)fmax(fmin(Data.Health + input, 100), 0);
 	return Data.Health;
 }
 
 int Tile::addPublicOrder(int input)
 {
-	Data.PublicOrder = fmax(fmin(Data.PublicOrder + input, 100), 0);
+	Data.PublicOrder = (int)fmax(fmin(Data.PublicOrder + input, 100), 0);
 	return Data.PublicOrder;
 }
 
@@ -170,6 +170,16 @@ int Tile::getHappiness()
 int Tile::getHealth()
 {
 	return Data.Health;
+}
+
+int Tile::getX()
+{
+	return (TileID-(TileID%256))/256;
+}
+
+int Tile::getY()
+{
+	return TileID%256;
 }
 
 Position& Tile::getPosition()

@@ -66,7 +66,8 @@ void TavernBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		Resources->Ducats += (unsigned int)(25 * GameData.ResourceMod);
+		UpdateArea();
+		Resources->Ducats += (unsigned int)(10 * GameData.ResourceMod * Resources->PopMod);
 	}
 }
 
@@ -89,6 +90,7 @@ void TavernBuilding::RemovalPass()
 void TavernBuilding::SetupBuildingDatabyType()
 {
 	Type = Tavern;
+	GameData.PopReq = 10;
 	DrawData.BuildingSizeX = 2;
 	DrawData.BuildingSizeY = 2;
 	DrawData.SpriteOffsetX = 13;
@@ -100,7 +102,7 @@ void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
 
-void TavernBuilding::UpdateArea(bool)
+void TavernBuilding::UpdateArea()
 {
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
@@ -109,18 +111,19 @@ void TavernBuilding::UpdateArea(bool)
 		for (y = 0, yadj = 0; y < 2 * Range + 1; y++)
 		{
 			yadj = y - x - Range;
-			if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
+			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addHappiness(8);
-				Map->getCurrentTileAdj(x + xadjy - xadjx, yadj)->addPublicOrder(-2);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(5);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addPublicOrder(-2);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(-1);
 			}
 			else
 			{
 			}
-			if ((abs(Map->getCurrentTileY() + y - x - Range)) % 2 == 1) xadjy++;
+			if ((abs(TileBase[0][0]->getY() + y - x - Range)) % 2 == 1) xadjy++;
 		}
 		xadjy = 0;
-		if ((abs(Map->getCurrentTileY() - x - Range)) % 2 == 0) xadjx++;
+		if ((abs(TileBase[0][0]->getY() - x - Range)) % 2 == 0) xadjx++;
 	}
 
 }

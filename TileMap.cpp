@@ -108,7 +108,7 @@ TileMap & TileMap::operator=(const TileMap & input)
 
 void TileMap::BuildTileMap()
 {
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     TileArray.resize(TileMapSize.columns);
     for (int x = 0; x < TileMapSize.columns; x++)
     {
@@ -213,7 +213,7 @@ void TileMap::drawWater(sf::RenderTarget & target, int r, bool left)
 			{
 				if (x < 0 || x >= TileMapSize.columns || y < 0 || y >= TileMapSize.rows)
 				{
-					WaterSprite.setPosition(64 * (x)+32 * ((y) % 2), 16 * (y));
+					WaterSprite.setPosition(64 * ((float)x)+32 * (float)((y) % 2), 16 * ((float)y));
 					target.draw(WaterSprite);
 				}
 			}
@@ -228,7 +228,7 @@ void TileMap::drawWater(sf::RenderTarget & target, int r, bool left)
 			{
 				if (x < 0 || x >= TileMapSize.columns || y < 0 || y >= TileMapSize.rows)
 				{
-					WaterSprite.setPosition(64 * (x)+32 * ((y) % 2), 16 * (y));
+					WaterSprite.setPosition(64 * ((float)x)+32 * (float)((y) % 2), 16 * ((float)y));
 					target.draw(WaterSprite);
 				}
 			}
@@ -240,7 +240,7 @@ void TileMap::drawWater(sf::RenderTarget & target, int r, bool left)
 		{
 			if (x < 0 || x >= TileMapSize.columns)
 			{
-				WaterSprite.setPosition(64 * (x)+32 * ((r) % 2), 16 * (r));
+				WaterSprite.setPosition(64 * ((float)x)+32 * (float)((r) % 2), 16 * ((float)r));
 				target.draw(WaterSprite);
 			}
 		}

@@ -18,6 +18,11 @@ struct ResourceList
 	int HorseCap;
 	//Others//
 	int Population;
+	int PopReq;
+	int GuildsCount;
+	double HorseOverflow;
+	double PopMod;
+	double FoodPenalty;
 	//Previous Values//
 	int Prev_Ducats;
 	int Prev_Lumber;

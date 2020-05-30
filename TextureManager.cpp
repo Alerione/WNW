@@ -104,6 +104,19 @@ sf::Texture & TextureManager::getHorseBreederTexture()
 	return HorseBreederTexture;
 }
 
+sf::Texture & TextureManager::getHouseTexture(int a)
+{
+	if (a >= 0 && a < 2) {
+		return HouseTexture[a];
+	}
+	else return HouseTexture[0];
+}
+
+sf::Texture & TextureManager::getMerchantGuildTexture()
+{
+	return MerchantGuildTexture;
+}
+
 sf::Texture& TextureManager::getInterfaceBuildButton()
 {
     return InterfaceBuildButton;
@@ -208,6 +221,22 @@ sf::Texture& TextureManager::getTreeTexture3()
     return treeTexture3;
 }
 
+sf::Texture& TextureManager::getClayTexture()
+{
+    return ClayTexture;
+}
+
+sf::Texture& TextureManager::getMarbleTexture()
+{
+    return MarbleTexture;
+}
+
+sf::Texture& TextureManager::getHorsesTexture()
+{
+    return HorsesTexture;
+}
+
+
 sf::Texture & TextureManager::getFarmTexture()
 {
     return FarmTexture;
@@ -215,7 +244,10 @@ sf::Texture & TextureManager::getFarmTexture()
 
 sf::Texture & TextureManager::getFarmlandTexture(int a)
 {
-    return FarmlandTexture[a];
+	if (a >= 0 && a < 4) {
+		return FarmlandTexture[a];
+	}
+	else return FarmlandTexture[0];
 }
 
 TextureManager & TextureManager::operator=(const TextureManager & input)
@@ -227,7 +259,7 @@ void TextureManager::loadTextures()
 {
 	//Background//
 	if (BackgroundTexture.loadFromFile("bgmap.jpg")) { std::cout << "Background texture loaded!" << std::endl; BackgroundTexture.setRepeated(true); }
-	if (WaterTexture.loadFromFile("water.png")) std::cout << "Water texture loaded!" << std::endl;
+	if (WaterTexture.loadFromFile("waterx.png")) std::cout << "Water texture loaded!" << std::endl;
 	//Tile//
 	if(defaultTileTexture.loadFromFile("tile.png")) std::cout << "Tile texture loaded!" << std::endl;
     if (defaultTileTexture1.loadFromFile("tilenull.png")) std::cout << "Tile1 texture loaded!" << std::endl;
@@ -246,6 +278,29 @@ void TextureManager::loadTextures()
 	if (LumberTexture.loadFromFile("lumberjack.png")) std::cout << "Lumberjack texture loaded!" << std::endl;
 	if (ClayMineTexture.loadFromFile("claymine.png")) std::cout << "Clay Mine texture loaded!" << std::endl;
 	if (HorseBreederTexture.loadFromFile("horsebreeder.png")) std::cout << "Horse Breeder texture loaded!" << std::endl;
+	{
+		bool f = false;
+		if (HouseTexture[0].loadFromFile("house1.png"))
+		{
+			std::cout << "House textures loaded.. 1";
+			f = true;
+		}
+
+		if (HouseTexture[1].loadFromFile("house2.png"))
+		{
+			if (!f)
+			{
+				std::cout << "House textures loaded.. 2";
+				f = true;
+			}
+			else
+			{
+				std::cout << ".. 2";
+			}
+		}
+		std::cout << "!" << std::endl;
+	}
+	if (MerchantGuildTexture.loadFromFile("merchantguild.png")) std::cout << "Merchant Guild texture loaded!" << std::endl;
  	//Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
@@ -274,9 +329,13 @@ void TextureManager::loadTextures()
     if (iePlanks.loadFromFile("planks.png")) std::cout << "Planks Texture loaded!" << std::endl;
     if (ieClay.loadFromFile("clay.png")) std::cout << "Clay Texture loaded!" << std::endl;
 
-    if (treeTexture.loadFromFile("tree.png")) std::cout << "Tree Texture loaded!" << std::endl;
-    if (treeTexture2.loadFromFile("tree2.png")) std::cout << "Tree Texture loaded!" << std::endl;
-    if (treeTexture3.loadFromFile("tree3.png")) std::cout << "Tree Texture loaded!" << std::endl;
+    if (treeTexture.loadFromFile("tree.png")) std::cout << "Tree1 Texture loaded!" << std::endl;
+    if (treeTexture2.loadFromFile("tree2.png")) std::cout << "Tree2 Texture loaded!" << std::endl;
+    if (treeTexture3.loadFromFile("tree3.png")) std::cout << "Tree3 Texture loaded!" << std::endl;
+
+    if (ClayTexture.loadFromFile("resclay.png")) std::cout << "Clay Texture loaded!" << std::endl;
+    if (MarbleTexture.loadFromFile("resmarble.png")) std::cout << "Marble Texture loaded!" << std::endl;
+    if (HorsesTexture.loadFromFile("reshorses.png")) std::cout << "Horses Texture loaded!" << std::endl;
 
     //Terrain Features//
     {
