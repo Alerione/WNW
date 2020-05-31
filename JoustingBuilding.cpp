@@ -1,11 +1,11 @@
-#include "TavernBuilding.h"
+#include "JoustingBuilding.h"
 
-TavernBuilding::TavernBuilding()
+JoustingBuilding::JoustingBuilding()
 	: Building()
 {
 }
 
-TavernBuilding::TavernBuilding(const TavernBuilding & input)
+JoustingBuilding::JoustingBuilding(const JoustingBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ TavernBuilding::TavernBuilding(const TavernBuilding & input)
 	Map = input.Map;
 }
 
-TavernBuilding::TavernBuilding(TileMap * input)
+JoustingBuilding::JoustingBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ TavernBuilding::TavernBuilding(TileMap * input)
 }
 
 
-TavernBuilding::~TavernBuilding()
+JoustingBuilding::~JoustingBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
+JoustingBuilding& JoustingBuilding::operator=(const JoustingBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,64 +56,71 @@ TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 	return *this;
 }
 
-bool TavernBuilding::CheckResources()
+bool JoustingBuilding::CheckResources()
 {
-	if (Resources->Ducats < 250 || Resources->Bricks < 100) return false;
+	if (Resources->Ducats < 400 || Resources->Bricks < 150 || Resources->MarbleBlocks < 150) return false;
 	return true;
 }
 
-void TavernBuilding::ResourceUpdateTick()
+void JoustingBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		UpdateArea();
-		Resources->Ducats += (unsigned int)(10 * GameData.ResourceMod * Resources->PopMod);
+		if (Resources->Ducats >= 35)
+		{
+			Resources->Ducats -= 35;
+			UpdateArea();
+		}
 	}
 }
 
-void TavernBuilding::BuildCost()
+void JoustingBuilding::BuildCost()
 {
-	Resources->Ducats -= 250;
-	Resources->Prev_Ducats -= 250;
-	Resources->Bricks -= 100;
-	Resources->Prev_Bricks -= 100;
+	Resources->Ducats -= 400;
+	Resources->Prev_Ducats -= 400;
+	Resources->Bricks -= 150;
+	Resources->Prev_Bricks -= 150;
+	Resources->MarbleBlocks -= 150;
+	Resources->Prev_MarbleBlocks -= 150;
 }
 
-void TavernBuilding::RemovalPass()
+void JoustingBuilding::RemovalPass()
 {
-	Resources->Prev_Ducats += 125;
-	Resources->Ducats += 125;
-	Resources->Prev_Bricks += 50;
-	Resources->Bricks += 50;
+	Resources->Prev_Ducats += 200;
+	Resources->Ducats += 200;
+	Resources->Prev_Bricks += 75;
+	Resources->Bricks += 75;
+	Resources->MarbleBlocks += 75;
+	Resources->Prev_MarbleBlocks += 75;
 }
 
-void TavernBuilding::SetupBuildingDatabyType()
+void JoustingBuilding::SetupBuildingDatabyType()
 {
-	Type = Tavern;
-	GameData.PopReq = 10;
-	DrawData.BuildingSizeX = 2;
-	DrawData.BuildingSizeY = 2;
-	DrawData.SpriteOffsetX = 13;
-	DrawData.SpriteOffsetY = 100;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getTavernTexture());
+	Type = Jousting;
+	GameData.PopReq = 20;
+	DrawData.BuildingSizeX = 4;
+	DrawData.BuildingSizeY = 5;
+	DrawData.SpriteOffsetX = 0;
+	DrawData.SpriteOffsetY = 108;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getJoustingTexture());
 }
 
-void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void JoustingBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
 
-void TavernBuilding::UpdateArea()
+void JoustingBuilding::UpdateArea()
 {
-	int Range = 4;
+	int Range = 7;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 4; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 5; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(3);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(10);
 				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addPublicOrder(-2);
 				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(-1);
 			}

@@ -71,7 +71,7 @@ FarmBuilding& FarmBuilding::operator=(const FarmBuilding & input)
 
 bool FarmBuilding::CheckResources()
 {
-	if (Resources->Ducats < 100 || Resources->Bricks < 50) return false;
+	if (Resources->Ducats < 100 || Resources->Lumber < 50) return false;
 	return true;
 }
 

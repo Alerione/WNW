@@ -17,6 +17,7 @@ ResourceManager::ResourceManager(BuildingManager * BManager)
 	Resources.Planks = Resources.Prev_Planks = 400;
 	Resources.Lumber = Resources.Prev_Lumber = 400;
 	Resources.Food = Resources.Prev_Food = 1000;
+	Resources.MarbleBlocks = Resources.Prev_MarbleBlocks = 400;
 	//Start Pop
 	Resources.Population = Resources.Prev_Population = 10;
 	Resources.PopulationCap = 15;

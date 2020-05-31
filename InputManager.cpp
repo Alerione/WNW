@@ -192,6 +192,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new HorseBreederBuilding(Map);
 				}
 			}
+			if (event.key.code == sf::Keyboard::J)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new JoustingBuilding(Map);
+				}
+			}
 			if (event.key.code == sf::Keyboard::L)
 			{
 				if (Building::CheckBusy() == false)
@@ -206,6 +216,26 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				view.setCenter(float(Map->getColumns() * 32), float(Map->getRows() * 8));
 				window.setView(view);
+			}
+			if (event.key.code == sf::Keyboard::O)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new FountainBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::P)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new MilitiaPostBuilding(Map);
+				}
 			}
 			if (event.key.code == sf::Keyboard::Q)
 			{

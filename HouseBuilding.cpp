@@ -58,7 +58,7 @@ HouseBuilding& HouseBuilding::operator=(const HouseBuilding & input)
 
 bool HouseBuilding::CheckResources()
 {
-	if (Resources->Ducats < 50) return false;
+	if (Resources->Ducats < 50 || Resources->Lumber < 50) return false;
 	return true;
 }
 
@@ -73,12 +73,16 @@ void HouseBuilding::BuildCost()
 {
 	Resources->Ducats -= 50;
 	Resources->Prev_Ducats -= 50;
+	Resources->Lumber -= 50;
+	Resources->Prev_Lumber -= 50;
 }
 
 void HouseBuilding::RemovalPass()
 {
 	Resources->Ducats += 25;
 	Resources->Prev_Ducats += 25;
+	Resources->Lumber += 25;
+	Resources->Prev_Lumber += 25;
 }
 
 void HouseBuilding::SetupBuildingDatabyType()

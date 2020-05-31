@@ -117,6 +117,21 @@ sf::Texture & TextureManager::getMerchantGuildTexture()
 	return MerchantGuildTexture;
 }
 
+sf::Texture & TextureManager::getMilitiaPostTexture()
+{
+	return MilitiaPostTexture;
+}
+
+sf::Texture & TextureManager::getFountainTexture()
+{
+	return FountainTexture;
+}
+
+sf::Texture & TextureManager::getJoustingTexture()
+{
+	return JoustingTexture;
+}
+
 sf::Texture& TextureManager::getInterfaceBuildButton()
 {
     return InterfaceBuildButton;
@@ -301,6 +316,9 @@ void TextureManager::loadTextures()
 		std::cout << "!" << std::endl;
 	}
 	if (MerchantGuildTexture.loadFromFile("merchantguild.png")) std::cout << "Merchant Guild texture loaded!" << std::endl;
+	if (MilitiaPostTexture.loadFromFile("watchtower.png")) std::cout << "Militia Post texture loaded!" << std::endl;
+	if (FountainTexture.loadFromFile("fountain.png")) std::cout << "Fountain texture loaded!" << std::endl;
+	if (JoustingTexture.loadFromFile("jousting.png")) std::cout << "Jousting Arena texture loaded!" << std::endl;
  	//Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;

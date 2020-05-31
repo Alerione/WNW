@@ -1,11 +1,12 @@
-#include "BarracksBuilding.h"
+#include "MilitiaPostBuilding.h"
 
-BarracksBuilding::BarracksBuilding()
+
+MilitiaPostBuilding::MilitiaPostBuilding()
 	: Building()
 {
 }
 
-BarracksBuilding::BarracksBuilding(const BarracksBuilding & input)
+MilitiaPostBuilding::MilitiaPostBuilding(const MilitiaPostBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +15,7 @@ BarracksBuilding::BarracksBuilding(const BarracksBuilding & input)
 	Map = input.Map;
 }
 
-BarracksBuilding::BarracksBuilding(TileMap * input)
+MilitiaPostBuilding::MilitiaPostBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +39,12 @@ BarracksBuilding::BarracksBuilding(TileMap * input)
 }
 
 
-BarracksBuilding::~BarracksBuilding()
+MilitiaPostBuilding::~MilitiaPostBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-BarracksBuilding& BarracksBuilding::operator=(const BarracksBuilding & input)
+MilitiaPostBuilding& MilitiaPostBuilding::operator=(const MilitiaPostBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,72 +57,72 @@ BarracksBuilding& BarracksBuilding::operator=(const BarracksBuilding & input)
 	return *this;
 }
 
-bool BarracksBuilding::CheckResources()
+bool MilitiaPostBuilding::CheckResources()
 {
-	if (Resources->Ducats < 350 || Resources->Planks < 100 || Resources->Bricks < 200) return false;
+	if (Resources->Ducats < 150 || Resources->Planks < 100 || Resources->Bricks < 50) return false;
 	return true;
 }
 
-void BarracksBuilding::ResourceUpdateTick()
+void MilitiaPostBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		if (Resources->Ducats >= 35)
+		if (Resources->Ducats >= 5)
 		{
-			Resources->Ducats -= 35;
+			Resources->Ducats -= 5;
 			UpdateArea(1);
 		}
 	}
 }
 
-void BarracksBuilding::BuildCost()
+void MilitiaPostBuilding::BuildCost()
 {
-	Resources->Ducats -= 350;
-	Resources->Prev_Ducats -= 350;
-	Resources->Bricks -= 200;
-	Resources->Prev_Bricks -= 200;
+	Resources->Ducats -= 150;
+	Resources->Prev_Ducats -= 150;
+	Resources->Bricks -= 50;
+	Resources->Prev_Bricks -= 50;
 	Resources->Planks -= 100;
 	Resources->Prev_Planks -= 100;
 }
 
-void BarracksBuilding::RemovalPass()
+void MilitiaPostBuilding::RemovalPass()
 {
-	Resources->Ducats += 175;
-	Resources->Prev_Ducats += 175;
-	Resources->Bricks += 100;
-	Resources->Prev_Bricks += 100;
+	Resources->Ducats += 75;
+	Resources->Prev_Ducats += 75;
+	Resources->Bricks += 25;
+	Resources->Prev_Bricks += 25;
 	Resources->Planks += 50;
 	Resources->Prev_Planks += 50;
 }
 
-void BarracksBuilding::SetupBuildingDatabyType()
+void MilitiaPostBuilding::SetupBuildingDatabyType()
 {
-	Type = Barracks;
-	GameData.PopReq = 25;
+	Type = MilitiaPost;
+	GameData.PopReq = 4;
 	DrawData.BuildingSizeX = 2;
 	DrawData.BuildingSizeY = 2;
-	DrawData.SpriteOffsetX = 0;
-	DrawData.SpriteOffsetY = 104;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getBarracksTexture());
+	DrawData.SpriteOffsetX = 16;
+	DrawData.SpriteOffsetY = 124;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getMilitiaPostTexture());
 }
 
-void BarracksBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void MilitiaPostBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
 
-void BarracksBuilding::UpdateArea(bool a)
+void MilitiaPostBuilding::UpdateArea(bool a)
 {
-	int Range = 5;
+	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
 	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
 	{
 		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
 		{
 			yadj = y - x - Range;
-			if (Map->checkTileAdj(TileBase[0][0]->getX(),TileBase[0][0]->getY(),x + xadjy - xadjx, yadj))
+			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(),x + xadjy - xadjx, yadj)->addPublicOrder(int(10*a));
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(int(-3 * a));
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addPublicOrder(int(3 * a));
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(int(-1 * a));
 			}
 			else
 			{
