@@ -14,6 +14,9 @@
 #include "HorseBreederBuilding.h"
 #include "HouseBuilding.h"
 #include "MerchantGuildBuilding.h"
+#include "MilitiaPostBuilding.h"
+#include "FountainBuilding.h"
+#include "JoustingBuilding.h"
 //Features//
 #include "Tree.h"
 #include "Clay.h"

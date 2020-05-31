@@ -1,11 +1,11 @@
-#include "WellBuilding.h"
+#include "FountainBuilding.h"
 
-WellBuilding::WellBuilding()
+FountainBuilding::FountainBuilding()
 	: Building()
 {
 }
 
-WellBuilding::WellBuilding(const WellBuilding & input)
+FountainBuilding::FountainBuilding(const FountainBuilding & input)
 {
 	TileBase = input.TileBase;
 	Type = input.Type;
@@ -14,7 +14,7 @@ WellBuilding::WellBuilding(const WellBuilding & input)
 	Map = input.Map;
 }
 
-WellBuilding::WellBuilding(TileMap * input)
+FountainBuilding::FountainBuilding(TileMap * input)
 	: Building()
 {
 	BusyBuilding = true;
@@ -38,12 +38,12 @@ WellBuilding::WellBuilding(TileMap * input)
 }
 
 
-WellBuilding::~WellBuilding()
+FountainBuilding::~FountainBuilding()
 {
 	if (DrawData.Built == 1) RemovalPass();
 }
 
-WellBuilding& WellBuilding::operator=(const WellBuilding & input)
+FountainBuilding& FountainBuilding::operator=(const FountainBuilding & input)
 {
 	if (this == &input) return *this;
 
@@ -56,18 +56,18 @@ WellBuilding& WellBuilding::operator=(const WellBuilding & input)
 	return *this;
 }
 
-bool WellBuilding::CheckResources()
-{	
-	if (Resources->Ducats < 100 || Resources->Bricks < 50) return false;
+bool FountainBuilding::CheckResources()
+{
+	if (Resources->Ducats < 200 || Resources->MarbleBlocks < 100) return false;
 	return true;
 }
 
-void WellBuilding::ResourceUpdateTick()
+void FountainBuilding::ResourceUpdateTick()
 {
 	UpdateBuildingGameData();
-	if (Resources->Ducats >= 1) 
+	if (Resources->Ducats >= 5)
 	{
-		Resources->Ducats -= 1;
+		Resources->Ducats -= 5;
 		UpdateArea(true);
 	}
 	else
@@ -77,46 +77,46 @@ void WellBuilding::ResourceUpdateTick()
 	}
 }
 
-void WellBuilding::BuildCost()
+void FountainBuilding::BuildCost()
 {
 	if (DrawData.Built == 1) {
-		Resources->Ducats -= 100;
-		Resources->Prev_Ducats -= 100;
-		Resources->Bricks -= 50;
-		Resources->Prev_Bricks -= 50;
+		Resources->Ducats -= 200;
+		Resources->Prev_Ducats -= 200;
+		Resources->MarbleBlocks -= 100;
+		Resources->Prev_MarbleBlocks -= 100;
 	}
 }
 
-void WellBuilding::RemovalPass()
+void FountainBuilding::RemovalPass()
 {
-	Resources->Ducats += 50;
-	Resources->Prev_Ducats += 50;
-	Resources->Bricks += 25;
-	Resources->Prev_Bricks += 25;
+	Resources->Ducats += 100;
+	Resources->Prev_Ducats += 100;
+	Resources->MarbleBlocks += 50;
+	Resources->Prev_MarbleBlocks += 50;
 	UpdateArea(false);
 }
 
-void WellBuilding::SetupBuildingDatabyType()
+void FountainBuilding::SetupBuildingDatabyType()
 {
-	Type = Well;
-	GameData.PopReq = 1;
-	DrawData.BuildingSizeX = 1;
-	DrawData.BuildingSizeY = 1;
+	Type = Fountain;
+	GameData.PopReq = 2;
+	DrawData.BuildingSizeX = 2;
+	DrawData.BuildingSizeY = 2;
 	DrawData.SpriteOffsetX = 0;
-	DrawData.SpriteOffsetY = 27;
-	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getWellTexture());
+	DrawData.SpriteOffsetY = 90;
+	DrawData.Sprite = sf::Sprite(Map->getTexMngr().getFountainTexture());
 }
 
-void WellBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
+void FountainBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
-	int Range = 4;
+	int Range = 6;
 
 	if (DrawData.Built == false)
 	{
 		int x, y, xadjx, yadj, xadjy;
-		for (x = -Range, xadjx = 0, xadjy = 0; x < Range+1; x++)
+		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
 		{
-			for (y = 0, yadj = 0; y < 2*Range+1; y++)
+			for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
 			{
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
@@ -138,19 +138,19 @@ void WellBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	}
 }
 
-void WellBuilding::UpdateArea(bool a)
+void FountainBuilding::UpdateArea(bool a)
 {
-	int Range = 4;
+	int Range = 6;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 1; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 1; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
 				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->setWaterAccess(a);
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(int(3*a));
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(int(5 * a));
 			}
 			else
 			{

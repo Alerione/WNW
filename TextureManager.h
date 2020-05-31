@@ -29,6 +29,9 @@ protected:
 	sf::Texture HorseBreederTexture;
 	sf::Texture HouseTexture[2];
 	sf::Texture MerchantGuildTexture;
+	sf::Texture MilitiaPostTexture;
+	sf::Texture FountainTexture;
+	sf::Texture JoustingTexture;
 	//Interface
     sf::Texture InterfaceBuildButton;
     sf::Texture InterfaceDelButton;
@@ -87,6 +90,9 @@ public:
 	sf::Texture& getHorseBreederTexture();
 	sf::Texture& getHouseTexture(int a = 0);
 	sf::Texture& getMerchantGuildTexture();
+	sf::Texture& getMilitiaPostTexture();
+	sf::Texture& getFountainTexture();
+	sf::Texture& getJoustingTexture();
 
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();
