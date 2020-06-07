@@ -27,7 +27,7 @@ public:
 	void DrawBuildingSpecific(sf::RenderWindow& target);
 
 	//Building Specific Methods//
-	void UpdateArea();
+	void UpdateArea(bool);
 };
 
 #endif

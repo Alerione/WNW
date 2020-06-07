@@ -32,6 +32,18 @@ protected:
 	sf::Texture MilitiaPostTexture;
 	sf::Texture FountainTexture;
 	sf::Texture JoustingTexture;
+    sf::Texture BrickMakerTexture;
+    sf::Texture MarbleCutterTexture;
+    sf::Texture BreweryTexture;
+    sf::Texture CastleTexture;
+    sf::Texture TaxOfficeTexture;
+    sf::Texture MarketTexture;
+    sf::Texture SchoolTexture;
+    sf::Texture UniversityTexture;
+    sf::Texture DoctorTexture;
+    sf::Texture HospitalTexture;
+    sf::Texture TheatreTexture;
+
 	//Interface
     sf::Texture InterfaceBuildButton;
     sf::Texture InterfaceDelButton;
@@ -93,6 +105,17 @@ public:
 	sf::Texture& getMilitiaPostTexture();
 	sf::Texture& getFountainTexture();
 	sf::Texture& getJoustingTexture();
+    sf::Texture& getBrickMakerTexture();
+    sf::Texture& getMarbleCutterTexture();
+    sf::Texture& getBreweryTexture();
+    sf::Texture& getCastleTexture();
+    sf::Texture& getTaxOfficeTexutre();
+    sf::Texture& getMarketTexture();
+    sf::Texture& getSchoolTexture();
+    sf::Texture& getUniversityTexture();
+    sf::Texture& getDoctorTexture();
+    sf::Texture& getHospitalTexture();
+    sf::Texture& getTheatreTexture();
 
 	sf::Texture& getBlueOverlayTexture();
 	sf::Texture& getStablesTexture();

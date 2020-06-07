@@ -147,6 +147,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 				else if (DeleteMode == false) DeleteMode = true;
 				else if (DeleteMode == true) DeleteMode = false;
 			}
+			if (event.key.code == sf::Keyboard::A)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new MarbleCutterBuilding(Map);
+				}
+			}
             if (event.key.code == sf::Keyboard::B)
             {
                 if (Building::CheckBusy() == false)
@@ -159,8 +169,33 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
             }
 			if (event.key.code == sf::Keyboard::C)
 			{
-				view.setCenter(float(SCR_WIDTH * 0.5), float(SCR_HEIGHT * 0.4));
-				window.setView(view);
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new TheatreBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::D)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new DoctorBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::E)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new CastleBuilding(Map);
+				}
 			}
 			if (event.key.code == sf::Keyboard::F)
 			{
@@ -192,6 +227,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new HorseBreederBuilding(Map);
 				}
 			}
+			if (event.key.code == sf::Keyboard::I)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new HospitalBuilding(Map);
+				}
+			}
 			if (event.key.code == sf::Keyboard::J)
 			{
 				if (Building::CheckBusy() == false)
@@ -200,6 +245,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new JoustingBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::K)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new MarketBuilding(Map);
 				}
 			}
 			if (event.key.code == sf::Keyboard::L)
@@ -216,6 +271,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 			{
 				view.setCenter(float(Map->getColumns() * 32), float(Map->getRows() * 8));
 				window.setView(view);
+			}
+			if (event.key.code == sf::Keyboard::N)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new BreweryBuilding(Map);
+				}
 			}
 			if (event.key.code == sf::Keyboard::O)
 			{
@@ -245,6 +310,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new QuarryBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::R)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new BrickMakerBuilding(Map);
 				}
 			}
 			if (event.key.code == sf::Keyboard::S)
@@ -277,6 +352,26 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingsList.back() = new HouseBuilding(Map);
 				}
 			}
+			if (event.key.code == sf::Keyboard::V)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new SchoolBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::X)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new TaxOfficeBuilding(Map);
+				}
+			}
 			if (event.key.code == sf::Keyboard::W)
 			{
 				if (Building::CheckBusy() == false)
@@ -295,6 +390,16 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					BManager->BuildingNum++;
 					BManager->BuildingsList.resize(BManager->BuildingNum);
 					BManager->BuildingsList.back() = new ClayMineBuilding(Map);
+				}
+			}
+			if (event.key.code == sf::Keyboard::Z)
+			{
+				if (Building::CheckBusy() == false)
+				{
+					DeleteMode = false;
+					BManager->BuildingNum++;
+					BManager->BuildingsList.resize(BManager->BuildingNum);
+					BManager->BuildingsList.back() = new UniversityBuilding(Map);
 				}
 			}
 		}
