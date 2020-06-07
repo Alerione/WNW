@@ -78,6 +78,7 @@ void ResourceManager::CapUpdates()
 	Resources.PopulationCap = 15;
 	Resources.PopReq = 0;
 	Resources.GuildsCount = 0;
+	Resources.EducationSlots = 2;
 	for (int n = 0; n < BManager->BuildingNum; n++)
 	{
 		if (BManager->BuildingsList[n]->getResources() != nullptr && BManager->BuildingsList[n]->getType() < 900)
@@ -85,6 +86,8 @@ void ResourceManager::CapUpdates()
 			if(BManager->BuildingsList[n]->getType() == Stables) Resources.HorseCap += 5;
 			else if (BManager->BuildingsList[n]->getType() == House) Resources.PopulationCap += 10;
 			else if (BManager->BuildingsList[n]->getType() == MerchantGuild) Resources.GuildsCount += 1;
+			else if (BManager->BuildingsList[n]->getType() == School) Resources.EducationSlots += 20;
+			else if (BManager->BuildingsList[n]->getType() == University) Resources.EducationSlots += 100;
 			Resources.PopReq += BManager->BuildingsList[n]->getPopReq();
 		}
 	}
@@ -210,8 +213,11 @@ void ResourceManager::PopulationUpdate()
 		Resources.Horses = Resources.HorseCap;
 	}
 
-	if (Resources.Population < Resources.PopReq) Resources.PopMod = (double)Resources.Population / (double)Resources.PopReq;
+	if (Resources.Population < Resources.PopReq && Resources.PopReq != 0) Resources.PopMod = (double)Resources.Population / (double)Resources.PopReq;
 	else Resources.PopMod = 1;
+
+	if (Resources.EducationSlots < Resources.Population && Resources.Population != 0) Resources.EducationFactor = (double)Resources.EducationSlots / (double)Resources.Population;
+	else Resources.EducationFactor = 1;
 }
 
 ResourceManager & ResourceManager::operator=(const ResourceManager & input)

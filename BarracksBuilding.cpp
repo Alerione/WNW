@@ -113,9 +113,9 @@ void BarracksBuilding::UpdateArea(bool a)
 {
 	int Range = 5;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + (int)DrawData.BuildingSizeX; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + (int)DrawData.BuildingSizeY; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkTileAdj(TileBase[0][0]->getX(),TileBase[0][0]->getY(),x + xadjy - xadjx, yadj))

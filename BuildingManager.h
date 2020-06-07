@@ -17,6 +17,19 @@
 #include "MilitiaPostBuilding.h"
 #include "FountainBuilding.h"
 #include "JoustingBuilding.h"
+#include "BrickMakerBuilding.h"
+#include "MarbleCutterBuilding.h"
+#include "BreweryBuilding.h"
+#include "CastleBuilding.h"
+#include "TaxOfficeBuilding.h"
+#include "MarketBuilding.h"
+#include "SchoolBuilding.h"
+#include "UniversityBuilding.h"
+#include "DoctorBuilding.h"
+#include "HospitalBuilding.h"
+#include "TheatreBuilding.h"
+
+
 //Features//
 #include "Tree.h"
 #include "Clay.h"

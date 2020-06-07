@@ -107,9 +107,9 @@ void ClayMineBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 	if (DrawData.Built == false)
 	{
 		int x, y, xadjx, yadj, xadjy;
-		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
+		for (x = -Range, xadjx = 0, xadjy = 0; x < Range + (int)DrawData.BuildingSizeX; x++)
 		{
-			for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
+			for (y = 0, yadj = 0; y < 2 * Range + (int)DrawData.BuildingSizeY; y++)
 			{
 				yadj = y - x - Range;
 				if (Map->checkCurrentTileAdj(x + xadjy - xadjx, yadj))
@@ -136,9 +136,9 @@ int ClayMineBuilding::FarmArea()
 	int a = 0;
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 3; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + (int)DrawData.BuildingSizeX; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 3; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + (int)DrawData.BuildingSizeY; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))

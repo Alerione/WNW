@@ -66,8 +66,12 @@ void TavernBuilding::ResourceUpdateTick()
 {
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
-		UpdateArea();
-		Resources->Ducats += (unsigned int)(10 * GameData.ResourceMod * Resources->PopMod);
+		UpdateArea(0);
+		if (Resources->Beer > 5)
+		{
+			Resources->Beer -= 5;
+			UpdateArea(1);
+		}
 	}
 }
 
@@ -102,20 +106,20 @@ void TavernBuilding::DrawBuildingSpecific(sf::RenderWindow & target)
 {
 }
 
-void TavernBuilding::UpdateArea()
+void TavernBuilding::UpdateArea(bool beer)
 {
 	int Range = 4;
 	int x, y, xadjx, yadj, xadjy;
-	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + 2; x++)
+	for (x = -Range, xadjx = 0, xadjy = 0; x < Range + (int)DrawData.BuildingSizeX; x++)
 	{
-		for (y = 0, yadj = 0; y < 2 * Range + 2; y++)
+		for (y = 0, yadj = 0; y < 2 * Range + (int)DrawData.BuildingSizeY; y++)
 		{
 			yadj = y - x - Range;
 			if (Map->checkTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj))
 			{
 				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHappiness(3);
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addPublicOrder(-2);
-				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(-1);
+				Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addPublicOrder(-1);
+				if(beer)Map->getTileAdj(TileBase[0][0]->getX(), TileBase[0][0]->getY(), x + xadjy - xadjx, yadj)->addHealth(-1);
 			}
 			else
 			{

@@ -132,6 +132,61 @@ sf::Texture & TextureManager::getJoustingTexture()
 	return JoustingTexture;
 }
 
+sf::Texture & TextureManager::getBrickMakerTexture()
+{
+    return BrickMakerTexture;
+}
+
+sf::Texture & TextureManager::getMarbleCutterTexture()
+{
+    return MarbleCutterTexture;
+}
+
+sf::Texture & TextureManager::getBreweryTexture()
+{
+    return BreweryTexture;
+}
+
+sf::Texture & TextureManager::getCastleTexture()
+{
+    return CastleTexture;
+}
+
+sf::Texture & TextureManager::getTaxOfficeTexutre()
+{
+    return TaxOfficeTexture;
+}
+
+sf::Texture & TextureManager::getMarketTexture()
+{
+    return MarketTexture;
+}
+
+sf::Texture & TextureManager::getSchoolTexture()
+{
+    return SchoolTexture;
+}
+
+sf::Texture & TextureManager::getUniversityTexture()
+{
+    return UniversityTexture;
+}
+
+sf::Texture & TextureManager::getDoctorTexture()
+{
+    return DoctorTexture;
+}
+
+sf::Texture & TextureManager::getHospitalTexture()
+{
+    return HospitalTexture;
+}
+
+sf::Texture & TextureManager::getTheatreTexture()
+{
+    return TheatreTexture;
+}
+
 sf::Texture& TextureManager::getInterfaceBuildButton()
 {
     return InterfaceBuildButton;
@@ -319,7 +374,19 @@ void TextureManager::loadTextures()
 	if (MilitiaPostTexture.loadFromFile("watchtower.png")) std::cout << "Militia Post texture loaded!" << std::endl;
 	if (FountainTexture.loadFromFile("fountain.png")) std::cout << "Fountain texture loaded!" << std::endl;
 	if (JoustingTexture.loadFromFile("jousting.png")) std::cout << "Jousting Arena texture loaded!" << std::endl;
- 	//Tile Overlays//
+    if (BrickMakerTexture.loadFromFile("brickmaker.png")) std::cout << "Brick Maker texture loaded!" << std::endl;
+    if (MarbleCutterTexture.loadFromFile("marblecutter.png")) std::cout << "Marble Cutter texture loaded!" << std::endl;
+    if (BreweryTexture.loadFromFile("brewery.png")) std::cout << "Brewery texture loaded!" << std::endl;
+    if (CastleTexture.loadFromFile("castle.png")) std::cout << "Castle texture loaded!" << std::endl;
+    if (TaxOfficeTexture.loadFromFile("taxoffice.png")) std::cout << "Tax office texture loaded!" << std::endl;
+    if (MarketTexture.loadFromFile("market.png")) std::cout << "Market texture loaded!" << std::endl;
+    if (SchoolTexture.loadFromFile("school.png")) std::cout << "School texture loaded!" << std::endl;
+    if (UniversityTexture.loadFromFile("university.png")) std::cout << "University texture loaded!" << std::endl;
+    if (DoctorTexture.loadFromFile("doctor.png")) std::cout << "Doctor texture loaded!" << std::endl;
+    if (HospitalTexture.loadFromFile("hospital.png")) std::cout << "Hospital texture loaded!" << std::endl;
+    if (TheatreTexture.loadFromFile("theatre.png")) std::cout << "Theatre texture loaded!" << std::endl;
+ 	
+    //Tile Overlays//
 	if (CollisionTexture.loadFromFile("collision.png")) std::cout << "Collision texture loaded!" << std::endl;
 	if (BlueOverlayTexture.loadFromFile("blueoverlay.png")) std::cout << "Blue Overlay texture loaded!" << std::endl;
 	//Interface//
