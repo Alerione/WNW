@@ -93,10 +93,10 @@ void MarbleCutterBuilding::SetupBuildingDatabyType()
 {
     Type = MarbleCutter;
     GameData.PopReq = 10;
-    DrawData.BuildingSizeX = 2;
-    DrawData.BuildingSizeY = 2;
+    DrawData.BuildingSizeX = 3;
+    DrawData.BuildingSizeY = 3;
     DrawData.SpriteOffsetX = 0;
-    DrawData.SpriteOffsetY = 36;
+    DrawData.SpriteOffsetY = 68;
     DrawData.Sprite = sf::Sprite(Map->getTexMngr().getMarbleCutterTexture());
 }
 
