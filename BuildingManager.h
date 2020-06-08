@@ -36,16 +36,20 @@
 #include "Marble.h"
 #include "Horses.h"
 
+//Sound//
+#include "SoundManager.h"
+
 class BuildingManager
 {
 protected:
 public:
 	//Constructors and Destructors//
-	BuildingManager();
+	BuildingManager(SoundManager*);
 	BuildingManager(const BuildingManager& org);
 	~BuildingManager();
 	std::vector <Building*> BuildingsList;
 	int BuildingNum;
+	SoundManager *SManager;
 
 	//Overloads//
 	BuildingManager& operator=(const BuildingManager& input);

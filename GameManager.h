@@ -29,6 +29,7 @@ public:
 	InterfaceManager IM1;
 	TileMap Map;
 	ResourceManager RManager;
+	SoundManager SManager;
 
 	//Views//
 	sf::View interfaceView;

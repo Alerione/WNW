@@ -247,3 +247,9 @@ int Building::getPopReq()
 {
 	return GameData.PopReq;
 }
+
+sf::Vector3f Building::GetLocation3f()
+{
+	if (DrawData.Built == true) return sf::Vector3f((float)TileBase[DrawData.BuildingSizeX/2][DrawData.BuildingSizeY/2]->getPositionX(), (float)TileBase[DrawData.BuildingSizeX / 2][DrawData.BuildingSizeY / 2]->getPositionY(), 0.f);
+	else return sf::Vector3f(0.f,0.f,0.f);
+}

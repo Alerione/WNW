@@ -4,7 +4,6 @@
 #include "InterfaceManager.h"
 
 
-
 class InputManager
 {
 protected:
@@ -21,7 +20,6 @@ public:
 	sf::Vector2f getmousePosf();
 	//Overloads//
 	InputManager& operator=(const InputManager& input);
-
 protected:
 	bool DeleteMode;
 	InterfaceManager* IM1;

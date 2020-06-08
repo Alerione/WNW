@@ -47,6 +47,10 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePosf = sf::Vector2f((float)mousePos.x, (float)mousePos.y);
+
+	sf::Listener::setDirection(0.f, 0.f, -1.f);
+	sf::Listener::setPosition(view.getCenter().x, view.getCenter().y,0.f);
+
 	sf::Event event;
 	if (window.pollEvent(event))
 	{
@@ -63,7 +67,10 @@ void InputManager::ReadEvent(sf::RenderWindow& window, sf::View& view)
 					{
 						BManager->BuildingsList.back()->Build(RManager->GetResources());
 						if (Building::CheckBusy() == false)
+						{
+							BManager->SManager->PlayBuildSound(BManager->BuildingsList[BManager->BuildingNum - 1]->GetLocation3f());
 							std::sort(BManager->BuildingsList.begin(), BManager->BuildingsList.end(), Building::sort);
+						}
 					}
 					else if (DeleteMode == true && Map->getCurrentTile().getBuilding() != nullptr)
 					{

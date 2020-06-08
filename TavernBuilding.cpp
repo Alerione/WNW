@@ -2,6 +2,7 @@
 
 TavernBuilding::TavernBuilding()
 	: Building()
+	, musicSet(0)
 {
 }
 
@@ -16,6 +17,7 @@ TavernBuilding::TavernBuilding(const TavernBuilding & input)
 
 TavernBuilding::TavernBuilding(TileMap * input)
 	: Building()
+	, musicSet(0)
 {
 	BusyBuilding = true;
 	Map = input;
@@ -43,6 +45,19 @@ TavernBuilding::~TavernBuilding()
 	if (DrawData.Built == 1) RemovalPass();
 }
 
+void TavernBuilding::setupMusic()
+{
+	if (localsound.openFromFile("tavern.ogg")) std::cout << "Tavern music loaded" << std::endl;
+	localsound.setLoop(true);
+	localsound.setRelativeToListener(false);
+	localsound.setVolume(10);
+	localsound.setMinDistance(0.1f);
+	localsound.setPosition(GetLocation3f());
+	localsound.setAttenuation(0.001f);
+	localsound.play();
+	std::cout << localsound.getChannelCount() << std::endl;
+}
+
 TavernBuilding& TavernBuilding::operator=(const TavernBuilding & input)
 {
 	if (this == &input) return *this;
@@ -64,6 +79,11 @@ bool TavernBuilding::CheckResources()
 
 void TavernBuilding::ResourceUpdateTick()
 {
+	if (musicSet == 0)
+	{
+		musicSet = 1;
+		setupMusic();
+	}
 	if (DrawData.Built == 1) {
 		UpdateBuildingGameData();
 		UpdateArea(0);

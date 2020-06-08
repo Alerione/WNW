@@ -7,7 +7,6 @@ int main()
 	window.setFramerateLimit(60);
 	Engine.grabWindow(window);
 	Engine.Initialise();
-
     while (window.isOpen())
     {
 		Engine.RenderPass();

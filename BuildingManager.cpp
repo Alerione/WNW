@@ -2,15 +2,16 @@
 
 
 
-BuildingManager::BuildingManager()
+BuildingManager::BuildingManager(SoundManager *s)
 	: BuildingNum(0)
+	, SManager(s)
 {
 	BuildingsList.resize(0);
 }
 
 BuildingManager::BuildingManager(const BuildingManager & org)
 {
-
+	SManager = org.SManager;
 	BuildingNum = org.BuildingNum;
 	BuildingsList = org.BuildingsList;
 

@@ -4,7 +4,8 @@
 
 
 GameManager::GameManager()
-	:BManager()
+	: SManager()
+	, BManager(&SManager)
 	, RManager(&BManager)
 	, Map(10, 20)
 	, IM1((float)1280, (float)720)
@@ -21,7 +22,8 @@ GameManager::GameManager()
 
 
 GameManager::GameManager(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, unsigned int MapX, unsigned int MapY)
-	:BManager()
+	: SManager()
+	, BManager(&SManager)
 	, RManager(&BManager)
 	, Map(MapX, MapY)
 	, IM1((float)SCR_WIDTH, (float)SCR_HEIGHT)
@@ -48,6 +50,7 @@ GameManager::GameManager(const GameManager & input)
 	,window(input.window)
 	,SCR_HEIGHT(input.SCR_HEIGHT)
 	,SCR_WIDTH(input.SCR_WIDTH)
+	,SManager(input.SManager)
 {
 }
 
@@ -177,6 +180,7 @@ void GameManager::RenderPass()
 	if (time(NULL) % 3 == 0 && timer == false) 
 	{
 		timer = true;
+		BManager.SManager->PlayCoinSound();
 		RManager.ResourceUpdateTick();
 	}
 	else if (time(NULL) % 3 != 0)
