@@ -98,6 +98,7 @@ public:
 	static bool CheckBusy(); // Is  there enough resources (True/False)
 	void UpdateBuildingGameData();
 	int getPopReq();
+	sf::Vector3f GetLocation3f();
 	virtual bool CheckResources() = 0;
 	virtual void SetupBuildingDatabyType() = 0;
 	virtual void DrawBuildingSpecific(sf::RenderWindow& target) = 0;
