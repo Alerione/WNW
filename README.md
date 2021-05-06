@@ -5,4 +5,4 @@ An Anno/Simcity style game made as a course project during the Summer 2019/2020 
 
 All graphical assets used in this none-commercial project are owned by their respective authors.
 
-![Image](https://imgur.com/8dQsxfT)
+![Image](https://i.imgur.com/8dQsxfT.png)
